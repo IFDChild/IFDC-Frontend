@@ -1,11 +1,106 @@
-import React from 'react';
+
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import React, { useState } from 'react';
 
 export default function Resources() {
+  const [previewPdf, setPreviewPdf] = useState(null);
+  const resources = [
+    {
+      id: 1,
+      title: "2024 Online Safety Guide",
+      description:
+        "Complete toolkit for managing screen time, setting boundaries, and talking about digital privacy with your children.",
+      category: "Parents & Caregivers",
+      file: "/resources/Cover1.pdf",
+      size: "2.4 MB",
+      date: "Oct 2023",
+      isNew: true,
+    },
+    {
+      id: 2,
+      title: "Social Media & Mental Health",
+      description:
+        "Research-backed advice on recognizing signs of digital exhaustion and fostering healthy self-esteem in teens.",
+      category: "Parents & Caregivers",
+      file: "/resources/social-media-mental-health.pdf",
+      size: "1.8 MB",
+      date: "Aug 2023",
+    },
+    {
+      id: 3,
+      title: "Gaming Privacy Settings",
+      description:
+        "Step-by-step instructions for popular gaming consoles to ensure a private and secure play environment.",
+      category: "Parents & Caregivers",
+      file: "/resources/gaming-privacy-settings.pdf",
+      size: "3.1 MB",
+      date: "June 2023",
+    },
+  ];
+
   return (
     <>
+
+      {/* PDF PREVIEW MODAL */}
+      {previewPdf && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/70 flex items-center justify-center p-4"
+          onClick={() => setPreviewPdf(null)}
+        >
+          <div
+            className="relative bg-white w-full max-w-5xl h-[90vh] rounded-xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-5 py-3 border-b bg-white">
+
+              <h2 className="font-headline-md text-primary">
+                PDF Preview
+              </h2>
+
+              <div className="flex items-center gap-2">
+
+                {/* Download from Preview */}
+                <a
+                  href={previewPdf}
+                  download
+                  className="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-2 hover:bg-deep-navy"
+                >
+                  <span className="material-symbols-outlined text-sm">
+                    download
+                  </span>
+
+                  Download
+                </a>
+
+                {/* Close */}
+                <button
+                  onClick={() => setPreviewPdf(null)}
+                  className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container"
+                  aria-label="Close PDF preview"
+                >
+                  <span className="material-symbols-outlined">
+                    close
+                  </span>
+                </button>
+
+              </div>
+            </div>
+
+            {/* PDF Viewer */}
+            <iframe
+              src={previewPdf}
+              title="PDF Preview"
+              className="w-full h-[calc(90vh-65px)]"
+            />
+
+          </div>
+        </div>
+      )}
+
 
 
       <Navbar />
@@ -73,7 +168,7 @@ export default function Resources() {
           </div>
         </section> */}
 
-        <section className="py-xxl px-margin-mobile md:px-margin-desktop">
+        {/* <section className="py-xxl px-margin-mobile md:px-margin-desktop">
           <div className="max-w-7xl mx-auto space-y-xxl">
 
             <div className="space-y-stack-md">
@@ -98,9 +193,16 @@ export default function Resources() {
                     <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">schedule</span> Oct 2023</span>
                   </div>
                   <div className="flex gap-base">
-                    <Link className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy" download="" to="#">
-                      <span className="material-symbols-outlined text-sm">download</span> Download
-                    </Link>
+                    <a
+                      href={resource.file}
+                      download
+                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
+                    >
+                      <span className="material-symbols-outlined text-sm">
+                        download
+                      </span>
+                      Download
+                    </a>
                     <button className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint">Preview</button>
                   </div>
                 </div>
@@ -210,7 +312,467 @@ export default function Resources() {
               </div>
             </div>
           </div>
+        </section> */}
+
+        <section className="py-xxl px-margin-mobile md:px-margin-desktop">
+          <div className="max-w-7xl mx-auto space-y-xxl">
+
+            {/* =========================
+        PARENTS & CAREGIVERS
+    ========================== */}
+            <div className="space-y-stack-md">
+              <div className="flex items-center gap-base pb-base border-b-2 border-primary w-fit">
+                <span
+                  className="material-symbols-outlined text-primary"
+                  style={{ fontVariationSettings: "'FILL' 1" }}
+                >
+                  family_restroom
+                </span>
+
+                <h2 className="font-headline-md text-headline-md text-primary">
+                  Parents &amp; Caregivers
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+                {/* Online Safety Guide */}
+                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
+
+                  <div className="flex justify-between items-start mb-stack-sm">
+                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
+                      <span
+                        className="material-symbols-outlined"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                      >
+                        picture_as_pdf
+                      </span>
+                    </div>
+
+                    <span className="px-2 py-1 bg-surface-container text-caption rounded font-semibold text-on-surface-variant uppercase">
+                      New
+                    </span>
+                  </div>
+
+                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
+                    2024 Online Safety Guide
+                  </h3>
+
+                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
+                    Complete toolkit for managing screen time, setting boundaries,
+                    and talking about digital privacy with your children.
+                  </p>
+
+                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        description
+                      </span>
+                      PDF
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        hard_drive
+                      </span>
+                      2.4 MB
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        schedule
+                      </span>
+                      Oct 2023
+                    </span>
+                  </div>
+
+                  <div className="flex gap-base">
+
+                    {/* DOWNLOAD */}
+                    <a
+                      href="/resources/Cover1.pdf"
+                      download
+                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
+                    >
+                      <span className="material-symbols-outlined text-sm">
+                        download
+                      </span>
+                      Download
+                    </a>
+
+                    {/* PREVIEW */}
+                    <button
+                      onClick={() =>
+                        setPreviewPdf("/resources/online-safety-guide.pdf")
+                      }
+                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
+                    >
+                      Preview
+                    </button>
+
+                  </div>
+                </div>
+
+
+                {/* Social Media & Mental Health */}
+                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
+
+                  <div className="flex justify-between items-start mb-stack-sm">
+                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
+                      <span
+                        className="material-symbols-outlined"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                      >
+                        picture_as_pdf
+                      </span>
+                    </div>
+                  </div>
+
+                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
+                    Social Media &amp; Mental Health
+                  </h3>
+
+                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
+                    Research-backed advice on recognizing signs of digital exhaustion
+                    and fostering healthy self-esteem in teens.
+                  </p>
+
+                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        description
+                      </span>
+                      PDF
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        hard_drive
+                      </span>
+                      1.8 MB
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        schedule
+                      </span>
+                      Aug 2023
+                    </span>
+                  </div>
+
+                  <div className="flex gap-base">
+
+                    <a
+                      href="/resources/social-media-mental-health.pdf"
+                      download
+                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
+                    >
+                      <span className="material-symbols-outlined text-sm">
+                        download
+                      </span>
+                      Download
+                    </a>
+
+                    <button
+                      onClick={() =>
+                        setPreviewPdf("/resources/social-media-mental-health.pdf")
+                      }
+                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
+                    >
+                      Preview
+                    </button>
+
+                  </div>
+                </div>
+
+
+                {/* Gaming Privacy */}
+                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
+
+                  <div className="flex justify-between items-start mb-stack-sm">
+                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
+                      <span
+                        className="material-symbols-outlined"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                      >
+                        picture_as_pdf
+                      </span>
+                    </div>
+                  </div>
+
+                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
+                    Gaming Privacy Settings
+                  </h3>
+
+                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
+                    Step-by-step instructions for the most popular gaming consoles
+                    to ensure a private and secure play environment.
+                  </p>
+
+                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        description
+                      </span>
+                      PDF
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        hard_drive
+                      </span>
+                      3.1 MB
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        schedule
+                      </span>
+                      June 2023
+                    </span>
+                  </div>
+
+                  <div className="flex gap-base">
+
+                    <a
+                      href="/resources/gaming-privacy-settings.pdf"
+                      download
+                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
+                    >
+                      <span className="material-symbols-outlined text-sm">
+                        download
+                      </span>
+                      Download
+                    </a>
+
+                    <button
+                      onClick={() =>
+                        setPreviewPdf("/resources/gaming-privacy-settings.pdf")
+                      }
+                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
+                    >
+                      Preview
+                    </button>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+            {/* =========================
+        EDUCATORS & SCHOOLS
+    ========================== */}
+            <div className="space-y-stack-md">
+
+              <div className="flex items-center gap-base pb-base border-b-2 border-secondary-container w-fit">
+
+                <span
+                  className="material-symbols-outlined text-secondary"
+                  style={{ fontVariationSettings: "'FILL' 1" }}
+                >
+                  school
+                </span>
+
+                <h2 className="font-headline-md text-headline-md text-secondary">
+                  Educators &amp; Schools
+                </h2>
+
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+                {/* Cyber Citizenship */}
+                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
+
+                  <div className="flex justify-between items-start mb-stack-sm">
+
+                    <div className="w-12 h-12 bg-soft-canary rounded-lg flex items-center justify-center text-secondary">
+
+                      <span
+                        className="material-symbols-outlined"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                      >
+                        picture_as_pdf
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
+                    Cyber-Citizenship Curriculum
+                  </h3>
+
+                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
+                    A 12-week modular curriculum for grades 1-5 focusing on digital
+                    ethics and empathy.
+                  </p>
+
+                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        description
+                      </span>
+                      PDF
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        hard_drive
+                      </span>
+                      12.5 MB
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        schedule
+                      </span>
+                      Sept 2023
+                    </span>
+
+                  </div>
+
+                  <div className="flex gap-base">
+
+                    <a
+                      href="/resources/cyber-citizenship-curriculum.pdf"
+                      download
+                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
+                    >
+                      <span className="material-symbols-outlined text-sm">
+                        download
+                      </span>
+                      Download
+                    </a>
+
+                    <button
+                      onClick={() =>
+                        setPreviewPdf(
+                          "/resources/cyber-citizenship-curriculum.pdf"
+                        )
+                      }
+                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
+                    >
+                      Preview
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+
+            {/* =========================
+        POLICYMAKERS & RESEARCH
+    ========================== */}
+            <div className="space-y-stack-md">
+
+              <div className="flex items-center gap-base pb-base border-b-2 border-tertiary w-fit">
+
+                <span
+                  className="material-symbols-outlined text-tertiary"
+                  style={{ fontVariationSettings: "'FILL' 1" }}
+                >
+                  policy
+                </span>
+
+                <h2 className="font-headline-md text-headline-md text-tertiary">
+                  Policymakers &amp; Research
+                </h2>
+
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+                {/* Impact Report */}
+                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
+
+                  <div className="flex justify-between items-start mb-stack-sm">
+
+                    <div className="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-tertiary">
+
+                      <span
+                        className="material-symbols-outlined"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                      >
+                        picture_as_pdf
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
+                    2023 Impact Report
+                  </h3>
+
+                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
+                    Comprehensive data on digital safety trends and our foundation's
+                    global advocacy achievements.
+                  </p>
+
+                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        description
+                      </span>
+                      PDF
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        hard_drive
+                      </span>
+                      4.2 MB
+                    </span>
+
+                    <span className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">
+                        schedule
+                      </span>
+                      Dec 2023
+                    </span>
+
+                  </div>
+
+                  <div className="flex gap-base">
+
+                    <a
+                      href="/resources/impact-report-2023.pdf"
+                      download
+                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
+                    >
+                      <span className="material-symbols-outlined text-sm">
+                        download
+                      </span>
+                      Download
+                    </a>
+
+                    <button
+                      onClick={() =>
+                        setPreviewPdf("/resources/impact-report-2023.pdf")
+                      }
+                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
+                    >
+                      Preview
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
         </section>
+
 
         <section className="bg-primary text-on-primary py-xxl px-margin-mobile">
           <div className="max-w-4xl mx-auto text-center space-y-stack-md">
@@ -226,8 +788,6 @@ export default function Resources() {
       </main>
 
       <Footer />
-
-
 
 
 

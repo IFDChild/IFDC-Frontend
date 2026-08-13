@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 export default function StrategicPlan() {
     return (
@@ -112,7 +113,6 @@ export default function StrategicPlan() {
                     </div>
                 </section>
             </main>
-
             <Footer />
 
 

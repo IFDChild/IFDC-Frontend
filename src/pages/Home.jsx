@@ -9,7 +9,7 @@ const SLIDES = [
     {
         img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBT1lzP0vjoJMZq-EZIGa89xAGcgVxForLe9R-P5y5lpxEGgLTztRFhMR8npV4lnN80ypIJFnktorAmOWb6jDvroIPmQeMBvRXLTDzOq0pkDEMxBvcoPs9jRIwRm1sj-lt1lwdv5cgG08hSFY_qO7nprx9ylx5WD4GqcL_N3L-5O_8Fx55wiFHWkwNhK2e8CSAIQndpv6x0I6FtfICjzWwleWWo5AffQxZ1V4Zus41pu352xg6xJyUW",
         alt: "Empowering Every Child",
-        title: <>Empowering Every Child <br /><span className="text-safety-yellow">Through Digital Inclusion</span></>,
+        title: <>Empowering Every Child <br /><span className="text-safety-yellow">Through Digital safety</span></>,
         body: "We bridge the digital divide while ensuring every child can explore the online world safely, confidently, and with the support they deserve.",
         ctas: [
             { label: "Learn More", variant: "primary" },
@@ -50,7 +50,7 @@ export default function Home() {
             <Navbar />
 
             {/* ── Hero Carousel ── */}
-            <section className="relative w-full overflow-hidden bg-deep-navy" style={{ height: '560px' }} id="hero-carousel">
+            <section className="relative w-full overflow-hidden bg-deep-navy" style={{ height: '400px' }} id="hero-carousel">
                 {SLIDES.map((slide, idx) => (
                     <div
                         key={idx}
@@ -67,12 +67,22 @@ export default function Home() {
                                     <p className="font-body-lg text-body-lg text-white/90 max-w-lg drop-shadow-md">
                                         {slide.body}
                                     </p>
-                                    <div className="flex flex-wrap gap-gutter pt-4">
-                                        {slide.ctas.map((cta, ci) => (
-                                            cta.variant === 'primary'
-                                                ? <button key={ci} className="bg-safety-yellow text-deep-navy px-8 py-4 rounded-full font-label-md hover:brightness-110 transition-all active:scale-95 shadow-lg">{cta.label}</button>
-                                                : <button key={ci} className="border-2 border-white text-white px-8 py-4 rounded-full font-label-md hover:bg-white hover:text-deep-navy transition-all active:scale-95">{cta.label}</button>
-                                        ))}
+                                    {/* <div className="flex flex-wrap gap-gutter pt-4" >
+                                        <a href='/about'
+                                            {slide.ctas.map((cta, ci) => (
+                                                cta.variant === 'primary'
+                                                    ? <button key={ci} className="bg-safety-yellow text-deep-navy px-8 py-4 rounded-full font-label-md hover:brightness-110 transition-all active:scale-95 shadow-lg" >{cta.label}</button>
+                                                    : ''
+                                            ))}
+                                        ></a>
+                                    </div> */}
+                                    <div className="flex pt-4">
+                                        <Link
+                                            to="/about"
+                                            className="bg-safety-yellow text-deep-navy px-8 py-4 rounded-full font-label-md hover:brightness-110 transition-all active:scale-95 shadow-lg"
+                                        >
+                                            Learn More
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
