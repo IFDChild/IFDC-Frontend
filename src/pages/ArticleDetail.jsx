@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+import articleimage from '../assets/images/Youth Summit.png';
 
 export default function ArticleDetail() {
   return (
@@ -24,7 +26,7 @@ export default function ArticleDetail() {
 
         <section className="max-w-container-max mx-auto px-margin-desktop mb-stack-md">
           <div className="relative w-full h-[400px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-lg group">
-            <img alt="Children using digital technology safely" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLurJNB4SAlEnuyo4JpQOLlwShS-M8kEZ5-OOroLwq4iOSgI4p2IkS7zw2fUpwI2-8ZCkOuIgyGx7_YJ-DLZbTWmoVqKhKqaj8Nf8_OWK-mlJwAuWumn5ElOlF_7GXYb6DHBNk_2G7IaqvjFIt2IQXZ0IFHQQ0Qy5uKEXkKTbPIJq8NaByIKc4lQBYanEAV5e78359KGnRFImbkoRsDdH-0MmvVQm9UlS-_Md2eZ_K8jMCL-eTLophfNAk0" />
+            <img alt="Children using digital technology safely" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={articleimage} />
             <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/60 to-transparent"></div>
             <div className="absolute bottom-0 left-0 p-8 md:p-12 text-white">
               <span className="inline-block px-3 py-1 bg-safety-yellow text-deep-navy font-label-md text-label-md rounded-lg mb-4">Digital Literacy</span>
@@ -202,7 +204,6 @@ export default function ArticleDetail() {
           </div>
         </section>
       </main>
-
       <Footer />
 
 

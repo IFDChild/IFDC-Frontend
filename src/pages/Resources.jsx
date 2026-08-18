@@ -106,7 +106,7 @@ export default function Resources() {
       <Navbar />
       <main className="pt-20">
 
-        <section className="relative overflow-hidden pt-xxl pb-stack-lg px-margin-mobile md:px-margin-desktop">
+        <section className="relative overflow-hidden  pb-stack-lg px-margin-mobile md:px-margin-desktop">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-stack-lg items-center">
             <div className="z-10">
               <span className="inline-block px-4 py-1 bg-sky-tint text-primary rounded-full font-label-md mb-stack-sm">Education Hub</span>

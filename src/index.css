@@ -266,14 +266,14 @@ body {
 }
 
 .auto-carousel {
-  width: 100%;
+  /* width: 100%; */
   overflow: hidden;
   position: relative;
 }
 
 .auto-carousel-track {
   display: flex;
-  width: max-content;
+  width: 130%;
   animation: autoScroll 35s linear infinite;
 }
 

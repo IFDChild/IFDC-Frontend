@@ -4,7 +4,7 @@ import Logo from '../assets/images/IDFC Logo.png'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#e8e8e8] border-t border-[#c3c6d0] pt-20 pb-10">
+    <footer className="bg-yellow-100 border-t border-[#c3c6d0] pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-5 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}

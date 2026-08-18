@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import cyberbullyingNews from "../assets/images/Cyberbullying News.png";
 import youthSummit from "../assets/images/Youth Summit.png";
 import Footer from '../components/Footer';
+import digitalboy from '../assets/images/digitalboy.jpg'
 
 const SLIDES = [
     {
@@ -17,14 +18,14 @@ const SLIDES = [
         ],
     },
     {
-        img: "https://lh3.googleusercontent.com/aida/AP1WRLsB08-x98tqokv2E14R4ynmeWpRfnI0kfvStsdjkM1W6JncEeq-zfWHhdIKbM3nZMmz7nkjVSwhKciCDnNKHhvceNocARI6h6JQ-yeKTiHqlaqjFVAEzflDkp59P-Uer-2TsQaWPxANU1dMMut17W0YDnlRntykq_sLrxTCracM5v4DDEaxz21_WiPTUzD4cUweJ10DnkzUvdwGYP2r2MJJ2eHr85ALdY_4Jf7Wc6PLXQ0aYotHabvn0Q",
+        img: digitalboy,
         alt: "Fostering Digital Safety Communities",
         title: <>Fostering Digital <br /><span className="text-safety-yellow">Safety Communities</span></>,
         body: "Join our network of advocates and educators working together to create a secure online environment for our youth.",
         ctas: [{ label: "Learn More", variant: "primary" }],
     },
     {
-        img: { youthSummit },
+        img: youthSummit,
         alt: "Education for a Better Digital Future",
         title: <>Education for a Better <br /><span className="text-safety-yellow">Digital Future</span></>,
         body: "Providing the resources and training needed to equip the next generation with essential digital literacy skills.",
@@ -150,7 +151,7 @@ export default function Home() {
             <section className="py-stack-lg px-margin-desktop bg-surface-container-low -mt-8 relative z-20 rounded-t-[3rem]">
                 <div className="max-w-container-max mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
-                    <div className="bg-primary p-8 rounded-[2rem] shadow-xl border-t-4 border-sky-tint hover:-translate-y-2 transition-transform duration-300 reveal active">
+                    <div className="bg-primary p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500 hover:-translate-y-2 transition-transform duration-300 reveal active">
                         <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
                             <span className="material-symbols-outlined text-[32px]">health_and_safety</span>
                         </div>
@@ -165,7 +166,7 @@ export default function Home() {
                             misinformation, privacy risks, digital addiction, and AI-enabled harms, helping families
                             build safer and healthier digital lives.</p>
                     </div>
-                    <div className="bg-white p-8 rounded-[2rem] shadow-xl border-t-4 border-sky-tint hover:-translate-y-2 transition-transform duration-300 reveal active">
+                    <div className="bg-white p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500  hover:-translate-y-2 transition-transform duration-300 reveal active">
                         <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
                             <span className="material-symbols-outlined text-[32px]">diversity_3</span>
                         </div>
@@ -178,7 +179,7 @@ export default function Home() {
                             rights to access, participation, freedom of expression, information, and creativity, while
                             encouraging them to become active creators rather than passive consumers of digital content.</p>
                     </div>
-                    <div className="bg-primary p-8 rounded-[2rem] shadow-xl border-t-4 border-sky-tint hover:-translate-y-2 transition-transform duration-300 reveal active">
+                    <div className="bg-primary p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500  hover:-translate-y-2 transition-transform duration-300 reveal active">
                         <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
                             <span className="material-symbols-outlined text-[32px]">record_voice_over</span>
                         </div>
@@ -191,7 +192,7 @@ export default function Home() {
                             misinformation, and privacy risks to strengthen policy, improve child protection systems,
                             promote ethical media practices, and amplify children&#39;s voices in shaping a safer digital future.</p>
                     </div>
-                    <div className="bg-white p-8 rounded-[2rem] shadow-xl border-t-4 border-sky-tint hover:-translate-y-2 transition-transform duration-300 reveal active">
+                    <div className="bg-white p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500  hover:-translate-y-2 transition-transform duration-300 reveal active">
                         <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
                             <span className="material-symbols-outlined text-[32px]">movie_creation</span>
                         </div>
@@ -211,8 +212,8 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="py-24 bg-surface section-fade-in visible">
-                <div className="max-w-7xl mx-auto px-margin-desktop">
+            <section className="py-24 bg-yellow-200 section-fade-in visible ">
+                <div className="  max-w-7xl mx-auto px-margin-desktop">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                         <div className="space-y-4">
                             <span className="text-primary font-label-md tracking-widest uppercase">Updates</span>
@@ -279,57 +280,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* <footer className="bg-surface-container-high border-t border-outline-variant pt-20 pb-10">
-                <div className="max-w-7xl mx-auto px-margin-desktop">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
 
-                        <div className="space-y-6">
-                            <img alt="IDFC Logo" className="h-12 w-auto object-contain brightness-0 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGbHU2Lrf041JntGcRYpZYFkco4D7zK5Y5fHv5uf-0wWDqbcYnsL9Vu7R6TKDtuNmqdnzQCSCKahmB7L2aSpc0D-RXhRpvRfBZiPMbiVO4Vtgq9xCb-IDDRhCxmCAzNHR1GsVdbTIqNcflToy3FdEf19EG75m0LOyCMHmeCWeDoCfP7S_FddGK-dZoL76l9z3URQ9JSuT7htk7421K-6a57bTa0oivgTI72MS3krehk2SWrNssoqYUyOVAxbJpsuBcJg" />
-                            <p className="text-on-surface-variant font-body-md">Protecting and empowering children in the digital landscape through education, advocacy, and innovation.</p>
-                            <div className="flex gap-4">
-                                <Link className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary hover:text-white transition-all" to="#">
-                                    <span className="material-symbols-outlined text-[20px]">language</span>
-                                </Link>
-                                <Link className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary hover:text-white transition-all" to="#">
-                                    <span className="material-symbols-outlined text-[20px]">public</span>
-                                </Link>
-                                <Link className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center hover:bg-primary hover:text-white transition-all" to="#">
-                                    <span className="material-symbols-outlined text-[20px]">chat</span>
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div><h4 className="font-label-md text-primary uppercase tracking-widest mb-6">Organization</h4><ul className="space-y-4"><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="/annual-report">Annual Report</Link></li><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="/strategic-plan">Strategic Plan</Link></li><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="/policies">Policies</Link></li><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="/impact">Our Impact Stories</Link></li></ul></div>
-
-                        <div><h4 className="font-label-md text-primary uppercase tracking-widest mb-6">Resources</h4><ul className="space-y-4"><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="#">Parents</Link></li><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="#">Teachers</Link></li><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="#">Children</Link></li><li className=""><Link className="text-on-surface-variant hover:text-primary transition-colors" to="#">Policy Makers</Link></li></ul></div>
-
-                        <div>
-                            <h4 className="font-label-md text-primary uppercase tracking-widest mb-6">Support</h4>
-                            <ul className="space-y-4">
-                                <li className="flex items-start gap-3">
-                                    <span className="material-symbols-outlined text-primary">mail</span>
-                                    <span className="text-on-surface-variant">info@idfc.org</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="material-symbols-outlined text-primary">call</span>
-                                    <span className="text-on-surface-variant">+1 (555) 000-SAFE</span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                                    <span className="material-symbols-outlined text-primary">location_on</span>
-                                    <span className="text-on-surface-variant">123 Safety Ave, Digital District, CA 94105</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="pt-10 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-6">
-                        <p className="text-caption text-on-surface-variant">© 2024 Digital Child Safety Foundation. All rights reserved.</p>
-                        <div className="flex gap-8">
-                            <Link className="text-caption text-on-surface-variant hover:underline" to="#">Privacy Policy</Link>
-                            <Link className="text-caption text-on-surface-variant hover:underline" to="#">Terms of Service</Link>
-                        </div>
-                    </div>
-                </div>
-            </footer> */}
             <Footer />
 
         </>

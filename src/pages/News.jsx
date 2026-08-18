@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import youthsummit from '../assets/images/Youth Summit.png'
 
 export default function News() {
     return (
@@ -11,7 +12,7 @@ export default function News() {
             <nav className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
                 <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-20 flex items-center justify-between">
                     <Link className="flex items-center gap-2 group" to="#">
-                        <img alt="IFDC Logo" className="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyxaWW0Rt0QT4bDbChwJgfl95_JiRYX7bYj9y2_7Y_y-h4W0BznO0HJbDhHe4dmIZHkoeo6GbU7irNYGNw6cf0iadMwJr512gmPDRKqTciaPgG8rnkvdwlK1r1vU6pcZoeweActfvwNfGmpG1q7qKRc15a_VtTXzlftTk6PJQDZEFEPAcmqpDD6kgUU8NmIP3ApADjJ2UPfbeZW6avVqqFzJMV3b-3MZBz_z2jGMVw0btO7O36Vwfto0HRdHNbQ9SXuQ" />
+                        <img alt="IFDC Logo" className="h-10 w-auto object-contain" src={youthsummit} />
                         <div className="flex flex-col hidden">
                             <span className="font-headline-md text-headline-md font-extrabold text-deep-navy leading-none tracking-tight">IFDC</span>
                             <span className="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold">Digital Child Safety</span>
@@ -61,7 +62,7 @@ export default function News() {
 
                     <div className="glass-card rounded-[2rem] overflow-hidden flex flex-col lg:flex-row ambient-glow">
                         <div className="lg:w-3/5 h-[300px] lg:h-[500px] overflow-hidden relative">
-                            <img className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" data-alt="A poignant, high-quality photograph of a teenager sitting on their bed in a dimly lit room, looking distressed while holding a glowing smartphone. The lighting is moody with soft blue tones from the screen reflecting on their face, creating an atmosphere of isolation and digital vulnerability. The composition is artistic and clean, fitting a modern light-mode non-profit website aesthetic with professional photography standards." src="https://lh3.googleusercontent.com/aida/AP1WRLvoRr5fXFbMQuDp-2cB_OLmIXS8JGmP4pUp_ooW5XfZ5T14ohsa5vlLPw6qz8X_ThGYRHDRcVtI17RAxBTIa7P9Two3AjgKr65Gyluw8Cwn17iZbmDjSwUva3BE_B5RJ2tisM0WtfpbtIax51uDmMG32FhlcRM50TFEjxRPEG5fgwWvUKSpltetjPegYGZmeN9lzRlgewSfi9IQdeGa0emaSRuvoRlET4JqTc_0mOkDrrf4h_At0AJA_F4" />
+                            <img className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" data-alt="A poignant, high-quality photograph of a teenager sitting on their bed in a dimly lit room, looking distressed while holding a glowing smartphone. The lighting is moody with soft blue tones from the screen reflecting on their face, creating an atmosphere of isolation and digital vulnerability. The composition is artistic and clean, fitting a modern light-mode non-profit website aesthetic with professional photography standards." src={youthsummit} />
                             <div className="absolute top-6 left-6">
                                 <span className="bg-safety-yellow text-deep-navy font-label-md text-label-md px-4 py-1.5 rounded-full shadow-lg">Featured News</span>
                             </div>

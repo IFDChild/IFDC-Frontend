@@ -8,24 +8,6 @@ export default function Volunteer() {
     <>
       <Navbar />
 
-      {/* <nav className="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-variant/80 backdrop-blur-xl border-b border-white/20 shadow-deep-navy/5 transition-all duration-300 shadow-md" id="globalNav">
-<div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 max-w-container-max mx-auto">
-
-<Link className="flex items-center gap-2 hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-safety-yellow rounded-DEFAULT" to="#"><img alt="IFDC Logo" className="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwRbRbSPRdgWjuzYYJnpsaAykVLBrCPMqdhQUGmdE6PGxUiDmPhitXrccRJ7anpdoIL3jGB7yJTVcV5OxpW90HSLwNXq23BtWFsZAkIz7BEiNwt3LGOW4_Y5Gt5SEK-URR1-Ynxd9_O1xf4EiniI4U1KIZaRO5w_0QsioclNpt5NhT-bjbrmTU0DFaOL7ymZhnZm8O_zjXW2Sr5P4gKyiQMQDngT25_JDG-ZlMQicN-KCVo1b0UqZfQAi9MFVAFPtAgA" /><span className="font-headline-md text-headline-md font-bold text-deep-navy dark:text-inverse-primary"><br /></span></Link>
-
-<div className="hidden md:flex items-center gap-gutter"><Link className="text-on-surface-variant hover:text-deep-navy transition-colors font-label-md text-label-md py-2 px-3 rounded-DEFAULT focus:outline-none focus:ring-2 focus:ring-safety-yellow" to="#">Programs</Link><Link className="text-on-surface-variant hover:text-deep-navy transition-colors font-label-md text-label-md py-2 px-3 rounded-DEFAULT focus:outline-none focus:ring-2 focus:ring-safety-yellow" to="/resources">Resources</Link><Link className="text-on-surface-variant hover:text-deep-navy transition-colors font-label-md text-label-md py-2 px-3 rounded-DEFAULT focus:outline-none focus:ring-2 focus:ring-safety-yellow" to="/annual-report">Reports</Link><Link className="text-on-surface-variant hover:text-deep-navy transition-colors font-label-md text-label-md py-2 px-3 rounded-DEFAULT focus:outline-none focus:ring-2 focus:ring-safety-yellow" to="/impact">Stories</Link><Link className="text-on-surface-variant hover:text-deep-navy transition-colors font-label-md text-label-md py-2 px-3 rounded-DEFAULT focus:outline-none focus:ring-2 focus:ring-safety-yellow" to="/news">News</Link></div>
-
-<div className="flex items-center gap-gutter">
-<Link className="hidden sm:inline-flex items-center justify-center bg-safety-yellow text-deep-navy font-label-md text-label-md px-6 py-2.5 rounded-full hover:bg-secondary-fixed-dim transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-safety-yellow shadow-md" to="#">
-                    Donate
-                </Link>
-
-<button aria-label="Toggle Menu" className="md:hidden p-2 text-deep-navy hover:bg-sky-tint rounded-DEFAULT transition-colors focus:outline-none focus:ring-2 focus:ring-safety-yellow">
-<span className="material-symbols-outlined" style={{"fontVariationSettings":"'FILL' 0"}}>menu</span>
-</button>
-</div>
-</div>
-</nav> */}
       <main className="min-h-screen">
 
         <section className="relative pt-stack-lg pb-stack-lg px-margin-mobile md:px-margin-desktop overflow-hidden">

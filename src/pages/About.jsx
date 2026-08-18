@@ -483,6 +483,563 @@ export default function About() {
           </div>
         </section>
 
+        <section className="py-stack-lg px-margin-desktop bg-surface">
+          <div className="max-w-container-max mx-auto">
+
+            {/* SECTION HEADER */}
+            <div className="text-center mb-stack-lg">
+
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-sky-tint text-primary rounded-full text-caption font-semibold uppercase tracking-wider mb-4">
+                <span className="material-symbols-outlined text-[16px]">
+                  verified
+                </span>
+                Our Advocates
+              </span>
+
+              <h2 className="font-headline-lg text-headline-lg text-deep-navy">
+                Our Child Safety Advocates
+              </h2>
+
+              <p className="text-on-surface-variant mt-3 max-w-2xl mx-auto text-body-lg">
+                A nation where every child is born and raised in a healthy, safe
+                environment, and educated to be successful citizens in the digital world.
+              </p>
+
+            </div>
+
+
+            {/* CAROUSEL */}
+            <div className="auto-carousel" id="advocates-carousel">
+
+              <div className="auto-carousel-track">
+
+
+                {/* =========================
+            SARAH JENKINS
+        ========================== */}
+                <div className="auto-carousel-item">
+
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md hover:shadow-2xl transition-all duration-500 group h-full">
+
+                    {/* IMAGE */}
+                    <div className="relative h-[280px] overflow-hidden">
+
+                      <img
+                        alt="Sarah Jenkins"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
+                      />
+
+                      {/* IMAGE OVERLAY */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 via-transparent to-transparent opacity-80">
+                      </div>
+
+                      {/* ROLE BADGE */}
+                      <div className="absolute bottom-4 left-4">
+
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+
+                          Digital Rights Advocate
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+
+                    {/* CONTENT */}
+                    <div className="p-6">
+
+                      <h5 className="font-bold text-deep-navy text-[20px] mb-2">
+                        Sarah Jenkins
+                      </h5>
+
+                      <p className="text-on-surface-variant text-[13px] leading-relaxed line-clamp-3 mb-5">
+                        Specializing in international human rights law and digital
+                        privacy for minors.
+                      </p>
+
+                      {/* DIVIDER */}
+                      <div className="border-t border-outline-variant/30 pt-4">
+
+                        <button className="w-full flex items-center justify-between text-primary text-[12px] font-bold uppercase tracking-wider group/button">
+
+                          <span>
+                            View Profile
+                          </span>
+
+                          <span className="w-9 h-9 rounded-full bg-sky-tint flex items-center justify-center transition-all duration-300 group-hover/button:bg-primary group-hover/button:text-white">
+
+                            <span className="material-symbols-outlined text-[18px]">
+                              arrow_forward
+                            </span>
+
+                          </span>
+
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* =========================
+            DAVID MILLER
+        ========================== */}
+                <div className="auto-carousel-item">
+
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md hover:shadow-2xl transition-all duration-500 group h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+
+                      <img
+                        alt="David Miller"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 via-transparent to-transparent opacity-80">
+                      </div>
+
+                      <div className="absolute bottom-4 left-4">
+
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+
+                          Child Online Safety Expert
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                    <div className="p-6">
+
+                      <h5 className="font-bold text-deep-navy text-[20px] mb-2">
+                        David Miller
+                      </h5>
+
+                      <p className="text-on-surface-variant text-[13px] leading-relaxed line-clamp-3 mb-5">
+                        Working to create safer and more inclusive digital spaces
+                        for children around the world.
+                      </p>
+
+                      <div className="border-t border-outline-variant/30 pt-4">
+
+                        <button className="w-full flex items-center justify-between text-primary text-[12px] font-bold uppercase tracking-wider group/button">
+
+                          <span>
+                            View Profile
+                          </span>
+
+                          <span className="w-9 h-9 rounded-full bg-sky-tint flex items-center justify-center transition-all duration-300 group-hover/button:bg-primary group-hover/button:text-white">
+
+                            <span className="material-symbols-outlined text-[18px]">
+                              arrow_forward
+                            </span>
+
+                          </span>
+
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* =========================
+            AMINA YUSUF
+        ========================== */}
+                <div className="auto-carousel-item">
+
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md hover:shadow-2xl transition-all duration-500 group h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+
+                      <img
+                        alt="Amina Yusuf"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9ceM1GaDXwhTQ3P7n0L5YKKJNldBwo9sFVzR9pr4GPD7LK0BP3UMXCJKpJJDX9wZGnQMhXRaa0jWbjm13qImLiD7i3Bfr9O_iQiRalCseq3zzjlAwXNVx9qxxjS1_12zwJfzcNle0RZBIv7ijq7DAo8miwur1qa2r4Qz1RAl2VR9F04KU5Mckf8fBbOrZ4d8Koe3q_CUp9N8IknQyARcGraF0RX9inDEktJBUBscqqs84ReeKNke4"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 via-transparent to-transparent opacity-80">
+                      </div>
+
+                      <div className="absolute bottom-4 left-4">
+
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+
+                          Child Protection Advocate
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                    <div className="p-6">
+
+                      <h5 className="font-bold text-deep-navy text-[20px] mb-2">
+                        Amina Yusuf
+                      </h5>
+
+                      <p className="text-on-surface-variant text-[13px] leading-relaxed line-clamp-3 mb-5">
+                        Advocating for children's rights, protection and wellbeing
+                        in the digital environment.
+                      </p>
+
+                      <div className="border-t border-outline-variant/30 pt-4">
+
+                        <button className="w-full flex items-center justify-between text-primary text-[12px] font-bold uppercase tracking-wider group/button">
+
+                          <span>
+                            View Profile
+                          </span>
+
+                          <span className="w-9 h-9 rounded-full bg-sky-tint flex items-center justify-center transition-all duration-300 group-hover/button:bg-primary group-hover/button:text-white">
+
+                            <span className="material-symbols-outlined text-[18px]">
+                              arrow_forward
+                            </span>
+
+                          </span>
+
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* =========================
+            JAMES WILSON
+        ========================== */}
+                <div className="auto-carousel-item">
+
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md hover:shadow-2xl transition-all duration-500 group h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+
+                      <img
+                        alt="James Wilson"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 via-transparent to-transparent opacity-80">
+                      </div>
+
+                      <div className="absolute bottom-4 left-4">
+
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+
+                          Digital Safety Specialist
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                    <div className="p-6">
+
+                      <h5 className="font-bold text-deep-navy text-[20px] mb-2">
+                        James Wilson
+                      </h5>
+
+                      <p className="text-on-surface-variant text-[13px] leading-relaxed line-clamp-3 mb-5">
+                        Helping organisations develop effective digital safety
+                        policies and child protection programmes.
+                      </p>
+
+                      <div className="border-t border-outline-variant/30 pt-4">
+
+                        <button className="w-full flex items-center justify-between text-primary text-[12px] font-bold uppercase tracking-wider group/button">
+
+                          <span>
+                            View Profile
+                          </span>
+
+                          <span className="w-9 h-9 rounded-full bg-sky-tint flex items-center justify-center transition-all duration-300 group-hover/button:bg-primary group-hover/button:text-white">
+
+                            <span className="material-symbols-outlined text-[18px]">
+                              arrow_forward
+                            </span>
+
+                          </span>
+
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* =========================
+            MICHAEL BROWN
+        ========================== */}
+                <div className="auto-carousel-item">
+
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md hover:shadow-2xl transition-all duration-500 group h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+
+                      <img
+                        alt="Michael Brown"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 via-transparent to-transparent opacity-80">
+                      </div>
+
+                      <div className="absolute bottom-4 left-4">
+
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+
+                          Online Safety Advocate
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                    <div className="p-6">
+
+                      <h5 className="font-bold text-deep-navy text-[20px] mb-2">
+                        Michael Brown
+                      </h5>
+
+                      <p className="text-on-surface-variant text-[13px] leading-relaxed line-clamp-3 mb-5">
+                        Promoting responsible technology use and positive online
+                        experiences for children.
+                      </p>
+
+                      <div className="border-t border-outline-variant/30 pt-4">
+
+                        <button className="w-full flex items-center justify-between text-primary text-[12px] font-bold uppercase tracking-wider group/button">
+
+                          <span>
+                            View Profile
+                          </span>
+
+                          <span className="w-9 h-9 rounded-full bg-sky-tint flex items-center justify-center transition-all duration-300 group-hover/button:bg-primary group-hover/button:text-white">
+
+                            <span className="material-symbols-outlined text-[18px]">
+                              arrow_forward
+                            </span>
+
+                          </span>
+
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* =========================
+            DUPLICATES FOR CAROUSEL
+        ========================== */}
+
+                <div className="auto-carousel-item">
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+                      <img
+                        alt="Sarah Jenkins"
+                        className="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 to-transparent"></div>
+
+                      <div className="absolute bottom-4 left-4">
+                        <span className="px-3 py-1.5 bg-white/95 rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+                          Digital Rights Advocate
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      <h5 className="font-bold text-deep-navy text-[20px]">
+                        Sarah Jenkins
+                      </h5>
+
+                      <p className="text-primary text-[11px] uppercase tracking-wider mt-2">
+                        Digital Rights Advocate
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div className="auto-carousel-item">
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+                      <img
+                        alt="David Miller"
+                        className="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 to-transparent"></div>
+
+                      <div className="absolute bottom-4 left-4">
+                        <span className="px-3 py-1.5 bg-white/95 rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+                          Child Online Safety Expert
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      <h5 className="font-bold text-deep-navy text-[20px]">
+                        David Miller
+                      </h5>
+
+                      <p className="text-primary text-[11px] uppercase tracking-wider mt-2">
+                        Child Online Safety Expert
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div className="auto-carousel-item">
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+                      <img
+                        alt="Amina Yusuf"
+                        className="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9ceM1GaDXwhTQ3P7n0L5YKKJNldBwo9sFVzR9pr4GPD7LK0BP3UMXCJKpJJDX9wZGnQMhXRaa0jWbjm13qImLiD7i3Bfr9O_iQiRalCseq3zzjlAwXNVx9qxxjS1_12zwJfzcNle0RZBIv7ijq7DAo8miwur1qa2r4Qz1RAl2VR9F04KU5Mckf8fBbOrZ4d8Koe3q_CUp9N8IknQyARcGraF0RX9inDEktJBUBscqqs84ReeKNke4"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 to-transparent"></div>
+
+                      <div className="absolute bottom-4 left-4">
+                        <span className="px-3 py-1.5 bg-white/95 rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+                          Child Protection Advocate
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      <h5 className="font-bold text-deep-navy text-[20px]">
+                        Amina Yusuf
+                      </h5>
+
+                      <p className="text-primary text-[11px] uppercase tracking-wider mt-2">
+                        Child Protection Advocate
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div className="auto-carousel-item">
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+                      <img
+                        alt="James Wilson"
+                        className="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 to-transparent"></div>
+
+                      <div className="absolute bottom-4 left-4">
+                        <span className="px-3 py-1.5 bg-white/95 rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+                          Digital Safety Specialist
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      <h5 className="font-bold text-deep-navy text-[20px]">
+                        James Wilson
+                      </h5>
+
+                      <p className="text-primary text-[11px] uppercase tracking-wider mt-2">
+                        Digital Safety Specialist
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div className="auto-carousel-item">
+                  <div className="w-[300px] bg-white rounded-[1.5rem] overflow-hidden border border-outline-variant/20 shadow-md h-full">
+
+                    <div className="relative h-[280px] overflow-hidden">
+                      <img
+                        alt="Michael Brown"
+                        className="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/70 to-transparent"></div>
+
+                      <div className="absolute bottom-4 left-4">
+                        <span className="px-3 py-1.5 bg-white/95 rounded-full text-primary text-[10px] font-bold uppercase tracking-wider">
+                          Online Safety Advocate
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      <h5 className="font-bold text-deep-navy text-[20px]">
+                        Michael Brown
+                      </h5>
+
+                      <p className="text-primary text-[11px] uppercase tracking-wider mt-2">
+                        Online Safety Advocate
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
         <section className="py-stack-lg px-margin-desktop bg-surface-container-low">
           <div className="max-w-container-max mx-auto">
 
