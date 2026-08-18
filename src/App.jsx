@@ -13,6 +13,8 @@ import ArticleDetail from './pages/ArticleDetail';
 import StrategicPlan from './pages/StrategicPlan';
 import AnnualReport from './pages/AnnualReport';
 import MemberProfile from './pages/MemberProfile';
+import Advocate from './pages/Advocate';
+import Donate from './pages/Donate';
 
 // Scroll to top on navigation
 function ScrollToTop() {
@@ -50,7 +52,8 @@ export default function App() {
         <Route path="/resources" element={<Resources />} />
         <Route path="/partner" element={<Partner />} />
         <Route path="/volunteer" element={<Volunteer />} />
-        <Route path="/advocate" element={<Volunteer />} />
+        <Route path="/advocate" element={<Advocate />} />
+        <Route path="/donate" element={<Donate />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/impact" element={<Impact />} />
         <Route path="/strategic-plan" element={<StrategicPlan />} />

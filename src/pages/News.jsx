@@ -29,7 +29,10 @@ export default function News() {
                             Get Involved
                         </button>
                         <button className="bg-safety-yellow text-deep-navy px-8 py-2.5 rounded-full font-label-md text-label-md shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95">
-                            Donate
+                            <Link to="/donate">
+
+                                Donate
+                            </Link>
                         </button>
                     </div>
                 </div>

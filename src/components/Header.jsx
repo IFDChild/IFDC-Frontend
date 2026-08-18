@@ -34,11 +34,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-md py-3'
-          : 'bg-white/80 backdrop-blur-xl border-b border-[#E5EAF3] shadow-sm py-0'
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
+        ? 'bg-white/95 backdrop-blur-xl shadow-md py-3'
+        : 'bg-white/80 backdrop-blur-xl border-b border-[#E5EAF3] shadow-sm py-0'
+        }`}
     >
       <div className="flex justify-between items-center h-20 px-5 md:px-10 max-w-[1200px] mx-auto">
         {/* Logo */}
@@ -56,11 +55,10 @@ export default function Header() {
             <Link
               key={link.path}
               to={link.path}
-              className={`font-semibold text-sm tracking-wide transition-colors ${
-                location.pathname === link.path
-                  ? 'text-[#0B3D6E] border-b-2 border-[#FFE100] pb-0.5'
-                  : 'text-[#43474f] hover:text-[#0B3D6E]'
-              }`}
+              className={`font-semibold text-sm tracking-wide transition-colors ${location.pathname === link.path
+                ? 'text-[#0B3D6E] border-b-2 border-[#FFE100] pb-0.5'
+                : 'text-[#43474f] hover:text-[#0B3D6E]'
+                }`}
             >
               {link.label}
             </Link>
@@ -92,7 +90,7 @@ export default function Header() {
             )}
           </div>
           <Link
-            to="/contact"
+            to="/donate"
             className="bg-[#FFE100] text-[#0B3D6E] px-6 py-2.5 rounded-full text-sm font-semibold tracking-wide hover:brightness-105 transition-all shadow-sm"
           >
             Donate
@@ -119,9 +117,8 @@ export default function Header() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`block py-3 font-semibold text-sm tracking-wide border-b border-[#E5EAF3] ${
-                  location.pathname === link.path ? 'text-[#0B3D6E]' : 'text-[#43474f]'
-                }`}
+                className={`block py-3 font-semibold text-sm tracking-wide border-b border-[#E5EAF3] ${location.pathname === link.path ? 'text-[#0B3D6E]' : 'text-[#43474f]'
+                  }`}
               >
                 {link.label}
               </Link>
@@ -137,7 +134,7 @@ export default function Header() {
             ))}
             <div className="pt-4 flex gap-3">
               <Link
-                to="/contact"
+                to="/donate"
                 className="flex-1 text-center bg-[#0B3D6E] text-white py-2.5 rounded-full text-sm font-semibold"
               >
                 Donate

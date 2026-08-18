@@ -269,10 +269,14 @@ export default function Home() {
                             <p className="text-on-primary-container font-body-lg text-lg">Every donation provides critical resources for rural schools, safety workshops for parents, and comprehensive training for youth mentors. Join us in building a safer digital world for every child.</p><div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 text-white/90 font-label-md"><div className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10"><span className="text-safety-yellow text-headline-md mb-1">$25</span><span className="">One Safety Kit</span></div><div className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10"><span className="text-safety-yellow text-headline-md mb-1">$50</span><span className="">Parent Workshop</span></div><div className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10"><span className="text-safety-yellow text-headline-md mb-1">$100</span><span className="">Youth Mentorship</span></div></div>
                             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
                                 <button className="bg-safety-yellow text-primary px-10 py-5 rounded-full font-label-md text-lg shadow-xl hover:scale-105 transition-transform active:scale-95">
-                                    Donate Now
+                                    <Link to="/donate" >
+                                        Donate Now
+                                    </Link>
                                 </button>
                                 <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-label-md text-lg hover:bg-white/20 transition-all active:scale-95">
-                                    Become a Volunteer
+                                    <Link to="/volunteer" >
+                                        Become a Volunteer
+                                    </Link>
                                 </button>
                             </div>
                         </div>

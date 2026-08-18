@@ -25,10 +25,10 @@ export default function About() {
               <p className="font-body-lg text-body-lg text-inverse-primary max-w-xl">
                 The International Digital Foundation for Children (IDFC) is committed to building a safer, more inclusive online environment where every child can explore, learn, and grow without fear.
               </p>
-              <div className="flex flex-wrap gap-4 pt-4">
+              {/* <div className="flex flex-wrap gap-4 pt-4">
                 <button className="bg-safety-yellow text-deep-navy px-8 py-3 rounded-full font-label-md font-bold hover:scale-105 transition-transform shadow-lg">Our Strategy</button>
                 <button className="border-2 border-white/50 text-white px-8 py-3 rounded-full font-label-md hover:bg-white/10 transition-colors backdrop-blur-sm">Watch Film</button>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
@@ -171,315 +171,6 @@ export default function About() {
                 <p className="text-on-surface-variant text-body-md leading-relaxed">Collaborating with governments to strengthen legal frameworks for child protection.</p>
               </div>
             </div>
-          </div>
-        </section>
-        <section className="py-stack-lg px-margin-desktop bg-surface">
-          <div className="max-w-container-max mx-auto">
-
-            <div className="text-center mb-stack-lg">
-              <h2 className="font-headline-lg text-headline-lg text-deep-navy">
-                Our Child Safety Advocates
-              </h2>
-
-              <p className="text-on-surface-variant mt-2 max-w-2xl mx-auto text-body-lg">
-                A nation where every child is born and raised in a healthy, safe
-                environment, and educated to be successful citizens in the digital world.
-              </p>
-            </div>
-
-            <div className="auto-carousel" id="advocates-carousel">
-              <div className="auto-carousel-track">
-
-                {/* Sarah Jenkins */}
-                <div className="auto-carousel-item">
-                  <div className="w-[250px] mx-auto bg-white rounded-[0.5rem] shadow-sm border border-outline-variant/20 overflow-hidden hover:-translate-y-2 hover:shadow-xl transition-all duration-500 group h-full">
-
-                    <div className="w-[150px] h-[150px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="Sarah Jenkins"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
-                      />
-                    </div>
-
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[20px] mb-1">
-                        Sarah Jenkins
-                      </h5>
-
-                      <p className="text-primary font-label-md text-[16px] mb-2 uppercase tracking-wider">
-                        Digital Rights Advocate
-                      </p>
-
-                      <p className="text-on-surface-variant text-[12px] line-clamp-2 mb-3">
-                        Specializing in international human rights law and digital
-                        privacy for minors.
-                      </p>
-
-                      <button className="mx-auto flex items-center gap-2 text-primary text-[10px] font-bold hover:text-deep-navy transition-colors">
-                        View Profile
-                        <span className="material-symbols-outlined text-[12px]">
-                          arrow_forward
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* David Miller */}
-                <div className="auto-carousel-item">
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 group h-full">
-
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="David Miller"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
-                      />
-                    </div>
-
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        David Miller
-                      </h5>
-
-                      <p className="text-primary font-label-md text-[10px] mb-2 uppercase tracking-wider">
-                        Child Online Safety Expert
-                      </p>
-
-                      <p className="text-on-surface-variant text-[10px] line-clamp-2 mb-3">
-                        Working to create safer and more inclusive digital spaces
-                        for children around the world.
-                      </p>
-
-                      <button className="mx-auto flex items-center gap-2 text-primary text-[10px] font-bold hover:text-deep-navy transition-colors">
-                        View Profile
-                        <span className="material-symbols-outlined text-[12px]">
-                          arrow_forward
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Amina Yusuf */}
-                <div className="auto-carousel-item">
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 group h-full">
-
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="Amina Yusuf"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9ceM1GaDXwhTQ3P7n0L5YKKJNldBwo9sFVzR9pr4GPD7LK0BP3UMXCJKpJJDX9wZGnQMhXRaa0jWbjm13qImLiD7i3Bfr9O_iQiRalCseq3zzjlAwXNVx9qxxjS1_12zwJfzcNle0RZBIv7ijq7DAo8miwur1qa2r4Qz1RAl2VR9F04KU5Mckf8fBbOrZ4d8Koe3q_CUp9N8IknQyARcGraF0RX9inDEktJBUBscqqs84ReeKNke4"
-                      />
-                    </div>
-
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        Amina Yusuf
-                      </h5>
-
-                      <p className="text-primary font-label-md text-[10px] mb-2 uppercase tracking-wider">
-                        Child Protection Advocate
-                      </p>
-
-                      <p className="text-on-surface-variant text-[10px] line-clamp-2 mb-3">
-                        Advocating for children's rights, protection and wellbeing
-                        in the digital environment.
-                      </p>
-
-                      <button className="mx-auto flex items-center gap-2 text-primary text-[10px] font-bold hover:text-deep-navy transition-colors">
-                        View Profile
-                        <span className="material-symbols-outlined text-[12px]">
-                          arrow_forward
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Fourth Advocate */}
-                <div className="auto-carousel-item">
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 group h-full">
-
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="James Wilson"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
-                      />
-                    </div>
-
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        James Wilson
-                      </h5>
-
-                      <p className="text-primary font-label-md text-[10px] mb-2 uppercase tracking-wider">
-                        Digital Safety Specialist
-                      </p>
-
-                      <p className="text-on-surface-variant text-[10px] line-clamp-2 mb-3">
-                        Helping organisations develop effective digital safety
-                        policies and child protection programmes.
-                      </p>
-
-                      <button className="mx-auto flex items-center gap-2 text-primary text-[10px] font-bold hover:text-deep-navy transition-colors">
-                        View Profile
-                        <span className="material-symbols-outlined text-[12px]">
-                          arrow_forward
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Fifth Advocate */}
-                <div className="auto-carousel-item">
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden hover:-translate-y-3 hover:shadow-2xl transition-all duration-500 group h-full">
-
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="Michael Brown"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
-                      />
-                    </div>
-
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        Michael Brown
-                      </h5>
-
-                      <p className="text-primary font-label-md text-[10px] mb-2 uppercase tracking-wider">
-                        Online Safety Advocate
-                      </p>
-
-                      <p className="text-on-surface-variant text-[10px] line-clamp-2 mb-3">
-                        Promoting responsible technology use and positive online
-                        experiences for children.
-                      </p>
-
-                      <button className="mx-auto flex items-center gap-2 text-primary text-[10px] font-bold hover:text-deep-navy transition-colors">
-                        View Profile
-                        <span className="material-symbols-outlined text-[12px]">
-                          arrow_forward
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* DUPLICATES FOR INFINITE SCROLL */}
-
-                <div className="auto-carousel-item">
-                  {/* Sarah Jenkins duplicate */}
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden h-full">
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="Sarah Jenkins"
-                        className="w-full h-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
-                      />
-                    </div>
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        Sarah Jenkins
-                      </h5>
-                      <p className="text-primary text-[10px] uppercase tracking-wider">
-                        Digital Rights Advocate
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="auto-carousel-item">
-                  {/* David Miller duplicate */}
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden h-full">
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="David Miller"
-                        className="w-full h-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
-                      />
-                    </div>
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        David Miller
-                      </h5>
-                      <p className="text-primary text-[10px] uppercase tracking-wider">
-                        Child Online Safety Expert
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="auto-carousel-item">
-                  {/* Amina Yusuf duplicate */}
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden h-full">
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="Amina Yusuf"
-                        className="w-full h-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9ceM1GaDXwhTQ3P7n0L5YKKJNldBwo9sFVzR9pr4GPD7LK0BP3UMXCJKpJJDX9wZGnQMhXRaa0jWbjm13qImLiD7i3Bfr9O_iQiRalCseq3zzjlAwXNVx9qxxjS1_12zwJfzcNle0RZBIv7ijq7DAo8miwur1qa2r4Qz1RAl2VR9F04KU5Mckf8fBbOrZ4d8Koe3q_CUp9N8IknQyARcGraF0RX9inDEktJBUBscqqs84ReeKNke4"
-                      />
-                    </div>
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        Amina Yusuf
-                      </h5>
-                      <p className="text-primary text-[10px] uppercase tracking-wider">
-                        Child Protection Advocate
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="auto-carousel-item">
-                  {/* James Wilson duplicate */}
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden h-full">
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="James Wilson"
-                        className="w-full h-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXzXDns4On2hGLAZXhYmDG2-eXcpjbuEN1tbQiADSnTOpKTW1SO5nv5NQMVf_3GahO_7K2MEnCvJ7Qnf8hmCUp2njVbkd8OunMcHpB7BeTGAaHfHP2w6YIh0SVqM5e1SQNuUOxBlQToSor50HoSld33Os_vFv6-FyYk9CJp9EGqG1JtMqnWOvZkNaF_qvaqx0p5gaauhprlHH1F-kUKKdiJLI0c6AsK8Jic6Ursp9vw0P7oxgWJgyu"
-                      />
-                    </div>
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        James Wilson
-                      </h5>
-                      <p className="text-primary text-[10px] uppercase tracking-wider">
-                        Digital Safety Specialist
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="auto-carousel-item">
-                  {/* Michael Brown duplicate */}
-                  <div className="bg-white rounded-[1.5rem] shadow-sm border border-outline-variant/20 overflow-hidden h-full">
-                    <div className="w-[60px] h-[60px] rounded-full overflow-hidden relative mx-auto mt-6">
-                      <img
-                        alt="Michael Brown"
-                        className="w-full h-full object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCrOu_s99czX8l7Iu8BJN_PaB3_yeeGrQ3reV9m83VmZMnd1-UVSMUFPaRJcITMWmoaBd2Ccib_swPj96TyCjgV0LxvnLI42Ai5ULzZfEC4CoqgGqP33jnec_IaARn9zN2fT1475Y1WwQS6Ax6duw-ugppi5V6LnC3BsAg4QBshfGejbyfqLHobAwT5KT1a_0ZICqv12rX4IAIqNUikx52TsrnlxjdopfCMngChMoSECBs47l4o7tl"
-                      />
-                    </div>
-                    <div className="p-6 text-center">
-                      <h5 className="font-bold text-deep-navy text-[14px] mb-1">
-                        Michael Brown
-                      </h5>
-                      <p className="text-primary text-[10px] uppercase tracking-wider">
-                        Online Safety Advocate
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
           </div>
         </section>
 
@@ -1593,8 +1284,17 @@ export default function About() {
               Support our mission to protect every child in the digital age. Your contribution fuels our global programs and advocacy efforts.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button className="bg-deep-navy text-white px-10 py-4 rounded-full font-bold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">Donate Now</button>
-              <button className="bg-safety-yellow text-deep-navy px-10 py-4 rounded-full font-bold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">Partner With Us</button>
+              <button className="bg-deep-navy text-white px-10 py-4 rounded-full font-bold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <Link to="/donate">
+                  Donate Now
+                </Link>
+              </button>
+              <button className="bg-safety-yellow text-deep-navy px-10 py-4 rounded-full font-bold hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <Link to="/partner">
+
+                  Partner With Us
+                </Link>
+              </button>
             </div>
           </div>
         </section>
