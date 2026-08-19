@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import childTeach from '../assets/images/digitalchild.jpg';
+
 
 export default function About() {
   return (
@@ -14,7 +16,7 @@ export default function About() {
 
         <section className="relative min-h-[500px] flex items-center overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <img alt="Hero Image" className="w-full  object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHz10FzUKFw-uYuHx9JYx5OnOv3Mz5P4ws30FfiGCF72fF0uxw0qqOPi_U4Vh8AX8qxiw-X7Nc18cu0s0pDZc5TDC9Pv5PWXV3kfZBSQenkvWN1rxcHkajmdoJjogxGueprP0Dqc-WHGqUIfRqVMmB50HH9TFXX7qZ41NXDGoZmSCk5N12C_UQlaSq5_r0fThQorcopAdRL2Ci_e5FfEbDv7tDHvkbuQvu7zY0qyES9F2pKi6yx9T0" />
+            <img alt="Hero Image" className="w-full  object-cover" src={childTeach} />
             <div className="absolute inset-0 bg-gradient-to-r from-deep-navy via-deep-navy/80 to-transparent "></div>
           </div>
           <div className="max-w-container-max mx-auto w-full px-margin-desktop relative z-10 py-stack-lg mt-4">

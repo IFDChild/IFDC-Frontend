@@ -2,13 +2,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import cyberbullyingNews from "../assets/images/Cyberbullying News.png";
-import youthSummit from "../assets/images/Youth Summit.png";
+import youthSummit from "../assets/images/coverImage1.jpg";
 import Footer from '../components/Footer';
-import digitalboy from '../assets/images/digitalboy.jpg'
+import digitalchild from '../assets/images/childwithlap.jpg'
+import digitalChildren from '../assets/images/digital children.jpg'
+
 
 const SLIDES = [
     {
-        img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBT1lzP0vjoJMZq-EZIGa89xAGcgVxForLe9R-P5y5lpxEGgLTztRFhMR8npV4lnN80ypIJFnktorAmOWb6jDvroIPmQeMBvRXLTDzOq0pkDEMxBvcoPs9jRIwRm1sj-lt1lwdv5cgG08hSFY_qO7nprx9ylx5WD4GqcL_N3L-5O_8Fx55wiFHWkwNhK2e8CSAIQndpv6x0I6FtfICjzWwleWWo5AffQxZ1V4Zus41pu352xg6xJyUW",
+        img: youthSummit,
         alt: "Empowering Every Child",
         title: <>Empowering Every Child <br /><span className="text-safety-yellow">Through Digital safety</span></>,
         body: "We bridge the digital divide while ensuring every child can explore the online world safely, confidently, and with the support they deserve.",
@@ -18,14 +20,14 @@ const SLIDES = [
         ],
     },
     {
-        img: digitalboy,
+        img: digitalChildren,
         alt: "Fostering Digital Safety Communities",
         title: <>Fostering Digital <br /><span className="text-safety-yellow">Safety Communities</span></>,
         body: "Join our network of advocates and educators working together to create a secure online environment for our youth.",
         ctas: [{ label: "Learn More", variant: "primary" }],
     },
     {
-        img: youthSummit,
+        img: digitalchild,
         alt: "Education for a Better Digital Future",
         title: <>Education for a Better <br /><span className="text-safety-yellow">Digital Future</span></>,
         body: "Providing the resources and training needed to equip the next generation with essential digital literacy skills.",

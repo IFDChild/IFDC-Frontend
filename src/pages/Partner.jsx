@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import Hand from '../assets/images/handshake.jpg'
 
 export default function Partner() {
     return (
@@ -27,12 +28,22 @@ export default function Partner() {
                         </div>
                         <div className="relative">
 
-                            <div className="glass-card rounded-3xl p-4 transform rotate-2 hover:rotate-0 transition-transform duration-500" style={{ "-MouseX": "320.33929443359375px", "-MouseY": "179.27548217773438px" }}>
-                                <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-xl" data-alt="A diverse group of professionals—including developers, educators, and policy makers—collaborating in a high-tech, bright, glass-walled boardroom. The lighting is soft and natural, emphasizing a trustworthy and professional atmosphere. The color palette features deep navy blues, soft whites, and vibrant yellow accents, reflecting a modern non-profit aesthetic dedicated to digital technology and safety." style={{ "backgroundImage": "url('https" }}></div>
+                            <div
+                                className="glass-card rounded-3xl p-4 transform rotate-2 hover:rotate-0 transition-transform duration-500"
+                            >
+                                <div
+                                    className="aspect-video w-full rounded-2xl overflow-hidden shadow-xl bg-cover bg-center bg-no-repeat"
+                                    data-alt="A diverse group of professionals collaborating in a high-tech boardroom."
+                                    style={{
+                                        backgroundImage: `url(${Hand})`,
+                                    }}
+                                ></div>
                             </div>
 
                             <div className="absolute -top-10 -right-10 w-48 h-48 bg-safety-yellow opacity-20 blur-3xl rounded-full"></div>
+
                             <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-deep-navy opacity-10 blur-3xl rounded-full"></div>
+
                         </div>
                     </div>
                 </section>

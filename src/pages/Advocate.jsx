@@ -14,7 +14,7 @@ export default function Advocate() {
           <div className="absolute inset-0 bg-gradient-to-br from-surface-tint/10 via-background to-secondary-fixed/20 -z-10"></div>
           <div className="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-stack-lg items-center">
             <div className="space-y-stack-md z-10">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary-fixed rounded-full text-secondary-container font-label-md text-label-md">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary-fixed rounded-full text-primary-container font-label-md text-label-md">
                 <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>campaign</span>
                 Become a Child Advocate
               </div>
@@ -35,11 +35,11 @@ export default function Advocate() {
             </div>
             <div className="relative z-10 group">
               <div className="glass-card rounded-[2rem] p-4 ambient-glow">
-                <div 
-                  className="bg-cover bg-center w-full h-[400px] md:h-[500px] rounded-[1.5rem] transition-transform duration-700 group-hover:scale-[1.02]" 
+                <div
+                  className="bg-cover bg-center w-full h-[400px] md:h-[500px] rounded-[1.5rem] transition-transform duration-700 group-hover:scale-[1.02]"
                   style={{ backgroundImage: "url('https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=2069&auto=format&fit=crop')" }}
                 ></div>
-                
+
                 <div className="absolute bottom-10 left-10 glass-card rounded-2xl p-6 flex flex-col gap-2 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                   <div className="flex items-center gap-3">
                     <div className="h-12 w-12 rounded-full bg-secondary-fixed flex items-center justify-center">
@@ -63,7 +63,7 @@ export default function Advocate() {
               <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-4">How Advocates Make a Difference</h2>
               <p className="font-body-md text-body-md text-on-surface-variant">Our advocates operate at local, state, and national levels to ensure child safety remains a top priority.</p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
               <div className="glass-card rounded-2xl p-8 hover:border-surface-tint transition-colors cursor-pointer group">
                 <div className="h-14 w-14 rounded-xl bg-sky-tint flex items-center justify-center mb-6 group-hover:bg-primary-fixed-dim transition-colors">
@@ -95,7 +95,7 @@ export default function Advocate() {
         {/* Application Form */}
         <section className="py-stack-lg px-margin-mobile md:px-margin-desktop relative" id="advocate-form">
           <div className="absolute bottom-0 left-0 w-1/3 h-2/3 bg-secondary-fixed/10 rounded-tr-[100px] -z-10 hidden lg:block"></div>
-          
+
           <div className="max-w-4xl mx-auto glass-card rounded-3xl p-6 md:p-12 ambient-glow">
             <div className="mb-10 text-center">
               <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-3">Join the Advocacy Network</h2>

@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/images/IDFC Logo.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faFacebookF,
+  faLinkedinIn,
+  faTiktok,
+  faInstagram,
+  faTwitter
+} from '@fortawesome/free-brands-svg-icons';
 
 export default function Footer() {
   return (
@@ -18,15 +26,45 @@ export default function Footer() {
               Protecting and empowering children in the digital landscape through education, advocacy, and innovation.
             </p>
             <div className="flex gap-3">
-              {['language', 'public', 'chat'].map((icon) => (
-                <a
-                  key={icon}
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-[#e2e2e2] flex items-center justify-center hover:bg-[#00274c] hover:text-white transition-all text-[#43474f]"
-                >
-                  <span className="material-symbols-outlined text-xl">{icon}</span>
-                </a>
-              ))}
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="w-10 h-10 rounded-full bg-[#e2e2e2] flex items-center justify-center hover:bg-[#00274c] hover:text-white transition-all text-[#43474f]"
+              >
+                <FontAwesomeIcon icon={faFacebookF} className="text-lg" />
+              </a>
+
+              <a
+                href="#"
+                aria-label="Twitter"
+                className="w-10 h-10 rounded-full bg-[#e2e2e2] flex items-center justify-center hover:bg-[#00274c] hover:text-white transition-all text-[#43474f]"
+              >
+                <FontAwesomeIcon icon={faTwitter} className="text-lg" />
+              </a>
+
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                className="w-10 h-10 rounded-full bg-[#e2e2e2] flex items-center justify-center hover:bg-[#00274c] hover:text-white transition-all text-[#43474f]"
+              >
+                <FontAwesomeIcon icon={faLinkedinIn} className="text-lg" />
+              </a>
+
+              <a
+                href="#"
+                aria-label="TikTok"
+                className="w-10 h-10 rounded-full bg-[#e2e2e2] flex items-center justify-center hover:bg-[#00274c] hover:text-white transition-all text-[#43474f]"
+              >
+                <FontAwesomeIcon icon={faTiktok} className="text-lg" />
+              </a>
+
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="w-10 h-10 rounded-full bg-[#e2e2e2] flex items-center justify-center hover:bg-[#00274c] hover:text-white transition-all text-[#43474f]"
+              >
+                <FontAwesomeIcon icon={faInstagram} className="text-lg" />
+              </a>
             </div>
           </div>
 

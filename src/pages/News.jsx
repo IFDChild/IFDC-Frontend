@@ -3,6 +3,10 @@ import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import youthsummit from '../assets/images/Youth Summit.png'
+import digitalchild from '../assets/images/childwithlap.jpg'
+import digitalChildren from '../assets/images/digital children.jpg'
+import darkChild from '../assets/images/darkChilde.jpg'
+import childwithTab from '../assets/images/childwith Tab.jpg'
 
 export default function News() {
     return (
@@ -65,7 +69,7 @@ export default function News() {
 
                     <div className="glass-card rounded-[2rem] overflow-hidden flex flex-col lg:flex-row ambient-glow">
                         <div className="lg:w-3/5 h-[300px] lg:h-[500px] overflow-hidden relative">
-                            <img className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" data-alt="A poignant, high-quality photograph of a teenager sitting on their bed in a dimly lit room, looking distressed while holding a glowing smartphone. The lighting is moody with soft blue tones from the screen reflecting on their face, creating an atmosphere of isolation and digital vulnerability. The composition is artistic and clean, fitting a modern light-mode non-profit website aesthetic with professional photography standards." src={youthsummit} />
+                            <img className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" data-alt="A poignant, high-quality photograph of a teenager sitting on their bed in a dimly lit room, looking distressed while holding a glowing smartphone. The lighting is moody with soft blue tones from the screen reflecting on their face, creating an atmosphere of isolation and digital vulnerability. The composition is artistic and clean, fitting a modern light-mode non-profit website aesthetic with professional photography standards." src={digitalchild} />
                             <div className="absolute top-6 left-6">
                                 <span className="bg-safety-yellow text-deep-navy font-label-md text-label-md px-4 py-1.5 rounded-full shadow-lg">Featured News</span>
                             </div>
@@ -93,7 +97,7 @@ export default function News() {
 
                         <article className="glass-card rounded-2xl overflow-hidden flex flex-col group hover:shadow-2xl transition-all duration-300">
                             <div className="relative aspect-video overflow-hidden">
-                                <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A modern, high-tech digital workspace or classroom environment showing children interacting with educational technology." src="https://lh3.googleusercontent.com/aida/AP1WRLtx7gyrVg5Wvv22GLWtxGWPg12XmJ-7xudrdWgGC_exQWeI3X09A8u6Nh0AoafNR1-POldaoJUgeQSWnHoukrHwEKbEgPLMPJxZBi2yU2lV0-MGaWTmwc3qjKAx7GXdAuDrJbE8NSiRNLos8D2JH7ZpsHmE21o9Ignq78GVDMIEyZUZ1-ncuTR-1RigmrFlt3g2XTtd7YbUjOul4vaD59p1lDkuBmbqqeBK331tHd5hjcVH9BurQpdebfs" />
+                                <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A modern, high-tech digital workspace or classroom environment showing children interacting with educational technology." src={digitalChildren} />
                                 <span className="absolute top-4 left-4 bg-sky-tint text-deep-navy px-3 py-1 rounded-full font-label-md text-[12px] uppercase tracking-wider">Research</span>
                             </div>
                             <div className="p-6 flex flex-col flex-grow">
@@ -111,7 +115,7 @@ export default function News() {
 
                         <article className="glass-card rounded-2xl overflow-hidden flex flex-col group hover:shadow-2xl transition-all duration-300">
                             <div className="relative aspect-video overflow-hidden">
-                                <div className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Community workshop setting." style={{ "backgroundImage": "url('https" }}></div>
+                                <div className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Community workshop setting." style={{ "backgroundImage": `url(${youthsummit})` }}></div>
                                 <span className="absolute top-4 left-4 bg-sky-tint text-deep-navy px-3 py-1 rounded-full font-label-md text-[12px] uppercase tracking-wider">Announcement</span>
                             </div>
                             <div className="p-6 flex flex-col flex-grow">
@@ -129,7 +133,7 @@ export default function News() {
 
                         <article className="glass-card rounded-2xl overflow-hidden flex flex-col group hover:shadow-2xl transition-all duration-300">
                             <div className="relative aspect-video overflow-hidden">
-                                <div className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Stylized digital illustration of a shield." style={{ "backgroundImage": "url('https" }}></div>
+                                <div className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500" data-alt="Stylized digital illustration of a shield." style={{ "backgroundImage": `url(${darkChild})` }}></div>
                                 <span className="absolute top-4 left-4 bg-sky-tint text-deep-navy px-3 py-1 rounded-full font-label-md text-[12px] uppercase tracking-wider">Press Release</span>
                             </div>
                             <div className="p-6 flex flex-col flex-grow">
@@ -156,7 +160,7 @@ export default function News() {
 
                         <article className="glass-card rounded-2xl overflow-hidden flex flex-col sm:flex-row group hover:shadow-2xl transition-all duration-300">
                             <div className="sm:w-2/5 overflow-hidden relative min-h-[200px]">
-                                <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" style={{ "backgroundImage": "url('https" }}></div>
+                                <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" style={{ "backgroundImage": `url(${childwithTab}) ` }}></div>
                             </div>
                             <div className="sm:w-3/5 p-6 flex flex-col">
                                 <div className="flex items-center justify-between mb-3">
