@@ -129,7 +129,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-10 border-t border-[#c3c6d0] flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-xs text-[#43474f]">
-            © 2026 International Digital Foundation for Children (IDFC). All rights reserved.
+            © 2026 International Digital Foundation for Children (IFDC). All rights reserved.
           </p>
           <div className="flex gap-8">
             <Link className="text-xs text-[#43474f] hover:underline" to="/policies">Privacy Policy</Link>
