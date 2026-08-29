@@ -6,14 +6,17 @@ import youthSummit from "../assets/images/coverImage1.jpg";
 import Footer from '../components/Footer';
 import digitalchild from '../assets/images/childwithlap.jpg'
 import digitalChildren from '../assets/images/digital children.jpg'
-
+import digitalSafetyNews from "../assets/images/digitalboy.jpg";
+import digitalWellbeingBlog from "../assets/images/digitalboy.jpg";
+import onlineSafetyBlog from '../assets/images/digital children.jpg'
+import youthTechnologyBlog from "../assets/images/coverImage1.jpg";
 
 const SLIDES = [
     {
         img: youthSummit,
         alt: "Empowering Every Child",
-        title: <>Empowering Every Child <br /><span className="text-safety-yellow">Through Digital safety</span></>,
-        body: "We bridge the digital divide while ensuring every child can explore the online world safely, confidently, and with the support they deserve.",
+        title: <>Education for a Better <br /><span className="text-safety-yellow">Digital Future</span></>,
+        body: "Providing the resources and training needed to equip the next generation with essential digital literacy skills.",
         ctas: [
             { label: "Learn More", variant: "primary" },
 
@@ -22,8 +25,8 @@ const SLIDES = [
     {
         img: digitalChildren,
         alt: "Fostering Digital Safety Communities",
-        title: <>Fostering Digital <br /><span className="text-safety-yellow">Safety Communities</span></>,
-        body: "Join our network of advocates and educators working together to create a secure online environment for our youth.",
+        title: <>Education for a Better <br /><span className="text-safety-yellow">Digital Future</span></>,
+        body: "Providing the resources and training needed to equip the next generation with essential digital literacy skills.",
         ctas: [{ label: "Learn More", variant: "primary" }],
     },
     {
@@ -35,11 +38,57 @@ const SLIDES = [
     },
 ];
 
+
+
 export default function Home() {
     const [current, setCurrent] = useState(0);
 
     const goTo = useCallback((idx) => {
         setCurrent((idx + SLIDES.length) % SLIDES.length);
+    }, []);
+
+    const [counts, setCounts] = useState({
+        children: 0,
+        teachers: 0,
+        schools: 0,
+        advocates: 0,
+        initiatives: 0,
+    });
+
+    useEffect(() => {
+        const targets = {
+            children: 10000,
+            teachers: 100,
+            schools: 80,
+            advocates: 321,
+            initiatives: 25,
+        };
+
+        const duration = 2000; // 2 seconds
+        const intervalTime = 20;
+        const steps = duration / intervalTime;
+
+        let step = 0;
+
+        const interval = setInterval(() => {
+            step++;
+
+            const progress = Math.min(step / steps, 1);
+
+            setCounts({
+                children: Math.floor(targets.children * progress),
+                teachers: Math.floor(targets.teachers * progress),
+                schools: Math.floor(targets.schools * progress),
+                advocates: Math.floor(targets.advocates * progress),
+                initiatives: Math.floor(targets.initiatives * progress),
+            });
+
+            if (progress === 1) {
+                clearInterval(interval);
+            }
+        }, intervalTime);
+
+        return () => clearInterval(interval);
     }, []);
 
     // Auto-advance every 5 seconds
@@ -122,139 +171,681 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="bg-surface section-fade-in visible pt-10 pb-10">
+            {/* <section className="bg-yellow-400 pt-10 pb-10"> <div className="max-w-7xl mx-auto px-margin-desktop"> <div className="grid grid-cols-2 md:grid-cols-5 gap-8"> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.children >= 1000 ? `${Math.floor(counts.children / 1000)}k+` : counts.children} </div> <div className="font-label-md text-deep-navy"> Children Reached </div> </div> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.teachers}+ </div> <div className="font-label-md text-deep-navy"> Teachers Trained </div> </div> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.schools}+ </div> <div className="font-label-md text-deep-navy"> Schools Engaged </div> </div> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.advocates} </div> <div className="font-label-md text-deep-navy"> Youth Advocates </div> </div> <div className="text-center p-4 col-span-2 md:col-span-1"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.initiatives} </div> <div className="font-label-md text-deep-navy"> Initiatives </div> </div> </div> </div> </section> */}
+
+            <section className="bg-yellow-400 pt-10 pb-10">
                 <div className="max-w-7xl mx-auto px-margin-desktop">
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-gutter">
-                        <div className="text-center p-6 rounded-2xl glass-card border-sky-tint">
-                            <div className="text-primary font-display-lg text-headline-lg mb-2">10k+</div>
-                            <div className="font-label-md text-on-surface-variant">Children Reached</div>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+
+                        <div className="text-center p-4">
+                            <div className="text-deep-navy font-display-lg text-headline-lg mb-2">
+                                {counts.children >= 1000
+                                    ? `${Math.floor(counts.children / 1000)}k+`
+                                    : counts.children}
+                            </div>
+                            <div className="font-label-md text-deep-navy">
+                                Children Reached
+                            </div>
                         </div>
-                        <div className="text-center p-6 rounded-2xl glass-card border-sky-tint">
-                            <div className="text-primary font-display-lg text-headline-lg mb-2">100+</div>
-                            <div className="font-label-md text-on-surface-variant">Teachers Trained</div>
+
+                        <div className="text-center p-4">
+                            <div className="text-deep-navy font-display-lg text-headline-lg mb-2">
+                                {counts.teachers}+
+                            </div>
+                            <div className="font-label-md text-deep-navy">
+                                Teachers Trained
+                            </div>
                         </div>
-                        <div className="text-center p-6 rounded-2xl glass-card border-sky-tint">
-                            <div className="text-primary font-display-lg text-headline-lg mb-2">80+</div>
-                            <div className="font-label-md text-on-surface-variant">Schools Engaged</div>
+
+                        <div className="text-center p-4">
+                            <div className="text-deep-navy font-display-lg text-headline-lg mb-2">
+                                {counts.schools}+
+                            </div>
+                            <div className="font-label-md text-deep-navy">
+                                Schools Engaged
+                            </div>
                         </div>
-                        <div className="text-center p-6 rounded-2xl glass-card border-sky-tint">
-                            <div className="text-primary font-display-lg text-headline-lg mb-2">321</div>
-                            <div className="font-label-md text-on-surface-variant">Youth Advocates</div>
+
+                        <div className="text-center p-4">
+                            <div className="text-deep-navy font-display-lg text-headline-lg mb-2">
+                                {counts.advocates}
+                            </div>
+                            <div className="font-label-md text-deep-navy">
+                                Youth Advocates
+                            </div>
                         </div>
-                        <div className="text-center p-6 rounded-2xl glass-card border-sky-tint col-span-2 md:col-span-1">
-                            <div className="text-primary font-display-lg text-headline-lg mb-2">25</div>
-                            <div className="font-label-md text-on-surface-variant">Initiatives</div>
+
+                        <div className="text-center p-4 col-span-2 md:col-span-1">
+                            <div className="text-deep-navy font-display-lg text-headline-lg mb-2">
+                                {counts.initiatives}
+                            </div>
+                            <div className="font-label-md text-deep-navy">
+                                Initiatives
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </section>
+
+
 
 
             <section className="py-stack-lg px-margin-desktop bg-surface-container-low -mt-8 relative z-20 rounded-t-[3rem]">
-                <div className="max-w-container-max mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="max-w-container-max mx-auto">
 
-                    <div className="bg-primary p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500 hover:-translate-y-2 transition-transform duration-300 reveal active">
-                        <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
-                            <span className="material-symbols-outlined text-[32px]">health_and_safety</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md  mb-4 text-yellow-400">#DIGITALWISE</h3>
-                        <h6 className="font-headline-sm text-headline-sm text-yellow-500 mb-2 ">Building Healthy Digital Lives</h6>
-                        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed text-white">DigitalWise equips children, parents, educators, and caregivers with the knowledge and skills to
-                            use digital technologies safely, responsibly, and confidently. Through training, mentoring, and
-                            awareness programmes, we promote digital literacy, online safety, digital wellbeing, critical
-                            thinking, and healthy digital habits. The programme addresses major online threats, including
-                            cyberbullying, online grooming, sextortion, child sexual abuse material (CSAM), child
-                            sexual exploitation, the live streaming of child sexual abuse, harmful online content,
-                            misinformation, privacy risks, digital addiction, and AI-enabled harms, helping families
-                            build safer and healthier digital lives.</p>
-                    </div>
-                    <div className="bg-white p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500  hover:-translate-y-2 transition-transform duration-300 reveal active">
-                        <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
-                            <span className="material-symbols-outlined text-[32px]">diversity_3</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md text-deep-navy mb-4">#KIDSPRESSION</h3>
-                        <h6 className="font-headline-sm text-headline-sm text-deep-navy mb-2">Empowering Young Digital Creators</h6>
-                        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">KIDSPRESSION empowers children to become creative, confident, and responsible digital
-                            citizens. Through digital storytelling, filmmaking, photography, podcasting, journalism, and
-                            other creative media, the programme nurtures children&#39;s talents and voices. Guided by the
-                            United Nations Convention on the Rights of the Child (UNCRC), it promotes children&#39;s
-                            rights to access, participation, freedom of expression, information, and creativity, while
-                            encouraging them to become active creators rather than passive consumers of digital content.</p>
-                    </div>
-                    <div className="bg-primary p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500  hover:-translate-y-2 transition-transform duration-300 reveal active">
-                        <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
-                            <span className="material-symbols-outlined text-[32px]">record_voice_over</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md text-yellow-400 mb-4">#VOICE4KIDS</h3>
-                        <h6 className="font-headline-sm text-headline-sm text-yellow-500 mb-2">Research, Advocacy, and Child Rights</h6>
-                        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed text-white">Voice4Kids is IFDC&#39;s research and advocacy platform dedicated to advancing children&#39;s rights in
-                            the digital environment. We generate evidence on issues such as cyberbullying, online
-                            grooming, child sexual exploitation and abuse, CSAM, sextortion, the live streaming of
-                            child sexual abuse, harmful online content, digital addiction, AI-related harms,
-                            misinformation, and privacy risks to strengthen policy, improve child protection systems,
-                            promote ethical media practices, and amplify children&#39;s voices in shaping a safer digital future.</p>
-                    </div>
-                    <div className="bg-white p-8 rounded-[2rem] shadow-xl border-t-4 border-yellow-500  hover:-translate-y-2 transition-transform duration-300 reveal active">
-                        <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
-                            <span className="material-symbols-outlined text-[32px]">movie_creation</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md text-deep-navy mb-4">#TECHCARE</h3>
-                        <h6 className="font-headline-sm text-headline-sm text-deep-navy mb-2">Advancing Digital Mental Health and Wellbeing</h6>
-                        <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">TECHCARE promotes digital mental health and healthy relationships with technology among
-                            children, young people, parents, and educators. Through research, education, mentoring, and
-                            evidence-based interventions, the programme addresses digital addiction, problematic social
-                            media use, gaming disorder, unhealthy online relationships, cyberbullying, fear of missing
-                            out (FoMO), anxiety, depression, loneliness, sleep disruption, problematic pornography
-                            consumption, digital burnout, and AI-related psychological impacts. It promotes digital
-                            resilience, healthy technology use, mindfulness, positive digital wellbeing, and balanced online
-                            lives.</p>
+                    {/* Section Heading */}
+                    <div className="text-center max-w-3xl mx-auto mb-14">
+                        <span className="font-label-md text-primary uppercase tracking-wider font-bold">
+                            Our Programmes
+                        </span>
+
+                        <h2 className="font-headline-lg text-headline-lg text-deep-navy mt-3 mb-4">
+                            Creating Safer Digital Futures
+                        </h2>
+
+                        <p className="font-body-md text-on-surface-variant leading-relaxed">
+                            Our programmes empower children, families, educators, and communities
+                            to navigate the digital world safely, creatively, and confidently.
+                        </p>
                     </div>
 
+                    {/* 2 × 2 Programme Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                        {/* ================= DIGITALWISE ================= */}
+                        <div className="group bg-primary rounded-[2rem] p-8 lg:p-10 shadow-xl
+                            hover:-translate-y-2 transition-all duration-300">
+
+                            {/* Icon + Number */}
+                            <div className="flex items-start justify-between mb-8">
+
+                                <div className="w-20 h-20 rounded-2xl bg-yellow-300
+                                    flex items-center justify-center
+                                    shadow-md">
+                                    <span className="material-symbols-outlined text-[48px] text-primary">
+                                        security
+                                    </span>
+                                </div>
+
+                                <span className="text-yellow-400 font-bold text-lg">
+                                    01
+                                </span>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="font-headline-md text-headline-md
+                               text-yellow-400 mb-4">
+                                #DIGITALWISE
+                            </h3>
+
+                            {/* Subheading */}
+                            <div className="inline-block bg-yellow-400 text-deep-navy
+                                px-4 py-2 rounded-lg mb-5">
+                                <h4 className="font-headline-sm text-headline-sm font-bold">
+                                    Building Healthy Digital Lives
+                                </h4>
+                            </div>
+
+                            {/* Description */}
+                            <p className="font-body-md text-white leading-relaxed">
+                                Helps children, parents, and educators develop digital literacy,
+                                online safety, critical thinking, and healthy technology habits.
+                            </p>
+
+                        </div>
+
+
+                        {/* ================= KIDSPRESSION ================= */}
+                        <div className="group bg-white rounded-[2rem] p-8 lg:p-10 shadow-xl
+                            border border-slate-100
+                            hover:-translate-y-2 transition-all duration-300">
+
+                            {/* Icon + Number */}
+                            <div className="flex items-start justify-between mb-8">
+
+                                <div className="w-20 h-20 rounded-2xl bg-primary
+                                    flex items-center justify-center
+                                    shadow-md">
+                                    <span className="material-symbols-outlined text-[48px] text-white">
+                                        auto_stories
+                                    </span>
+                                </div>
+
+                                <span className="text-primary font-bold text-lg">
+                                    02
+                                </span>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="font-headline-md text-headline-md
+                               text-deep-navy mb-4">
+                                #KIDSPRESSION
+                            </h3>
+
+                            {/* Subheading */}
+                            <div className="inline-block bg-sky-tint text-primary
+                                px-4 py-2 rounded-lg mb-5">
+                                <h4 className="font-headline-sm text-headline-sm font-bold">
+                                    Empowering Young Digital Creators
+                                </h4>
+                            </div>
+
+                            {/* Description */}
+                            <p className="font-body-md text-on-surface-variant leading-relaxed">
+                                Encourages children to express themselves through storytelling,
+                                filmmaking, photography, podcasting, and other creative media.
+                            </p>
+
+                        </div>
+
+
+                        {/* ================= VOICE4KIDS ================= */}
+                        <div className="group bg-white rounded-[2rem] p-8 lg:p-10 shadow-xl
+                            border border-slate-100
+                            hover:-translate-y-2 transition-all duration-300">
+
+                            {/* Icon + Number */}
+                            <div className="flex items-start justify-between mb-8">
+
+                                <div className="w-20 h-20 rounded-2xl bg-yellow-400
+                                    flex items-center justify-center
+                                    shadow-md">
+                                    <span className="material-symbols-outlined text-[48px] text-deep-navy">
+                                        campaign
+                                    </span>
+                                </div>
+
+                                <span className="text-primary font-bold text-lg">
+                                    03
+                                </span>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="font-headline-md text-headline-md
+                               text-deep-navy mb-4">
+                                #VOICE4KIDS
+                            </h3>
+
+                            {/* Subheading */}
+                            <div className="inline-block bg-primary text-white
+                                px-4 py-2 rounded-lg mb-5">
+                                <h4 className="font-headline-sm text-headline-sm font-bold">
+                                    Research, Advocacy & Child Rights
+                                </h4>
+                            </div>
+
+                            {/* Description */}
+                            <p className="font-body-md text-on-surface-variant leading-relaxed">
+                                Uses research and advocacy to strengthen child protection,
+                                influence policy, and amplify children's voices in the digital world.
+                            </p>
+
+                        </div>
+
+
+                        {/* ================= TECHCARE ================= */}
+                        <div className="group bg-primary rounded-[2rem] p-8 lg:p-10 shadow-xl
+                            hover:-translate-y-2 transition-all duration-300">
+
+                            {/* Icon + Number */}
+                            <div className="flex items-start justify-between mb-8">
+
+                                <div className="w-20 h-20 rounded-2xl bg-yellow-400
+                                    flex items-center justify-center
+                                    shadow-md">
+                                    <span className="material-symbols-outlined text-[48px] text-deep-navy">
+                                        psychology
+                                    </span>
+                                </div>
+
+                                <span className="text-yellow-400 font-bold text-lg">
+                                    04
+                                </span>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="font-headline-md text-headline-md
+                               text-yellow-400 mb-4">
+                                #TECHCARE
+                            </h3>
+
+                            {/* Subheading */}
+                            <div className="inline-block bg-yellow-400 text-deep-navy
+                                px-4 py-2 rounded-lg mb-5">
+                                <h4 className="font-headline-sm text-headline-sm font-bold">
+                                    Digital Mental Health & Wellbeing
+                                </h4>
+                            </div>
+
+                            {/* Description */}
+                            <p className="font-body-md text-white leading-relaxed">
+                                Promotes healthy relationships with technology and supports
+                                children's and young people's digital wellbeing and resilience.
+                            </p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+
+
+            <section className="py-24 bg-yellow-200 section-fade-in visible">
+                <div className="max-w-7xl mx-auto px-margin-desktop">
+
+                    {/* Section Header */}
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+                        <div className="space-y-4">
+                            <span className="text-primary font-label-md tracking-widest uppercase">
+                                Updates
+                            </span>
+
+                            <h2 className="font-headline-lg text-headline-lg">
+                                Latest from the Foundation
+                            </h2>
+
+                            <p className="text-on-surface-variant max-w-2xl leading-relaxed">
+                                Stay updated with our latest news, events, initiatives, and stories
+                                from the foundation.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* News Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                        {/* Card 1 */}
+                        <article className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
+
+                            {/* Image */}
+                            <div className="overflow-hidden">
+                                <img
+                                    src={cyberbullyingNews}
+                                    alt="Cyberbullying News"
+                                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+
+                            {/* Content */}
+                            <div className="p-7 flex flex-col flex-1">
+
+                                <div className="flex items-center justify-between mb-4">
+                                    <span className="inline-block px-4 py-1.5 bg-error-container text-on-error-container rounded-full text-caption">
+                                        Digital Safety
+                                    </span>
+
+                                    <span className="text-sm text-on-surface-variant">
+                                        June 18, 2024
+                                    </span>
+                                </div>
+
+                                <h3 className="font-headline-md text-headline-md leading-tight group-hover:text-primary transition-colors">
+                                    Combatting Cyberbullying in the Age of AI
+                                </h3>
+
+                                <p className="text-on-surface-variant leading-relaxed mt-4 line-clamp-3">
+                                    As generative AI becomes more accessible, we explore new methods
+                                    to protect teenagers from automated harassment and deepfakes.
+                                </p>
+
+                                <div className="mt-auto pt-6">
+                                    <Link
+                                        to="/news/1"
+                                        className="inline-flex items-center gap-2 text-primary font-label-md group-hover:gap-4 transition-all"
+                                    >
+                                        Read Full Article
+                                        <span className="material-symbols-outlined text-[18px]">
+                                            trending_flat
+                                        </span>
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
+
+
+                        {/* Card 2 */}
+                        <article className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
+
+                            <div className="overflow-hidden">
+                                <img
+                                    src={youthSummit}
+                                    alt="Youth Summit"
+                                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+
+                            <div className="p-7 flex flex-col flex-1">
+
+                                <div className="flex items-center justify-between mb-4">
+                                    <span className="inline-block px-4 py-1.5 bg-secondary-container text-on-secondary-container rounded-full text-caption">
+                                        Event Recap
+                                    </span>
+
+                                    <span className="text-sm text-on-surface-variant">
+                                        May 28, 2024
+                                    </span>
+                                </div>
+
+                                <h3 className="font-headline-md text-headline-md leading-tight group-hover:text-primary transition-colors">
+                                    Global Youth Summit 2024: Digital Rights
+                                </h3>
+
+                                <p className="text-on-surface-variant leading-relaxed mt-4 line-clamp-3">
+                                    Highlights from our recent summit where over 500 youth leaders
+                                    discussed the right to equitable and safe internet access worldwide.
+                                </p>
+
+                                <div className="mt-auto pt-6">
+                                    <Link
+                                        to="/news/2"
+                                        className="inline-flex items-center gap-2 text-primary font-label-md group-hover:gap-4 transition-all"
+                                    >
+                                        Read Full Article
+                                        <span className="material-symbols-outlined text-[18px]">
+                                            trending_flat
+                                        </span>
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
+
+
+                        {/* Card 3 */}
+                        <article className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col">
+
+                            <div className="overflow-hidden">
+                                <img
+                                    src={digitalSafetyNews}
+                                    alt="Digital Safety Initiative"
+                                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+
+                            <div className="p-7 flex flex-col flex-1">
+
+                                <div className="flex items-center justify-between mb-4">
+                                    <span className="inline-block px-4 py-1.5 bg-primary-container text-on-primary-container rounded-full text-caption">
+                                        Initiative
+                                    </span>
+
+                                    <span className="text-sm text-on-surface-variant">
+                                        April 12, 2024
+                                    </span>
+                                </div>
+
+                                <h3 className="font-headline-md text-headline-md leading-tight group-hover:text-primary transition-colors">
+                                    Building a Safer Digital Future for Young People
+                                </h3>
+
+                                <p className="text-on-surface-variant leading-relaxed mt-4 line-clamp-3">
+                                    Discover how our latest digital wellbeing initiatives are helping
+                                    young people navigate online spaces safely and confidently.
+                                </p>
+
+                                <div className="mt-auto pt-6">
+                                    <Link
+                                        to="/news/3"
+                                        className="inline-flex items-center gap-2 text-primary font-label-md group-hover:gap-4 transition-all"
+                                    >
+                                        Read Full Article
+                                        <span className="material-symbols-outlined text-[18px]">
+                                            trending_flat
+                                        </span>
+                                    </Link>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+
+                    {/* View All */}
+                    <div className="flex justify-center mt-12">
+                        <Link
+                            to="/news"
+                            className="inline-flex items-center gap-3 bg-surface-container-high text-on-surface px-8 py-4 rounded-full font-label-md hover:bg-primary hover:text-on-primary transition-all duration-300"
+                        >
+                            View All Stories
+                            <span className="material-symbols-outlined text-[20px]">
+                                arrow_forward
+                            </span>
+                        </Link>
+                    </div>
 
                 </div>
             </section>
 
-            <section className="py-24 bg-yellow-200 section-fade-in visible ">
-                <div className="  max-w-7xl mx-auto px-margin-desktop">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            {/* ================= BLOGS SECTION ================= */}
+            <section className="py-24 bg-surface section-fade-in visible">
+                <div className="max-w-7xl mx-auto px-margin-desktop">
+
+                    {/* Section Header */}
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 gap-6">
+
                         <div className="space-y-4">
-                            <span className="text-primary font-label-md tracking-widest uppercase">Updates</span>
-                            <h2 className="font-headline-lg text-headline-lg">Latest from the Foundation</h2>
+                            <span className="text-primary font-label-md tracking-widest uppercase">
+                                Insights & Ideas
+                            </span>
+
+                            <h2 className="font-headline-lg text-headline-lg">
+                                From Our Blog
+                            </h2>
+
+                            <p className="text-on-surface-variant max-w-2xl leading-relaxed">
+                                Explore ideas, stories, and practical insights about digital
+                                wellbeing, online safety, technology, and youth empowerment.
+                            </p>
                         </div>
-                        <button className="bg-surface-container-high text-on-surface px-8 py-3 rounded-full font-label-md hover:bg-primary hover:text-on-primary transition-all">
-                            View All Stories
-                        </button>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-                        <article className="group">
-                            <div className="overflow-hidden rounded-3xl mb-6 shadow-md">
-                                <img alt="Cyberbullying News" className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" src={cyberbullyingNews} />
-                            </div>
-                            <div className="space-y-4">
-                                <span className="inline-block px-4 py-1 bg-error-container text-on-error-container rounded-full text-caption">Digital Safety</span>
-                                <h3 className="font-headline-md text-headline-md group-hover:text-primary transition-colors">Combatting Cyberbullying in the Age of AI</h3>
-                                <p className="text-on-surface-variant leading-relaxed">As generative AI becomes more accessible, we explore new methods to protect teenagers from automated harassment and deepfakes.</p>
-                                <Link className="inline-flex items-center gap-2 text-primary font-label-md group-hover:gap-4 transition-all" to="/news/1">
-                                    Read Full Article <span className="material-symbols-outlined text-[18px]">trending_flat</span>
-                                </Link>
-                            </div>
+                        <Link
+                            to="/blogs"
+                            className="hidden md:inline-flex items-center gap-2 text-primary font-label-md hover:gap-4 transition-all"
+                        >
+                            Explore All Blogs
+                            <span className="material-symbols-outlined text-[20px]">
+                                arrow_forward
+                            </span>
+                        </Link>
+
+                    </div>
+
+
+                    {/* Blog Layout */}
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+
+                        {/* ================= FEATURED BLOG ================= */}
+                        <article className="lg:col-span-3 group">
+
+                            <Link to="/blogs/1">
+
+                                <div className="relative overflow-hidden rounded-[2rem] bg-surface-container">
+
+                                    <img
+                                        src={digitalWellbeingBlog}
+                                        alt="Digital Wellbeing"
+                                        className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-700"
+                                    />
+
+                                    {/* Image Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+                                    {/* Featured Content */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 text-white">
+
+                                        <div className="flex flex-wrap items-center gap-3 mb-4">
+
+                                            <span className="px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-sm">
+                                                Digital Wellbeing
+                                            </span>
+
+                                            <span className="text-sm opacity-90">
+                                                June 20, 2024
+                                            </span>
+
+                                        </div>
+
+                                        <h3 className="font-headline-lg text-3xl md:text-4xl leading-tight max-w-2xl">
+                                            Helping Young People Build a Healthier Digital Life
+                                        </h3>
+
+                                        <p className="mt-4 text-white/85 max-w-xl leading-relaxed">
+                                            Understanding the relationship between young people and
+                                            technology and discovering practical ways to create healthier,
+                                            safer online experiences.
+                                        </p>
+
+                                        <div className="flex items-center gap-2 mt-6 font-label-md">
+                                            Read Article
+                                            <span className="material-symbols-outlined text-[20px] group-hover:translate-x-2 transition-transform">
+                                                arrow_forward
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </Link>
+
                         </article>
 
-                        <article className="group">
-                            <div className="overflow-hidden rounded-3xl mb-6 shadow-md">
-                                <img alt="Youth Summit" className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700" src={youthSummit} />
-                            </div>
-                            <div className="space-y-4">
-                                <span className="inline-block px-4 py-1 bg-secondary-container text-on-secondary-container rounded-full text-caption">Event Recap</span>
-                                <h3 className="font-headline-md text-headline-md group-hover:text-primary transition-colors">Global Youth Summit 2024: Digital Rights</h3>
-                                <p className="text-on-surface-variant leading-relaxed">Highlights from our recent summit where over 500 youth leaders discussed the right to equitable and safe internet access worldwide.</p>
-                                <Link className="inline-flex items-center gap-2 text-primary font-label-md group-hover:gap-4 transition-all" to="/news/2">
-                                    Read Full Article <span className="material-symbols-outlined text-[18px]">trending_flat</span>
+
+                        {/* ================= SMALL BLOGS ================= */}
+                        <div className="lg:col-span-2 flex flex-col gap-8">
+
+                            {/* Blog 2 */}
+                            <article className="group flex flex-col sm:flex-row lg:flex-row bg-surface-container-low rounded-[2rem] overflow-hidden hover:shadow-lg transition-all duration-300">
+
+                                <Link
+                                    to="/blogs/2"
+                                    className="flex flex-col sm:flex-row lg:flex-row w-full"
+                                >
+
+                                    <div className="sm:w-2/5 lg:w-2/5 overflow-hidden">
+
+                                        <img
+                                            src={onlineSafetyBlog}
+                                            alt="Online Safety"
+                                            className="w-full h-56 sm:h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
+
+                                    </div>
+
+                                    <div className="flex-1 p-6">
+
+                                        <div className="flex items-center gap-3 mb-3">
+
+                                            <span className="text-primary text-xs font-label-md uppercase tracking-wide">
+                                                Online Safety
+                                            </span>
+
+                                            <span className="text-xs text-on-surface-variant">
+                                                May 15, 2024
+                                            </span>
+
+                                        </div>
+
+                                        <h3 className="font-headline-md text-xl leading-tight group-hover:text-primary transition-colors">
+                                            7 Simple Ways to Stay Safe Online
+                                        </h3>
+
+                                        <p className="text-on-surface-variant text-sm leading-relaxed mt-3 line-clamp-3">
+                                            Simple and practical habits that can help young people
+                                            protect their privacy and stay safer while using the internet.
+                                        </p>
+
+                                        <div className="flex items-center gap-2 text-primary text-sm font-label-md mt-5">
+                                            Read More
+                                            <span className="material-symbols-outlined text-[17px] group-hover:translate-x-1 transition-transform">
+                                                arrow_forward
+                                            </span>
+                                        </div>
+
+                                    </div>
+
                                 </Link>
-                            </div>
-                        </article>
+
+                            </article>
+
+
+                            {/* Blog 3 */}
+                            <article className="group flex flex-col sm:flex-row lg:flex-row bg-surface-container-low rounded-[2rem] overflow-hidden hover:shadow-lg transition-all duration-300">
+
+                                <Link
+                                    to="/blogs/3"
+                                    className="flex flex-col sm:flex-row lg:flex-row w-full"
+                                >
+
+                                    <div className="sm:w-2/5 lg:w-2/5 overflow-hidden">
+
+                                        <img
+                                            src={youthTechnologyBlog}
+                                            alt="Youth and Technology"
+                                            className="w-full h-56 sm:h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
+
+                                    </div>
+
+                                    <div className="flex-1 p-6">
+
+                                        <div className="flex items-center gap-3 mb-3">
+
+                                            <span className="text-primary text-xs font-label-md uppercase tracking-wide">
+                                                Youth & Technology
+                                            </span>
+
+                                            <span className="text-xs text-on-surface-variant">
+                                                April 08, 2024
+                                            </span>
+
+                                        </div>
+
+                                        <h3 className="font-headline-md text-xl leading-tight group-hover:text-primary transition-colors">
+                                            How Technology Can Empower the Next Generation
+                                        </h3>
+
+                                        <p className="text-on-surface-variant text-sm leading-relaxed mt-3 line-clamp-3">
+                                            Exploring how responsible technology can give young people
+                                            new opportunities to learn, connect, and create positive change.
+                                        </p>
+
+                                        <div className="flex items-center gap-2 text-primary text-sm font-label-md mt-5">
+                                            Read More
+                                            <span className="material-symbols-outlined text-[17px] group-hover:translate-x-1 transition-transform">
+                                                arrow_forward
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </Link>
+
+                            </article>
+
+                        </div>
+
                     </div>
+
+
+                    {/* Mobile Explore Button */}
+                    <div className="flex justify-center mt-10 md:hidden">
+
+                        <Link
+                            to="/blogs"
+                            className="inline-flex items-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-full font-label-md hover:opacity-90 transition-all"
+                        >
+                            Explore All Blogs
+
+                            <span className="material-symbols-outlined text-[20px]">
+                                arrow_forward
+                            </span>
+
+                        </Link>
+
+                    </div>
+
                 </div>
             </section>
 
