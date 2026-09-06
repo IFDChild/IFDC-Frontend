@@ -10,7 +10,7 @@ export default function AnnualReport() {
 
             <Navbar />
 
-            <div className="bg-surface-container border-b border-outline-variant px-margin-desktop py-2 w-full max-w-container-max mx-auto flex justify-between items-center text-label-md font-label-md text-on-surface-variant">
+            {/* <div className="bg-surface-container border-b border-outline-variant px-margin-desktop py-2 w-full max-w-container-max mx-auto flex justify-between items-center text-label-md font-label-md text-on-surface-variant">
                 <div className="flex gap-4">
                     <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[16px]">description</span> AR-2024-FINAL</span>
                     <span className="flex items-center gap-1"><span className="material-symbols-outlined text-[16px]">verified</span> Approved for Release</span>
@@ -18,8 +18,8 @@ export default function AnnualReport() {
                 <div>
                     <span className="">Generated: 2024-10-24 09:00:00 UTC</span>
                 </div>
-            </div>
-            <main className="w-full max-w-container-max mx-auto px-margin-desktop py-12 space-y-24">
+            </div> */}
+            <main className="w-full max-w-container-max mx-auto px-margin-desktop wses space-y-24">
 
                 <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center min-h-[614px]">
                     <div className="md:col-span-7 space-y-8 pr-8">
@@ -34,13 +34,19 @@ export default function AnnualReport() {
                             A comprehensive overview of our strategic initiatives, financial stewardship, and measurable progress in securing digital environments for vulnerable populations worldwide.
                         </p>
                         <div className="flex gap-4 pt-4">
-                            <button className="bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded flex items-center gap-2 hover:bg-primary-container transition-colors shadow-[0_4px_12px_rgba(0,39,76,0.1)]">
+                            {/* <button className="bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded flex items-center gap-2 hover:bg-primary-container transition-colors shadow-[0_4px_12px_rgba(0,39,76,0.1)]">
                                 <span className="material-symbols-outlined">download</span>
                                 Download Full PDF
-                            </button>
-                            <button className="bg-surface text-primary border border-primary font-label-md text-label-md px-8 py-4 rounded flex items-center gap-2 hover:bg-surface-container transition-colors">
-                                View Financials
-                            </button>
+                            </button> */}
+                            <a
+                                href="/annualreports/Financial-Report.pdf"
+                                download="Financial-Report.pdf"
+                                className="bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded flex items-center gap-2 hover:bg-primary-container transition-colors shadow-[0_4px_12px_rgba(0,39,76,0.1)]"
+                            >
+                                <span className="material-symbols-outlined">download</span>
+                                Download Full PDF
+                            </a>
+
                         </div>
                     </div>
                     <div className="md:col-span-5 relative h-[500px] border border-outline-variant bg-surface-container-low rounded p-2 shadow-[0_8px_24px_rgba(0,39,76,0.05)]">
@@ -96,7 +102,7 @@ export default function AnnualReport() {
                     </div>
                 </section>
 
-                <section>
+                {/* <section>
                     <div className="mb-12 flex justify-between items-end">
                         <div>
                             <h2 className="font-headline-lg text-headline-lg text-primary mb-2">Impact by the Numbers</h2>
@@ -163,8 +169,8 @@ export default function AnnualReport() {
                             </div>
                         </div>
                     </div>
-                </section>
-
+                </section> */}
+                {/* 
                 <section className="bg-surface-container-lowest border border-outline-variant rounded p-8 md:p-12">
                     <div className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-outline-variant pb-6">
                         <div>
@@ -277,7 +283,7 @@ export default function AnnualReport() {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
             </main>
             <Footer />
 

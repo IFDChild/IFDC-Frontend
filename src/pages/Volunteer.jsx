@@ -69,7 +69,7 @@ export default function Volunteer() {
           </div>
         </section>
 
-        <section className="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low" id="roles">
+        {/* <section className="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low" id="roles">
           <div className="max-w-container-max mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-stack-lg">
               <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-4">How You Can Help</h2>
@@ -131,7 +131,7 @@ export default function Volunteer() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="py-stack-lg px-margin-mobile md:px-margin-desktop relative" id="application-form">
           <div className="absolute top-0 right-0 w-1/3 h-full bg-sky-tint/20 rounded-l-[100px] -z-10 hidden lg:block"></div>
@@ -145,7 +145,7 @@ export default function Volunteer() {
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-lg mx-auto">
                   Thank you for stepping up to make a difference. We have received your application and will be in touch with you shortly regarding the next steps.
                 </p>
-                <button onClick={() => { setIsSubmitted(false); setStep(1); setFormData({firstName: '', lastName: '', email: '', phone: '', role: '', experience: '', availability: ''}); }} className="mt-8 px-8 py-3 rounded-full bg-deep-navy text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all">
+                <button onClick={() => { setIsSubmitted(false); setStep(1); setFormData({ firstName: '', lastName: '', email: '', phone: '', role: '', experience: '', availability: '' }); }} className="mt-8 px-8 py-3 rounded-full bg-deep-navy text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all">
                   Submit Another
                 </button>
               </div>
@@ -239,7 +239,7 @@ export default function Volunteer() {
                     ) : (
                       <div></div>
                     )}
-                    
+
                     {step < 3 ? (
                       <button type="button" onClick={nextStep} className="px-8 py-2.5 rounded-full bg-deep-navy text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-deep-navy shadow-sm inline-flex items-center ml-auto">
                         Next Step
