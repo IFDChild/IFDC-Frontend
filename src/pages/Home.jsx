@@ -11,6 +11,144 @@ import digitalWellbeingBlog from "../assets/images/digitalboy.jpg";
 import onlineSafetyBlog from '../assets/images/digital children.jpg'
 import youthTechnologyBlog from "../assets/images/coverImage1.jpg";
 
+const PROGRAMME_PILLARS = [
+    {
+        tag: '#DigitalWise',
+        title: 'Building healthy digital lives',
+        desc: 'Digital literacy, online safety, critical thinking, and healthy technology habits for children, parents, and educators.',
+        icon: (
+            <>
+                <path d="M2 5c2.5-1.2 5.5-1.2 8 0v14c-2.5-1.2-5.5-1.2-8 0Z" />
+                <path d="M22 5c-2.5-1.2-5.5-1.2-8 0v14c2.5-1.2 5.5-1.2 8 0Z" />
+            </>
+        )
+    },
+    {
+        tag: '#Kidspression',
+        title: 'Empowering young digital creators',
+        desc: 'Self-expression through storytelling, filmmaking, photography, podcasting, and other creative media.',
+        icon: (
+            <>
+                <path d="M15 8l6-3v14l-6-3" />
+                <rect x="2" y="6" width="13" height="12" rx="2" />
+            </>
+        )
+    },
+    {
+        tag: '#Voice4Kids',
+        title: 'Research, advocacy & child rights',
+        desc: "Research and advocacy that strengthen child protection, influence policy, and amplify children's voices online.",
+        icon: <path d="M12 3v18M5 7h14M5 7 2 13a3 3 0 0 0 6 0L5 7Zm14 0-3 6a3 3 0 0 0 6 0l-3-6Z" />
+    },
+    {
+        tag: '#TechCare',
+        title: 'Digital mental health & wellbeing',
+        desc: "Healthy relationships with technology, supporting children's and young people's digital resilience.",
+        icon: <path d="M2 12h4l2 7 4-14 2 7h8" />
+    }
+];
+
+function ProgrammePillars() {
+    const [spotlight, setSpotlight] = useState(0);
+    const [hovered, setHovered] = useState(null);
+    const [pinned, setPinned] = useState(false);
+
+    const active = hovered !== null ? hovered : spotlight;
+
+    // Auto-advance the spotlight until the visitor takes control.
+    useEffect(() => {
+        if (pinned || hovered !== null) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const timer = setInterval(() => {
+            setSpotlight((index) => (index + 1) % PROGRAMME_PILLARS.length);
+        }, 5000);
+
+        return () => clearInterval(timer);
+    }, [pinned, hovered]);
+
+    const select = (index) => {
+        setSpotlight(index);
+        setPinned(true);
+    };
+
+    return (
+        <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {PROGRAMME_PILLARS.map((pillar, index) => {
+                    const isActive = index === active;
+
+                    return (
+                        <div
+                            key={pillar.tag}
+                            onMouseEnter={() => setHovered(index)}
+                            onMouseLeave={() => setHovered(null)}
+                            className={`relative bg-white rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 ${
+                                isActive
+                                    ? 'shadow-2xl -translate-y-2 ring-2 ring-safety-yellow'
+                                    : 'shadow-sm ring-1 ring-outline-variant/30'
+                            }`}
+                        >
+                            <span
+                                className={`absolute inset-x-0 top-0 h-1.5 bg-safety-yellow transition-transform duration-500 origin-left ${
+                                    isActive ? 'scale-x-100' : 'scale-x-0'
+                                }`}
+                            ></span>
+
+                            <div
+                                className={`w-[68px] h-[68px] bg-safety-yellow flex items-center justify-center mx-auto mt-2 mb-6 transition-transform duration-700 ${
+                                    isActive ? 'scale-110 rotate-6' : 'scale-100 rotate-0'
+                                }`}
+                                style={{ borderRadius: '42% 58% 55% 45% / 48% 42% 58% 52%' }}
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="w-[28px] h-[28px] stroke-deep-navy"
+                                    aria-hidden="true"
+                                >
+                                    {pillar.icon}
+                                </svg>
+                            </div>
+
+                            <p className="font-label-md text-label-md text-primary font-semibold mb-2">
+                                {pillar.tag}
+                            </p>
+                            <h3 className="font-headline-md text-headline-md text-deep-navy mb-3 leading-snug">
+                                {pillar.title}
+                            </h3>
+                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                {pillar.desc}
+                            </p>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Spotlight controls */}
+            <div className="flex items-center justify-center gap-3 mt-12">
+                {PROGRAMME_PILLARS.map((pillar, index) => (
+                    <button
+                        key={pillar.tag}
+                        type="button"
+                        onClick={() => select(index)}
+                        aria-label={`Highlight ${pillar.tag} — ${pillar.title}`}
+                        aria-current={index === active}
+                        className={`h-2.5 rounded-full transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-navy focus-visible:ring-offset-2 ${
+                            index === active
+                                ? 'w-10 bg-safety-yellow'
+                                : 'w-2.5 bg-outline-variant hover:bg-primary/50'
+                        }`}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
 const SLIDES = [
     {
         img: youthSummit,
@@ -231,202 +369,25 @@ export default function Home() {
 
 
 
-            <section className="py-stack-lg px-margin-desktop bg-surface-container-low -mt-8 relative z-20 rounded-t-[3rem]">
+            <section className="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low -mt-8 relative z-20 rounded-t-[3rem]">
                 <div className="max-w-container-max mx-auto">
 
-                    {/* Section Heading */}
+                    {/* Centred heading */}
                     <div className="text-center max-w-3xl mx-auto mb-14">
-                        <span className="font-label-md text-primary uppercase tracking-wider font-bold">
+                        <span className="inline-flex items-center gap-2 bg-deep-navy text-safety-yellow px-4 py-1.5 rounded-full text-label-md font-bold uppercase tracking-wider">
+                            <span className="w-1.5 h-1.5 rounded-full bg-safety-yellow"></span>
                             Our Programmes
                         </span>
-
-                        <h2 className="font-headline-lg text-headline-lg text-deep-navy mt-3 mb-4">
-                            Creating Safer Digital Futures
+                        <h2 className="font-headline-lg text-headline-lg text-deep-navy mt-5">
+                            How we build a safer internet for children
                         </h2>
-
-                        <p className="font-body-md text-on-surface-variant leading-relaxed">
-                            Our programmes empower children, families, educators, and communities
-                            to navigate the digital world safely, creatively, and confidently.
+                        <span className="block w-20 h-1 bg-safety-yellow rounded-full mx-auto my-5"></span>
+                        <p className="font-body-lg text-body-lg text-on-surface-variant">
+                            Four connected pillars guide how IFDC works with children, families, and educators online.
                         </p>
                     </div>
 
-                    {/* 2 × 2 Programme Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                        {/* ================= DIGITALWISE ================= */}
-                        <div className="group bg-primary rounded-[2rem] p-8 lg:p-10 shadow-xl
-                            hover:-translate-y-2 transition-all duration-300">
-
-                            {/* Icon + Number */}
-                            <div className="flex items-start justify-between mb-8">
-
-                                <div className="w-20 h-20 rounded-2xl bg-yellow-300
-                                    flex items-center justify-center
-                                    shadow-md">
-                                    <span className="material-symbols-outlined text-[48px] text-primary">
-                                        security
-                                    </span>
-                                </div>
-
-                                <span className="text-yellow-400 font-bold text-lg">
-                                    01
-                                </span>
-                            </div>
-
-                            {/* Title */}
-                            <h3 className="font-headline-md text-headline-md
-                               text-yellow-400 mb-4">
-                                #DIGITALWISE
-                            </h3>
-
-                            {/* Subheading */}
-                            <div className="inline-block bg-yellow-400 text-deep-navy
-                                px-4 py-2 rounded-lg mb-5">
-                                <h4 className="font-headline-sm text-headline-sm font-bold">
-                                    Building Healthy Digital Lives
-                                </h4>
-                            </div>
-
-                            {/* Description */}
-                            <p className="font-body-md text-white leading-relaxed">
-                                Helps children, parents, and educators develop digital literacy,
-                                online safety, critical thinking, and healthy technology habits.
-                            </p>
-
-                        </div>
-
-
-                        {/* ================= KIDSPRESSION ================= */}
-                        <div className="group bg-white rounded-[2rem] p-8 lg:p-10 shadow-xl
-                            border border-slate-100
-                            hover:-translate-y-2 transition-all duration-300">
-
-                            {/* Icon + Number */}
-                            <div className="flex items-start justify-between mb-8">
-
-                                <div className="w-20 h-20 rounded-2xl bg-primary
-                                    flex items-center justify-center
-                                    shadow-md">
-                                    <span className="material-symbols-outlined text-[48px] text-white">
-                                        auto_stories
-                                    </span>
-                                </div>
-
-                                <span className="text-primary font-bold text-lg">
-                                    02
-                                </span>
-                            </div>
-
-                            {/* Title */}
-                            <h3 className="font-headline-md text-headline-md
-                               text-deep-navy mb-4">
-                                #KIDSPRESSION
-                            </h3>
-
-                            {/* Subheading */}
-                            <div className="inline-block bg-sky-tint text-primary
-                                px-4 py-2 rounded-lg mb-5">
-                                <h4 className="font-headline-sm text-headline-sm font-bold">
-                                    Empowering Young Digital Creators
-                                </h4>
-                            </div>
-
-                            {/* Description */}
-                            <p className="font-body-md text-on-surface-variant leading-relaxed">
-                                Encourages children to express themselves through storytelling,
-                                filmmaking, photography, podcasting, and other creative media.
-                            </p>
-
-                        </div>
-
-
-                        {/* ================= VOICE4KIDS ================= */}
-                        <div className="group bg-white rounded-[2rem] p-8 lg:p-10 shadow-xl
-                            border border-slate-100
-                            hover:-translate-y-2 transition-all duration-300">
-
-                            {/* Icon + Number */}
-                            <div className="flex items-start justify-between mb-8">
-
-                                <div className="w-20 h-20 rounded-2xl bg-yellow-400
-                                    flex items-center justify-center
-                                    shadow-md">
-                                    <span className="material-symbols-outlined text-[48px] text-deep-navy">
-                                        campaign
-                                    </span>
-                                </div>
-
-                                <span className="text-primary font-bold text-lg">
-                                    03
-                                </span>
-                            </div>
-
-                            {/* Title */}
-                            <h3 className="font-headline-md text-headline-md
-                               text-deep-navy mb-4">
-                                #VOICE4KIDS
-                            </h3>
-
-                            {/* Subheading */}
-                            <div className="inline-block bg-primary text-white
-                                px-4 py-2 rounded-lg mb-5">
-                                <h4 className="font-headline-sm text-headline-sm font-bold">
-                                    Research, Advocacy & Child Rights
-                                </h4>
-                            </div>
-
-                            {/* Description */}
-                            <p className="font-body-md text-on-surface-variant leading-relaxed">
-                                Uses research and advocacy to strengthen child protection,
-                                influence policy, and amplify children's voices in the digital world.
-                            </p>
-
-                        </div>
-
-
-                        {/* ================= TECHCARE ================= */}
-                        <div className="group bg-primary rounded-[2rem] p-8 lg:p-10 shadow-xl
-                            hover:-translate-y-2 transition-all duration-300">
-
-                            {/* Icon + Number */}
-                            <div className="flex items-start justify-between mb-8">
-
-                                <div className="w-20 h-20 rounded-2xl bg-yellow-400
-                                    flex items-center justify-center
-                                    shadow-md">
-                                    <span className="material-symbols-outlined text-[48px] text-deep-navy">
-                                        psychology
-                                    </span>
-                                </div>
-
-                                <span className="text-yellow-400 font-bold text-lg">
-                                    04
-                                </span>
-                            </div>
-
-                            {/* Title */}
-                            <h3 className="font-headline-md text-headline-md
-                               text-yellow-400 mb-4">
-                                #TECHCARE
-                            </h3>
-
-                            {/* Subheading */}
-                            <div className="inline-block bg-yellow-400 text-deep-navy
-                                px-4 py-2 rounded-lg mb-5">
-                                <h4 className="font-headline-sm text-headline-sm font-bold">
-                                    Digital Mental Health & Wellbeing
-                                </h4>
-                            </div>
-
-                            {/* Description */}
-                            <p className="font-body-md text-white leading-relaxed">
-                                Promotes healthy relationships with technology and supports
-                                children's and young people's digital wellbeing and resilience.
-                            </p>
-
-                        </div>
-
-                    </div>
+                    <ProgrammePillars />
                 </div>
             </section>
 

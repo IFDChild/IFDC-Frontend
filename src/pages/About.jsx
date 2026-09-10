@@ -1,8 +1,240 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import childTeach from '../assets/images/digitalchild.jpg';
+
+const HERO_FACTS = [
+  { label: 'Founded', value: '2022', icon: 'flag' },
+  { label: 'Based in', value: 'Sri Lanka', icon: 'public' },
+  { label: 'Member of', value: 'WeProtect Global Alliance', icon: 'handshake' }
+];
+
+const MISSION_PILLARS = [
+  {
+    icon: 'verified_user',
+    title: 'Building digital literacy and safety',
+    body: 'We mentor children, parents, and educators to understand and navigate technology responsibly, teaching safe and balanced use of social media, smartphones, gaming platforms, and the internet, so every child can lead a healthy digital life.'
+  },
+  {
+    icon: 'movie_edit',
+    title: 'Nurturing young creators',
+    body: 'We give children the tools and confidence to tell their own stories, through film, photography, podcasting, and other creative media, helping them shape their identities, express their views, and be heard on issues that affect them.'
+  },
+  {
+    icon: 'campaign',
+    title: "Advocating for children's rights",
+    body: "We conduct research, engage policymakers, and work alongside journalists and media producers to produce ethical, child-centered content that puts children's voices at the center of the conversation and strengthens protections for children across Sri Lanka."
+  },
+  {
+    icon: 'self_improvement',
+    title: 'Championing digital wellbeing',
+    body: 'We support children and young people in building a healthy, balanced relationship with technology, promoting mental resilience and wellbeing in a world shaped by constant connectivity.'
+  }
+];
+
+const MILESTONES = [
+  { year: '2022', title: 'Where It Began', body: "IFDC was established with a vision to promote children's safety, wellbeing, rights, and participation in the digital world." },
+  { year: '2023', title: 'Building the Foundation', body: 'IFDC was formally registered as a non-profit company limited by guarantee.' },
+  { year: '2024', title: 'Going Global', body: 'IFDC participated in the Global Summit in Abu Dhabi, connecting with the international child online protection community.' },
+  { year: '2024', title: 'Young Voices Rise', body: 'Launched the First National Young Online Child Protection Advocates Fellowship, empowering young people to champion online safety and child protection.' },
+  { year: '2025', title: 'Connecting Across Asia', body: 'Participated in the Tech Coalition Asia-Pacific Briefing on Combating OCSEA in Singapore.' },
+  { year: '2025', title: 'Nurturing Digital Wellbeing', body: 'Launched the Asian Young Fellowship on Digital Mental Wellbeing, expanding youth leadership across the region.' },
+  { year: '2025', title: 'A Stronger Voice', body: "Established IFDC's first Independent Steering Committee to provide strategic guidance and oversight." },
+  { year: '2025', title: 'Building Regional Bridges', body: 'Established a partnership with the Dr. Anamika Roy Memorial Trust, India, strengthening regional collaboration.' },
+  { year: '2026', title: 'Empowering Our Fellows', body: 'Established an Independent Leadership Team to coordinate and support the IFDC Fellows network.' },
+  { year: '2026', title: 'New Partnerships, New Possibilities', body: "Established a working relationship with Culture Re-Defined, strengthening collaboration around children's rights and digital wellbeing." },
+  { year: '2026', title: 'Joining the Global Movement', body: 'IFDC became a member of the WeProtect Global Alliance, connecting its work with the global movement to end online child sexual exploitation and abuse.' },
+  { year: '2026', title: 'Shaping the Future', body: "IFDC's Chairperson joined the Working Groups of the Task Force for Digital Transformation in Education through the Prime Minister's Office, strengthening IFDC's contribution to national policy dialogue." }
+];
+
+const APPROACHES = [
+  {
+    icon: 'balance',
+    title: 'Children are rights-holders, not just beneficiaries',
+    body: 'Children are equal citizens entitled to their rights in full — not passive recipients of care. This holds governments and institutions accountable to act at every level: legislative, cultural, and social.'
+  },
+  {
+    icon: 'diversity_3',
+    title: 'Child rights need gender equality',
+    body: "Children can't thrive where gender inequality persists. Balanced power between girls and boys — and women and men — creates the conditions kids need to grow. Our programmes put gender equity at the core."
+  },
+  {
+    icon: 'health_and_safety',
+    title: 'Digital wellbeing is a right for every child',
+    body: 'Every child has the right to a safe internet, not just access to one. Governments, parents, and the private sector share responsibility for preventing harm — and responding fast when it happens.'
+  },
+  {
+    icon: 'child_care',
+    title: "Technology shouldn't replace childhood",
+    body: "Tech should expand a child's world, not shrink it. We help kids build a healthy relationship with technology while protecting the creativity and joy of the physical world too."
+  }
+];
+
+
+const MILESTONE_YEARS = [...new Set(MILESTONES.map((item) => item.year))];
+
+function JourneyTimeline() {
+  const [activeYear, setActiveYear] = useState(MILESTONE_YEARS[0]);
+  const tabRefs = useRef({});
+  const railRef = useRef(null);
+
+  // Keep the selected year visible in the horizontally scrolling rail on small screens.
+  useEffect(() => {
+    const tab = tabRefs.current[activeYear];
+    const rail = railRef.current;
+
+    if (!tab || !rail || rail.scrollWidth <= rail.clientWidth) return;
+
+    // Measure against the rail itself - offsetLeft is relative to the nearest
+    // positioned ancestor, which is not the rail when it is statically positioned.
+    const tabRect = tab.getBoundingClientRect();
+    const railRect = rail.getBoundingClientRect();
+    const gutter = 16;
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto'
+      : 'smooth';
+
+    if (tabRect.left < railRect.left) {
+      rail.scrollBy({ left: tabRect.left - railRect.left - gutter, behavior });
+    } else if (tabRect.right > railRect.right) {
+      rail.scrollBy({ left: tabRect.right - railRect.right + gutter, behavior });
+    }
+  }, [activeYear]);
+
+  const visible = useMemo(
+    () => MILESTONES.filter((item) => item.year === activeYear),
+    [activeYear]
+  );
+
+  const activeIndex = MILESTONE_YEARS.indexOf(activeYear);
+
+  const goTo = (index) => {
+    const next = MILESTONE_YEARS[(index + MILESTONE_YEARS.length) % MILESTONE_YEARS.length];
+    setActiveYear(next);
+    // preventScroll so the browser's focus scrolling does not fight the
+    // rail positioning handled in the effect above.
+    tabRefs.current[next]?.focus({ preventScroll: true });
+  };
+
+  const handleKeyDown = (event) => {
+    const keys = {
+      ArrowDown: activeIndex + 1,
+      ArrowRight: activeIndex + 1,
+      ArrowUp: activeIndex - 1,
+      ArrowLeft: activeIndex - 1,
+      Home: 0,
+      End: MILESTONE_YEARS.length - 1
+    };
+
+    if (event.key in keys) {
+      event.preventDefault();
+      goTo(keys[event.key]);
+    }
+  };
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+      {/* Year rail */}
+      <div
+        ref={railRef}
+        role="tablist"
+        aria-label="Milestone years"
+        aria-orientation="vertical"
+        onKeyDown={handleKeyDown}
+        className="lg:col-span-3 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 lg:sticky lg:top-28"
+      >
+        {MILESTONE_YEARS.map((year) => {
+          const isActive = year === activeYear;
+          const count = MILESTONES.filter((item) => item.year === year).length;
+
+          return (
+            <button
+              key={year}
+              ref={(el) => { tabRefs.current[year] = el; }}
+              role="tab"
+              id={`year-tab-${year}`}
+              aria-selected={isActive}
+              aria-controls={`year-panel-${year}`}
+              tabIndex={isActive ? 0 : -1}
+              onClick={() => setActiveYear(year)}
+              className={`shrink-0 flex items-center gap-3 rounded-2xl px-5 py-4 border text-left transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-safety-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-deep-navy ${
+                isActive
+                  ? 'bg-safety-yellow border-safety-yellow shadow-lg lg:translate-x-2'
+                  : 'bg-white/5 border-white/15 hover:bg-white/10 hover:border-white/30'
+              }`}
+            >
+              <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${isActive ? 'bg-deep-navy' : 'bg-safety-yellow/70'}`}></span>
+              <span className="flex flex-col">
+                <span className={`font-bold text-headline-md leading-none ${isActive ? 'text-deep-navy' : 'text-white'}`}>
+                  {year}
+                </span>
+                <span className={`font-caption text-caption mt-1 whitespace-nowrap ${isActive ? 'text-deep-navy/70' : 'text-white/60'}`}>
+                  {count} {count === 1 ? 'milestone' : 'milestones'}
+                </span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Milestones */}
+      <div className="lg:col-span-9">
+        <div
+          role="tabpanel"
+          id={`year-panel-${activeYear}`}
+          aria-labelledby={`year-tab-${activeYear}`}
+          key={activeYear}
+          className="relative space-y-4 animate-in fade-in slide-in-from-right-4 duration-500"
+        >
+          <div className="absolute left-[27px] top-4 bottom-4 w-0.5 bg-white/15 hidden sm:block"></div>
+
+          {visible.map((milestone, index) => (
+            <article
+              key={milestone.title}
+              className="relative flex gap-5 bg-white rounded-2xl p-6 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="hidden sm:flex w-14 h-14 shrink-0 rounded-xl bg-sky-tint items-center justify-center">
+                <span className="font-bold text-primary text-body-lg">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <span className="px-3 py-1 rounded-full bg-deep-navy text-safety-yellow font-bold text-caption">
+                    {milestone.year}
+                  </span>
+                  <h4 className="font-headline-md text-headline-md text-deep-navy">{milestone.title}</h4>
+                </div>
+                <p className="text-on-surface-variant text-body-md leading-relaxed">{milestone.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Stepper */}
+        <div className="flex items-center justify-between gap-4 mt-8">
+          <button
+            onClick={() => goTo(activeIndex - 1)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/30 text-white font-label-md text-label-md hover:bg-white hover:text-deep-navy transition-colors active:scale-95"
+          >
+            <span className="material-symbols-outlined text-sm">arrow_back</span>
+            Previous
+          </button>
+          <p className="font-caption text-caption text-white/60 text-center">
+            {activeIndex + 1} of {MILESTONE_YEARS.length}
+          </p>
+          <button
+            onClick={() => goTo(activeIndex + 1)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/30 text-white font-label-md text-label-md hover:bg-white hover:text-deep-navy transition-colors active:scale-95"
+          >
+            Next
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
 export default function About() {
@@ -14,164 +246,186 @@ export default function About() {
       {/* <header className="sticky top-0 w-full bg-surface-container-lowest shadow-sm z-50"><div className="flex justify-between items-center h-20 px-margin-desktop max-w-7xl mx-auto"><div className="flex items-center gap-4"><img alt="IDFC Logo" className="h-10 md:h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClz6GzbxPxgKR6ES6LeUxKiXeSzg9-ai8JDCukrWFn3FceTxMqS2ypHoj-ytT6iHHWrSU_PaovfT-UUfG-7rgVGfe6unbirrdwurgtmr4B3VW1Al2jnz-Hk6cMoPavpF00u4AzWcYlbjjJIS1S05FIqep5Az1sWWzCwe50SUthk05AQAEaUfhxPJIivGyfyD5ev_PWN-NbphP70vGY645rywqLHk-lNGjjCeZYoIVCAqV6dQCE-Poqy9d_hpuj4LPCdw" /></div><nav className="hidden md:flex items-center gap-8"><Link className="font-body-md text-on-surface-variant hover:text-primary transition-colors" to="/">Home</Link><Link className="font-body-md text-primary border-b-2 border-primary pb-1" to="/">About</Link><Link className="font-body-md text-on-surface-variant hover:text-primary transition-colors" to="/">Blogs &amp; News</Link><Link className="font-body-md text-on-surface-variant hover:text-primary transition-colors" to="/">Resources</Link></nav><div className="flex items-center gap-4"><div className="relative group hidden md:block"><button className="bg-deep-navy text-white px-6 py-2 rounded-full font-label-md flex items-center gap-2 transition-all active:scale-95 hover:bg-primary">Join Us<span className="material-symbols-outlined text-[18px]">expand_more</span></button><div className="absolute right-0 mt-2 w-48 bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"><ul className="py-2"><li className=""><Link className="block px-4 py-2 hover:bg-surface-container-low transition-colors text-label-md" to="/">Volunteer</Link></li><li className=""><Link className="block px-4 py-2 hover:bg-surface-container-low transition-colors text-label-md" to="/">Advocate</Link></li><li className=""><Link className="block px-4 py-2 hover:bg-surface-container-low transition-colors text-label-md" to="/">Partner With Us</Link></li></ul></div></div><button className="md:hidden text-primary"><span className="material-symbols-outlined text-[32px]">menu</span></button></div></div></header> */}
       <main className="">
 
-        <section className="relative min-h-[500px] flex items-center overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <img alt="Hero Image" className="w-full  object-cover" src={childTeach} />
-            <div className="absolute inset-0 bg-gradient-to-r from-deep-navy via-deep-navy/80 to-transparent "></div>
-          </div>
-          <div className="max-w-container-max mx-auto w-full px-margin-desktop relative z-10 py-stack-lg mt-4">
-            <div className="max-w-2xl space-y-stack-md reveal active">
-              <h1 className="font-display-lg text-display-lg text-white leading-tight">
-                Protecting the Next Generation in a <span className="text-safety-yellow">Digital World</span>
+        {/* Hero */}
+        <section className="relative overflow-hidden bg-surface-container-low pt-stack-lg pb-stack-lg px-margin-desktop">
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-sky-tint/40 blur-3xl rounded-full pointer-events-none"></div>
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-safety-yellow/20 blur-3xl rounded-full pointer-events-none"></div>
+
+          <div className="relative max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-stack-md lg:gap-stack-lg items-center">
+
+            <div className="lg:col-span-7 space-y-6 reveal active">
+              <span className="inline-flex items-center gap-2 bg-white border border-outline-variant/30 text-primary px-4 py-2 rounded-full text-label-md font-bold uppercase tracking-wider shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-safety-yellow"></span>
+                About IFDC
+              </span>
+
+              <h1 className="font-display-lg text-headline-lg-mobile md:text-display-lg text-deep-navy leading-tight">
+                Protecting the Next Generation in a{' '}
+                <span className="relative inline-block">
+                  <span className="relative z-10">Digital World</span>
+                  <span className="absolute left-0 right-0 bottom-1 h-3 md:h-4 bg-safety-yellow/60"></span>
+                </span>
               </h1>
-              <p className="font-body-lg text-body-lg text-inverse-primary max-w-xl">
+
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
                 The International Digital Foundation for Children (IDFC) is committed to building a safer, more inclusive online environment where every child can explore, learn, and grow without fear.
               </p>
-              {/* <div className="flex flex-wrap gap-4 pt-4">
-                <button className="bg-safety-yellow text-deep-navy px-8 py-3 rounded-full font-label-md font-bold hover:scale-105 transition-transform shadow-lg">Our Strategy</button>
-                <button className="border-2 border-white/50 text-white px-8 py-3 rounded-full font-label-md hover:bg-white/10 transition-colors backdrop-blur-sm">Watch Film</button>
-              </div> */}
+
+              <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 max-w-2xl">
+                {HERO_FACTS.map((fact) => (
+                  <div key={fact.label} className="bg-white rounded-2xl border border-outline-variant/20 p-4 shadow-sm">
+                    <dt className="flex items-center gap-2 font-caption text-caption text-on-surface-variant uppercase tracking-wider">
+                      <span className="material-symbols-outlined text-primary text-base">{fact.icon}</span>
+                      {fact.label}
+                    </dt>
+                    <dd className="font-bold text-deep-navy text-body-lg mt-1 leading-snug">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <div className="lg:col-span-5 relative reveal active">
+              <div className="absolute -top-5 -right-5 w-2/3 h-2/3 bg-safety-yellow rounded-[2rem] hidden sm:block"></div>
+              <div className="absolute -bottom-5 -left-5 w-1/2 h-1/2 border-4 border-primary/20 rounded-[2rem] hidden sm:block"></div>
+              <div className="relative rounded-[2rem] overflow-hidden shadow-2xl">
+                <img
+                  alt="Two young children watching a tablet together on a sofa"
+                  className="w-full h-[320px] md:h-[460px] object-cover"
+                  src={childTeach}
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep-navy/90 to-transparent p-6 pt-16">
+                  <p className="text-white font-body-md text-body-md">
+                    Screen time starts early. We help families across Sri Lanka make it safe and balanced.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="py-stack-lg px-margin-desktop bg-surface-container-low -mt-8 relative z-20 rounded-t-[3rem]">
-          <div className="max-w-container-max mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Vision - full-width band */}
+        <section className="relative px-margin-mobile md:px-margin-desktop py-stack-lg bg-sky-tint/40 overflow-hidden">
+          <div className="absolute -top-24 right-10 w-80 h-80 bg-safety-yellow/20 blur-3xl rounded-full pointer-events-none"></div>
 
-            <div className="bg-white p-8 rounded-[2rem] shadow-xl border-t-4 border-sky-tint hover:-translate-y-2 transition-transform duration-300 reveal active">
-              <div className="w-14 h-14 rounded-2xl bg-sky-tint flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-primary text-3xl">visibility</span>
+          <div className="relative max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-4">
+              <div className="flex items-center gap-4">
+                <span className="w-14 h-14 rounded-2xl bg-deep-navy flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-safety-yellow text-3xl">visibility</span>
+                </span>
+                <div>
+                  <p className="font-label-md text-label-md text-primary uppercase tracking-widest">Our Vision</p>
+                  <p className="font-caption text-caption text-on-surface-variant">Where we are heading</p>
+                </div>
               </div>
-              <h3 className="font-headline-md text-headline-md text-deep-navy mb-4">Our Vision</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">A nation where every child is born and raised in a healthy, safe environment, and educated to be successful citizens in the digital world.</p>
+              <span className="hidden lg:block w-16 h-1 bg-safety-yellow rounded-full mt-6"></span>
             </div>
 
-            <div className="bg-deep-navy p-8 rounded-[2rem] shadow-xl border-t-4 border-safety-yellow hover:-translate-y-2 transition-transform duration-300 reveal active">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-safety-yellow text-3xl">diversity_3</span>
-              </div>
-              <h3 className="font-headline-md text-headline-md text-white mb-4">Mentor Children</h3>
-              <p className="font-body-md text-body-md text-inverse-primary leading-relaxed">Engaging children through need-based training and mentoring for healthy internet and media use.</p>
-            </div>
-
-            <div className="bg-deep-navy p-8 rounded-[2rem] shadow-xl border-t-4 border-safety-yellow hover:-translate-y-2 transition-transform duration-300 reveal active">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-safety-yellow text-3xl">school</span>
-              </div>
-              <h3 className="font-headline-md text-headline-md text-white mb-4">Train the Kids</h3>
-              <p className="font-body-md text-body-md text-inverse-primary leading-relaxed">Equipping children with the necessary tools to navigate the digital world safely and responsibly.</p>
-            </div>
-
-            <div className="bg-deep-navy p-8 rounded-[2rem] shadow-xl border-t-4 border-safety-yellow hover:-translate-y-2 transition-transform duration-300 reveal active">
-              <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
-                <span className="material-symbols-outlined text-safety-yellow text-3xl">movie_edit</span>
-              </div>
-              <h3 className="font-headline-md text-headline-md text-white mb-4">Media Production</h3>
-              <p className="font-body-md text-body-md text-inverse-primary leading-relaxed">Producing child-friendly media narratives that foster children’s rights and empower them as creators.</p>
+            <div className="lg:col-span-8">
+              <p className="font-display-lg text-[1.375rem] md:text-[2rem] text-deep-navy leading-snug">
+                A Sri Lanka where every child grows up <span className="text-primary">safe, informed, and empowered</span> — equipped to navigate the digital world with confidence, creativity, and resilience, and to become a responsible citizen of the connected age.
+              </p>
             </div>
           </div>
         </section>
 
-        <section className="py-stack-lg px-margin-desktop bg-surface">
-          <div className="max-w-container-max mx-auto lg:grid-cols-2">
+        {/* Mission - statement plus four sub-sections */}
+        <section className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface">
+          <div className="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+
+            <div className="lg:col-span-4 lg:sticky lg:top-28">
+              <p className="font-label-md text-label-md text-primary uppercase tracking-widest mb-3">Our Mission</p>
+              <h2 className="font-headline-lg text-headline-lg text-deep-navy mb-5">
+                Protect, empower, and amplify children's voices
+              </h2>
+              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                The International Foundation for Digital Child Safety (IFDC) Sri Lanka exists to protect, empower, and amplify the voices of children in the digital age.
+              </p>
+              <p className="mt-6 inline-flex items-center gap-2 font-label-md text-label-md text-deep-navy bg-safety-yellow/30 border border-safety-yellow/60 rounded-full px-4 py-2">
+                <span className="material-symbols-outlined text-sm">south_east</span>
+                We do this by
+              </p>
+            </div>
+
+            <ol className="lg:col-span-8 divide-y divide-outline-variant/40 border-t border-outline-variant/40">
+              {MISSION_PILLARS.map((pillar, index) => (
+                <li
+                  key={pillar.title}
+                  className="group grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 py-8 transition-colors duration-300 hover:bg-sky-tint/25 rounded-xl sm:px-4 sm:-mx-4"
+                >
+                  <div className="sm:col-span-2 flex sm:flex-col items-center sm:items-start gap-4">
+                    <span className="font-display-lg text-headline-md text-deep-navy/20 group-hover:text-safety-yellow transition-colors duration-300 leading-none">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="w-12 h-12 rounded-xl bg-sky-tint flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined text-primary text-2xl">{pillar.icon}</span>
+                    </span>
+                  </div>
+                  <div className="sm:col-span-10">
+                    <h3 className="font-headline-md text-headline-md text-deep-navy mb-2">{pillar.title}</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{pillar.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="relative py-stack-lg px-margin-desktop bg-deep-navy overflow-hidden">
+          <div className="absolute -top-40 -right-32 w-96 h-96 bg-safety-yellow/10 blur-3xl rounded-full pointer-events-none"></div>
+          <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-sky-tint/10 blur-3xl rounded-full pointer-events-none"></div>
+
+          <div className="relative max-w-container-max mx-auto">
             <div className="text-center mb-stack-lg">
-              <span className="bg-sky-tint text-primary px-4 py-1 rounded-full text-label-md font-bold uppercase tracking-wider">Timeline</span>
-              <h2 className="font-headline-lg text-headline-lg text-deep-navy mt-4">Our Journey Through Time</h2>
+              <span className="bg-safety-yellow/15 border border-safety-yellow/40 text-safety-yellow px-4 py-1 rounded-full text-label-md font-bold uppercase tracking-wider">Timeline</span>
+              <h2 className="font-headline-lg text-headline-lg text-white mt-4">Our Journey Through Time</h2>
+              <p className="font-body-lg text-body-lg text-white/70 mt-3 max-w-2xl mx-auto">
+                Select a year to see what we built along the way.
+              </p>
             </div>
-            <div className="relative max-w-4xl mx-auto space-y-stack-lg">
-
-              <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-outline-variant/30 -translate-x-1/2"></div>
-
-              <div className="relative flex flex-col md:flex-row items-center gap-8 reveal active">
-                <div className="md:w-1/2 text-left md:text-right">
-                  <div className="glass-card p-6 rounded-2xl inline-block md:block shadow-md">
-                    <h4 className="text-primary font-bold text-headline-md">2015</h4>
-                    <p className="font-bold text-on-surface">The Inception</p>
-                    <p className="text-on-surface-variant text-body-md">Founded in Geneva by a group of child psychologists and cybersecurity experts.</p>
-                  </div>
-                </div>
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background z-10 -translate-x-1/2"></div>
-                <div className="md:w-1/2"></div>
-              </div>
-
-              <div className="relative flex flex-col md:flex-row-reverse items-center gap-8 reveal active" style={{ "transitionDelay": "100ms" }}>
-                <div className="md:w-1/2 text-left">
-                  <div className="glass-card p-6 rounded-2xl inline-block md:block shadow-md">
-                    <h4 className="text-primary font-bold text-headline-md">2018</h4>
-                    <p className="font-bold text-on-surface">Going Global</p>
-                    <p className="text-on-surface-variant text-body-md">Expanded operations to 45 countries, partnering with UN agencies for regional advocacy.</p>
-                  </div>
-                </div>
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-safety-yellow rounded-full border-4 border-background z-10 -translate-x-1/2"></div>
-                <div className="md:w-1/2"></div>
-              </div>
-
-              <div className="relative flex flex-col md:flex-row items-center gap-8 reveal active" style={{ "transitionDelay": "200ms" }}>
-                <div className="md:w-1/2 text-left md:text-right">
-                  <div className="glass-card p-6 rounded-2xl inline-block md:block shadow-md">
-                    <h4 className="text-primary font-bold text-headline-md">2023</h4>
-                    <p className="font-bold text-on-surface">Innovation Era</p>
-                    <p className="text-on-surface-variant text-body-md">Launched AI-driven safety companion for students and revamped teacher training modules.</p>
-                  </div>
-                </div>
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background z-10 -translate-x-1/2"></div>
-                <div className="md:w-1/2"></div>
-              </div>
-            </div>
+            <JourneyTimeline />
           </div>
         </section>
 
-        <section className="py-stack-lg px-margin-desktop bg-surface-container-low">
-          <div className="max-w-container-max mx-auto lg:grid-cols-2">
+        <section className="relative py-stack-lg px-margin-desktop bg-sky-tint/30 overflow-hidden">
+          <div className="absolute -top-32 -right-24 w-96 h-96 bg-safety-yellow/20 blur-3xl rounded-full pointer-events-none"></div>
+          <div className="absolute -bottom-32 -left-24 w-96 h-96 bg-primary/10 blur-3xl rounded-full pointer-events-none"></div>
+
+          <div className="relative max-w-container-max mx-auto">
             <div className="text-center mb-stack-lg">
-              <h2 className="font-headline-lg text-headline-lg text-deep-navy">Our Approach</h2>
-              <p className="text-on-surface-variant mt-2 max-w-2xl mx-auto text-body-lg">A nation where every child is born and raised in a healthy, safe environment, and educated to be successful citizens in the digital world.</p>
+              <span className="inline-flex items-center gap-2 bg-deep-navy text-safety-yellow px-4 py-1.5 rounded-full text-label-md font-bold uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-safety-yellow"></span>
+                Principles
+              </span>
+              <h2 className="font-headline-lg text-headline-lg text-deep-navy mt-5">Our Approaches</h2>
+              <p className="text-on-surface-variant mt-3 max-w-2xl mx-auto text-body-lg">
+                The principles that shape how we work with children, families, and institutions.
+              </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-outline-variant/20 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal active">
-                <div className="w-14 h-14 bg-sky-tint rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-3xl block">menu_book</span>
-                </div>
-                <h4 className="font-headline-md text-headline-md text-deep-navy mb-3">Digital Literacy</h4>
-                <p className="text-on-surface-variant text-body-md leading-relaxed">Curating age-appropriate curricula that teach children critical thinking in digital spaces.</p>
-              </div>
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-outline-variant/20 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal active" style={{ "transitionDelay": "50ms" }}>
-                <div className="w-14 h-14 bg-sky-tint rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-3xl block">verified_user</span>
-                </div>
-                <h4 className="font-headline-md text-headline-md text-deep-navy mb-3">Child Online Safety</h4>
-                <p className="text-on-surface-variant text-body-md leading-relaxed">Implementing technical guardrails and reporting mechanisms for harmful content.</p>
-              </div>
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-outline-variant/20 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal active" style={{ "transitionDelay": "100ms" }}>
-                <div className="w-14 h-14 bg-sky-tint rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-3xl block">groups</span>
-                </div>
-                <h4 className="font-headline-md text-headline-md text-deep-navy mb-3">Community Engagement</h4>
-                <p className="text-on-surface-variant text-body-md leading-relaxed">Working with local leaders to build safety nets within neighborhood networks.</p>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {APPROACHES.map((approach, index) => (
+                <div
+                  key={approach.title}
+                  className="group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden reveal active"
+                  style={{ transitionDelay: `${index * 50}ms` }}
+                >
+                  <span className="absolute inset-x-0 top-0 h-1.5 bg-safety-yellow origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
 
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-outline-variant/20 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal active" style={{ "transitionDelay": "150ms" }}>
-                <div className="w-14 h-14 bg-sky-tint rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-3xl block">school</span>
+                  <div className="flex items-start gap-5">
+                    <span className="w-14 h-14 rounded-2xl bg-deep-navy flex items-center justify-center shrink-0 group-hover:bg-safety-yellow transition-colors duration-300">
+                      <span className="material-symbols-outlined text-safety-yellow group-hover:text-deep-navy text-3xl transition-colors duration-300">
+                        {approach.icon}
+                      </span>
+                    </span>
+                    <div>
+                      <h3 className="font-headline-md text-headline-md text-deep-navy">{approach.title}</h3>
+                      <span className="block w-10 h-0.5 bg-safety-yellow my-3 group-hover:w-20 transition-all duration-500"></span>
+                      <p className="text-on-surface-variant text-body-md leading-relaxed">{approach.body}</p>
+                    </div>
+                  </div>
                 </div>
-                <h4 className="font-headline-md text-headline-md text-deep-navy mb-3">Teacher Capacity</h4>
-                <p className="text-on-surface-variant text-body-md leading-relaxed">Training educators to identify and respond to digital harassment and cyberbullying.</p>
-              </div>
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-outline-variant/20 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal active" style={{ "transitionDelay": "200ms" }}>
-                <div className="w-14 h-14 bg-sky-tint rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-3xl block">rocket_launch</span>
-                </div>
-                <h4 className="font-headline-md text-headline-md text-deep-navy mb-3">Youth Empowerment</h4>
-                <p className="text-on-surface-variant text-body-md leading-relaxed">Empowering peer-to-peer safety advocates through leadership workshops.</p>
-              </div>
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-outline-variant/20 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group reveal active" style={{ "transitionDelay": "250ms" }}>
-                <div className="w-14 h-14 bg-sky-tint rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-3xl block">policy</span>
-                </div>
-                <h4 className="font-headline-md text-headline-md text-deep-navy mb-3">Policy Advocacy</h4>
-                <p className="text-on-surface-variant text-body-md leading-relaxed">Collaborating with governments to strengthen legal frameworks for child protection.</p>
-              </div>
+              ))}
             </div>
           </div>
         </section>

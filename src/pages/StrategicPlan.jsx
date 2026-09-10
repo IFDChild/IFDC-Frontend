@@ -1,123 +1,251 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 
+// Categorical accents grouping the priorities, carried over from the source plan.
+const ACCENT = {
+  teal: '#2F6F62',
+  ochre: '#A9741F',
+  plum: '#5B4B8A',
+  berry: '#9C3F5E',
+  slate: '#4B5A63'
+};
+
+const BASELINE_STATS = [
+  { num: '9', cap: 'Programmes delivered' },
+  { num: '4', cap: 'Strategic pillars' },
+  { num: '471+', cap: 'Confirmed direct participants' },
+  { num: '25', cap: 'Schools reached (flagship)' },
+  { num: '6', cap: 'Partner & government bodies' }
+];
+
+const PRIORITIES = [
+  {
+    num: '01',
+    accent: ACCENT.berry,
+    title: 'Digital wellbeing & community support',
+    desc: 'Build a community-based support network helping children, young people, and families develop healthier relationships with technology.',
+    target: '5,000+ children & young people reached · support network established'
+  },
+  {
+    num: '02',
+    accent: ACCENT.teal,
+    title: 'Online child safety & prevention of OCSEA',
+    desc: 'Strengthen capacity to prevent, identify, and respond to online child sexual exploitation and abuse.',
+    target: '100+ programmes · national safety education programme'
+  },
+  {
+    num: '03',
+    accent: ACCENT.teal,
+    title: 'Artificial intelligence & the future of child safety',
+    desc: 'Respond proactively to emerging risks and opportunities created by AI and other fast-moving technologies.',
+    target: '50+ schools reached · AI working group by 2027'
+  },
+  {
+    num: '04',
+    accent: ACCENT.plum,
+    title: 'Research, knowledge & evidence',
+    desc: "Build IFDC's capacity as a research-informed organisation and contribute evidence to policy and practice.",
+    target: 'research group & 3-year research agenda established'
+  },
+  {
+    num: '05',
+    accent: ACCENT.berry,
+    title: 'Digital solutions for children & families',
+    desc: 'Develop practical, child-friendly digital tools for prevention, self-assessment, and access to help.',
+    target: 'self-assessment & referral tools developed / piloted'
+  },
+  {
+    num: '06',
+    accent: ACCENT.plum,
+    title: 'International advisory network & capacity',
+    desc: 'Strengthen technical capacity through a network of national and international experts and mentors.',
+    target: 'advisory board established · annual fellowship programme'
+  },
+  {
+    num: '07',
+    accent: ACCENT.berry,
+    title: 'New programmes on emerging digital & relationship risks',
+    desc: "Address sexuality education, healthy relationships, digital consent, and online pornography's impact.",
+    target: 'evidence-informed programmes with specialist partners'
+  },
+  {
+    num: '08',
+    accent: ACCENT.ochre,
+    title: 'University, technology & innovation partnerships',
+    desc: 'Build a national innovation ecosystem connecting child protection expertise with technology talent.',
+    target: 'partnerships expanded — SLIIT, UoM, NIBM, NSBM & more'
+  },
+  {
+    num: '09',
+    accent: ACCENT.plum,
+    title: 'National & international partnerships',
+    desc: "Grow a partnership ecosystem that increases IFDC's reach, credibility, and long-term sustainability.",
+    target: 'stable national & international partner network'
+  },
+  {
+    num: '10',
+    accent: ACCENT.slate,
+    title: 'Organisational development & sustainability',
+    desc: 'Transform IFDC into a well-structured, transparent organisation able to deliver long-term programmes.',
+    target: 'sustainability & MEL systems fully operational by 2029'
+  }
+];
+
+const ROADMAP = [
+  {
+    year: '2027 — Build',
+    accent: ACCENT.teal,
+    body: 'Foundation & system building — working groups, research agenda, university partnerships.'
+  },
+  {
+    year: '2028 — Expand',
+    accent: ACCENT.plum,
+    body: 'Programme expansion — advocate cadre, digital tools, international partnerships.'
+  },
+  {
+    year: '2029 — Sustain & scale',
+    accent: ACCENT.ochre,
+    body: 'Consolidation — targets met, impact evaluated, next plan developed.'
+  }
+];
+
+const HEADLINE_TARGETS = [
+  { num: '5,000+', cap: 'Children reached through digital wellbeing programmes' },
+  { num: '100+', cap: 'Online child safety programmes delivered' },
+  { num: '50+', cap: 'Schools reached through AI & child online safety education' },
+  { num: '10', cap: 'Strategic priorities driving the 2027–2029 plan' }
+];
+
 export default function StrategicPlan() {
-    return (
-        <>
+  return (
+    <>
+      <Navbar />
 
-            <div className="fixed inset-0 doc-texture z-50"></div>
+      <main>
 
+        {/* Header */}
+        <section className="relative bg-deep-navy text-white overflow-hidden px-margin-mobile md:px-margin-desktop py-stack-lg">
+          <div className="absolute -top-32 -right-24 w-96 h-96 bg-safety-yellow/10 blur-3xl rounded-full pointer-events-none"></div>
+          <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-sky-tint/10 blur-3xl rounded-full pointer-events-none"></div>
 
+          <div className="relative max-w-container-max mx-auto">
+            <p className="font-label-md text-label-md text-white/60 uppercase tracking-widest mb-6">
+              IFDC — International Foundation for Digital Child
+            </p>
+            <h1 className="font-display-lg text-headline-lg-mobile md:text-display-lg text-white leading-tight max-w-4xl">
+              Strategic Plan <span className="text-safety-yellow">2027–2029</span>
+            </h1>
+            <p className="font-body-lg text-body-lg text-white/70 mt-5 max-w-2xl">
+              Strategic priorities and targets — an overview of where we stand and where we're headed.
+            </p>
 
-            <Navbar />
-            <main className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24 grid grid-cols-4 md:grid-cols-12 gap-gutter">
+            <div className="flex flex-wrap gap-3 mt-8">
+              <a
+                href="#priorities"
+                className="inline-flex items-center gap-2 bg-safety-yellow text-deep-navy font-label-md text-label-md px-6 py-3 rounded-full hover:bg-secondary-fixed-dim transition-all duration-200 active:scale-95 shadow-lg"
+              >
+                Ten priorities
+                <span className="material-symbols-outlined text-sm">arrow_downward</span>
+              </a>
+              <a
+                href="#roadmap"
+                className="inline-flex items-center gap-2 border border-white/40 text-white font-label-md text-label-md px-6 py-3 rounded-full hover:bg-white hover:text-deep-navy transition-all duration-200 active:scale-95"
+              >
+                Three-year roadmap
+              </a>
+            </div>
+          </div>
+        </section>
 
-                <section className="col-span-4 md:col-span-12 mb-24 grid grid-cols-4 md:grid-cols-12 gap-gutter items-center">
-                    <div className="col-span-4 md:col-span-7 pr-0 md:pr-12 transition-all duration-700 ease-out opacity-100 translate-y-0">
-                        <span className="font-label-md text-label-md text-primary mb-4 block uppercase tracking-widest">Strategic Vision 2025–2030</span>
-                        <h1 className="font-display-lg text-display-lg text-primary mb-6">Securing the Digital Frontier for the Next Generation.</h1>
-                        <p className="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-2xl">
-                            Our five-year roadmap focuses on scaling global digital literacy, advancing legislative protections, and fostering resilient online communities. We are committed to building an internet where children can explore, learn, and connect without fear.
-                        </p>
-                        <div className="flex gap-4">
-                            <Link className="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors" to="#">
-                                View Roadmap <span className="material-symbols-outlined text-[18px]">arrow_downward</span>
-                            </Link>
-                            <Link className="bg-surface text-primary border border-outline font-label-md text-label-md px-6 py-3 rounded flex items-center justify-center gap-2 hover:border-primary transition-colors" to="#">
-                                Download PDF
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-span-4 md:col-span-5 relative mt-12 md:mt-0 transition-all duration-700 ease-out opacity-100 translate-y-0">
-                        <div className="absolute inset-0 bg-surface-container-high rounded-xl -rotate-2 scale-105 origin-bottom-right z-0 border border-outline-variant"></div>
-                        <div className="relative z-10 bg-surface p-2 rounded-xl border border-outline shadow-[0_12px_40px_-12px_rgba(0,39,76,0.15)]">
-                            <img className="w-full h-[400px] object-cover rounded-lg filter contrast-125" data-alt="A diverse group of children engaging safely with educational technology in a modern, well-lit classroom. The scene is bright and optimistic, reflecting a modern corporate aesthetic with a sturdy, professional tone. The lighting is soft and even, highlighting the clean lines of the classroom and the focus on the children's faces. The color palette emphasizes deep navy blues, crisp whites, and vibrant yellow accents to signify safety and learning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRRV6H81zywwTqM0z8QYyfrr6bCGB2lOOj-_xty7f4vukL2u_ytey4nQpp-AAv-buP43zYL42hZoFcpvewh7RGiiclvlb-w4x2V6E1I5LR3Cm5SKRtWcvHPlrwJ8QF-XjV-BQBQAp-Q62t1Cke1iPoWsLSb38QkkG6zV2Mv83b2FNQ2mTyI9t6TNPSt2pdFhuraKy1gLJuGOKhTvMX0yhL0eQm6DlT2-3unxsIKkamfh24IG-I-k_C" />
+        {/* Baseline */}
+        <section className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface">
+          <div className="max-w-container-max mx-auto">
+            <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-6">
+              Where we stand — 2025/26 baseline
+            </p>
+            <dl className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 border-t border-l border-outline-variant/40">
+              {BASELINE_STATS.map((stat) => (
+                <div key={stat.cap} className="border-r border-b border-outline-variant/40 px-4 py-7 text-center">
+                  <dt className="font-display-lg text-headline-md text-deep-navy">{stat.num}</dt>
+                  <dd className="font-caption text-caption text-on-surface-variant mt-2 leading-snug">{stat.cap}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
 
-                            <div className="absolute -bottom-6 -left-6 bg-surface border border-outline p-6 rounded shadow-[0_12px_24px_-8px_rgba(0,39,76,0.1)] w-64">
-                                <div className="font-label-md text-label-md text-on-surface-variant mb-1">Target 2030 Metric</div>
-                                <div className="font-data-num text-data-num text-primary text-3xl mb-2">50M+</div>
-                                <div className="font-body-md text-body-md text-on-surface leading-tight">Children protected via global legislation.</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        {/* Priorities */}
+        <section id="priorities" className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface-container-low scroll-mt-24">
+          <div className="max-w-container-max mx-auto">
+            <h2 className="font-headline-lg text-headline-lg text-deep-navy">Ten strategic priorities, 2027–2029</h2>
+            <p className="font-body-lg text-body-lg text-on-surface-variant mt-3 max-w-3xl">
+              Each priority sits under one of our four programme pillars — DigitalWise, Kidsression, Voice4Kids, and TechCare — plus one cross-cutting priority for organisational strength.
+            </p>
 
-                <div className="col-span-4 md:col-span-12 h-px bg-primary w-full mb-24"></div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-stack-md">
+              {PRIORITIES.map((item) => (
+                <article
+                  key={item.num}
+                  className="bg-white rounded-2xl border border-outline-variant/30 p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  style={{ borderTopWidth: '4px', borderTopColor: item.accent }}
+                >
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-display-lg text-headline-md shrink-0" style={{ color: item.accent }}>
+                      {item.num}
+                    </span>
+                    <h3 className="font-headline-md text-headline-md text-deep-navy leading-snug">{item.title}</h3>
+                  </div>
+                  <p className="font-body-md text-body-md text-on-surface-variant mt-4">{item.desc}</p>
+                  <p className="mt-5 pt-4 border-t border-outline-variant/40 font-caption text-caption" style={{ color: item.accent }}>
+                    <b className="font-semibold">2029 target —</b> {item.target}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                <section className="col-span-4 md:col-span-12 mb-24">
-                    <div className="grid grid-cols-4 md:grid-cols-12 gap-gutter mb-12 transition-all duration-700 ease-out opacity-100 translate-y-0">
-                        <div className="col-span-4 md:col-span-4">
-                            <h2 className="font-headline-lg text-headline-lg text-primary">Core Strategic Pillars</h2>
-                        </div>
-                        <div className="col-span-4 md:col-span-8">
-                            <p className="font-body-lg text-body-lg text-on-surface-variant">
-                                Our approach is structured around four interlocking pillars designed to address immediate threats while building long-term systemic resilience.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter transition-all duration-700 ease-out opacity-100 translate-y-0">
+        {/* Roadmap */}
+        <section id="roadmap" className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface scroll-mt-24">
+          <div className="max-w-container-max mx-auto">
+            <h2 className="font-headline-lg text-headline-lg text-deep-navy">Three-year roadmap</h2>
 
-                        <div className="bg-surface border border-outline-variant p-6 flex flex-col h-full hover:border-primary transition-colors group relative overflow-hidden rounded">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-surface-container-low rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-                            <span className="material-symbols-outlined text-primary text-4xl mb-6 relative z-10 fill" data-icon="school">school</span>
-                            <h3 className="font-headline-md text-headline-md text-primary mb-3 relative z-10">Digital Literacy</h3>
-                            <p className="font-body-md text-body-md text-on-surface-variant flex-grow relative z-10">
-                                Equipping children, parents, and educators with critical thinking skills to navigate online environments safely and responsibly.
-                            </p>
-                            <div className="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center relative z-10">
-                                <span className="font-label-md text-label-md text-on-surface">Initiative Alpha</span>
-                                <span className="material-symbols-outlined text-secondary text-sm">arrow_forward</span>
-                            </div>
-                        </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-stack-md">
+              {ROADMAP.map((step) => (
+                <div
+                  key={step.year}
+                  className="bg-white rounded-2xl border border-outline-variant/30 p-7 shadow-sm"
+                  style={{ borderLeftWidth: '4px', borderLeftColor: step.accent }}
+                >
+                  <p className="font-headline-md text-headline-md" style={{ color: step.accent }}>{step.year}</p>
+                  <p className="font-body-md text-body-md text-on-surface-variant mt-3">{step.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                        <div className="bg-surface border border-outline-variant p-6 flex flex-col h-full hover:border-primary transition-colors group relative overflow-hidden rounded">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-surface-container-low rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-                            <span className="material-symbols-outlined text-primary text-4xl mb-6 relative z-10 fill" data-icon="gavel">gavel</span>
-                            <h3 className="font-headline-md text-headline-md text-primary mb-3 relative z-10">Safety Advocacy</h3>
-                            <p className="font-body-md text-body-md text-on-surface-variant flex-grow relative z-10">
-                                Driving policy changes at the governmental level to ensure tech platforms are held accountable for child safety by design.
-                            </p>
-                            <div className="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center relative z-10">
-                                <span className="font-label-md text-label-md text-on-surface">Policy Framework</span>
-                                <span className="material-symbols-outlined text-secondary text-sm">arrow_forward</span>
-                            </div>
-                        </div>
+        {/* Headline targets */}
+        <section className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-deep-navy relative overflow-hidden">
+          <div className="absolute -top-40 left-1/3 w-96 h-96 bg-safety-yellow/10 blur-3xl rounded-full pointer-events-none"></div>
 
-                        <div className="bg-surface border border-outline-variant p-6 flex flex-col h-full hover:border-primary transition-colors group relative overflow-hidden rounded">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-surface-container-low rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-                            <span className="material-symbols-outlined text-primary text-4xl mb-6 relative z-10 fill" data-icon="diversity_3">diversity_3</span>
-                            <h3 className="font-headline-md text-headline-md text-primary mb-3 relative z-10">Community Engagement</h3>
-                            <p className="font-body-md text-body-md text-on-surface-variant flex-grow relative z-10">
-                                Fostering grassroots networks of parents and local leaders to create supportive, vigilant communities against cyber threats.
-                            </p>
-                            <div className="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center relative z-10">
-                                <span className="font-label-md text-label-md text-on-surface">Local Networks</span>
-                                <span className="material-symbols-outlined text-secondary text-sm">arrow_forward</span>
-                            </div>
-                        </div>
+          <div className="relative max-w-container-max mx-auto">
+            <h2 className="font-headline-lg text-headline-lg text-white">Headline 2029 targets</h2>
 
-                        <div className="bg-surface border border-outline-variant p-6 flex flex-col h-full hover:border-primary transition-colors group relative overflow-hidden rounded">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-surface-container-low rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
-                            <span className="material-symbols-outlined text-primary text-4xl mb-6 relative z-10 fill" data-icon="biotech">biotech</span>
-                            <h3 className="font-headline-md text-headline-md text-primary mb-3 relative z-10">Global Research</h3>
-                            <p className="font-body-md text-body-md text-on-surface-variant flex-grow relative z-10">
-                                Funding independent studies on the psychological impacts of digital exposure to inform evidence-based interventions.
-                            </p>
-                            <div className="mt-6 pt-4 border-t border-outline-variant flex justify-between items-center relative z-10">
-                                <span className="font-label-md text-label-md text-on-surface">Data Consortium</span>
-                                <span className="material-symbols-outlined text-secondary text-sm">arrow_forward</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            <Footer />
+            <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-white/15 mt-stack-md">
+              {HEADLINE_TARGETS.map((target) => (
+                <div key={target.cap} className="border-r border-b border-white/15 px-5 py-8 text-center">
+                  <dt className="font-display-lg text-headline-lg text-safety-yellow">{target.num}</dt>
+                  <dd className="font-body-md text-body-md text-white/70 mt-3 leading-snug">{target.cap}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      </main>
 
-
-
-            <div id="snapdom-sandbox" data-snapdom-sandbox="true" aria-hidden="true" style={{ "position": "absolute", "left": "-9999px", "top": "-9999px", "width": "0px", "height": "0px", "overflow": "hidden" }}></div>
-        </>
-    );
+      <Footer />
+    </>
+  );
 }

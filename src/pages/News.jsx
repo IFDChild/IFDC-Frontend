@@ -154,7 +154,7 @@ export default function News() {
                 <section className="space-y-10 scroll-mt-32" id="latest-blogs">
                     <div className="flex items-center justify-between border-b border-outline-variant/30 pb-4">
                         <h2 className="font-headline-lg text-headline-lg text-deep-navy">Latest Blogs &amp; Insights</h2>
-                        <Link className="text-deep-navy font-label-md text-label-md hover:underline flex items-center gap-1" to="/news">View All Blogs <span className="material-symbols-outlined text-[18px]">arrow_forward</span></Link>
+                        <Link className="text-deep-navy font-label-md text-label-md hover:underline flex items-center gap-1" to="/blogs">View All Blogs <span className="material-symbols-outlined text-[18px]">arrow_forward</span></Link>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-stack-md">
 
