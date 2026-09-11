@@ -4,114 +4,124 @@ import Footer from '../components/Footer';
 import fellowshipHero from '../assets/images/Youth Summit.png';
 
 /**
- * Honorary Expert Panel.
+ * Portraits are picked up automatically from src/assets/images/experts/.
  *
- * To add a portrait:
- *   1. Drop the file into  src/assets/images/experts/
- *   2. Import it at the top of this file, e.g.
- *        import emmanuelAdinkra from '../assets/images/experts/emmanuel-adinkra.jpg';
- *   3. Set  photo: emmanuelAdinkra  on the matching entry below.
- * Entries with photo: null fall back to an initials avatar, so the page
- * works with any mix of photos supplied and still missing.
+ * Name the file after the person's `slug` below — e.g. emmanuel-adinkra.jpg —
+ * and it appears on their card with no code change. Accepted extensions:
+ * .jpg .jpeg .png .webp. Anyone without a matching file keeps the initials
+ * avatar, so the page works with any mix of supplied and missing photos.
  */
+const PORTRAITS = import.meta.glob(
+    '../assets/images/experts/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP,Jpg,Jpeg,Png}',
+    { eager: true, import: 'default' }
+);
+
+const portraitFor = (slug) => {
+    const entry = Object.entries(PORTRAITS).find(
+        ([path]) => path.split('/').pop().replace(/\.[^.]+$/, '').toLowerCase() === slug
+    );
+
+    return entry ? entry[1] : null;
+};
 const EXPERTS = [
     {
         name: 'Emmanuel Adinkra',
         role: 'President, Ghana Internet Safety Foundation (GISF), Ghana/USA',
-        photo: null,
+        slug: 'emmanuel-adinkra',
         bio: 'Emmanuel Adinkra is a leading expert in child online protection, cybersecurity, and trust and safety in Africa. As President of the Ghana Internet Safety Foundation and Founder of the Trust and Safety Africa Academy, he works with governments, educators, and international partners to strengthen digital safety, combat online child exploitation, and promote responsible technology use. He is a recognised speaker at international trust and safety conferences and actively contributes to global discussions on cybersecurity, online child protection, and digital resilience. His work focuses on building institutional capacity, strengthening policy frameworks, and empowering communities to create safer digital environments.'
     },
     {
         name: 'Dr. Mandy Sanchez',
         role: 'Director of Programming, Culture Reframed, USA',
-        photo: null,
+        slug: 'mandy-sanchez',
         bio: 'Dr. Mandy Sanchez is an internationally recognised researcher and educator specialising in the impact of pornography, hypersexualised media, and digital culture on children and young people. With more than two decades of experience, she develops trauma-informed, evidence-based programmes that support parents, educators, and communities in promoting healthy digital development. Her research explores the intersection of trauma, gender, violence, and youth wellbeing, with a particular focus on prevention through education and public awareness. She is widely respected for translating complex research into practical resources that help families and professionals safeguard children in the digital age.'
     },
     {
         name: 'Nicolas Makharashvili',
         role: 'Director, Safe Futures Hub: Solutions to End Childhood Sexual Violence, USA',
-        photo: null,
+        slug: 'nicolas-makharashvili',
         bio: 'Nicolas Makharashvili is a public health specialist with extensive experience in preventing violence against children. He has worked closely with global organisations including WHO, UNICEF, the World Bank, and Columbia University to advance evidence-based child protection programmes and strengthen systems that safeguard children from sexual violence. His expertise spans programme design, systems strengthening, implementation science, and cross-sector collaboration to improve child protection outcomes. Through his leadership, he continues to support governments and organisations in translating research into effective policies and sustainable interventions.'
     },
     {
         name: 'Arti Mohan',
         role: 'Lead Technical Specialist, Safe Futures Hub: Solutions to End Childhood Sexual Violence, India',
-        photo: null,
+        slug: 'arti-mohan',
         bio: 'Arti Mohan is a child protection specialist and former lawyer with expertise in restorative justice and trauma-informed practice. She has worked extensively with child survivors of abuse and has trained legal professionals, government agencies, and frontline practitioners on child protection, restorative justice, and survivor-centred approaches. Her work focuses on creating justice systems that prioritise healing, participation, and the rights of children. She also contributes to international research and capacity-building initiatives that strengthen child protection responses around the world.'
     },
     {
         name: 'Zoe de Melo',
         role: 'Thematic Programme Manager – Sexual Exploitation of Children, Terre des Hommes Netherlands',
-        photo: null,
+        slug: 'zoe-de-melo',
         bio: 'Zoe de Melo is a child rights specialist focusing on the prevention of online child sexual exploitation and abuse across Asia. Her work centres on policy reform, social and behaviour change, private sector engagement, child participation, and integrating mental health approaches into child protection programmes. She has supported regional initiatives in South and Southeast Asia that strengthen child safeguarding systems and improve collaboration among governments, civil society, and the private sector. Her expertise bridges policy development, programme implementation, and child-centred advocacy.'
     },
     {
         name: 'Dr. Sumudu Mallawaarachchi',
         role: 'Research Fellow, ARC Centre of Excellence for the Digital Child, University of Wollongong, Australia',
-        photo: null,
+        slug: 'sumudu-mallawaarachchi',
         bio: "Dr. Sumudu Mallawaarachchi is a researcher specialising in children's digital lives and developmental outcomes. Her work examines how digital technologies influence child development, self-regulation, and psychosocial wellbeing through longitudinal and evidence-based research. She has published extensively on digital childhoods and is recognised for her contributions to understanding children's interactions with technology. Her research helps inform policies and practices that support healthy digital development and positive outcomes for children."
     },
     {
         name: 'Anil Raghuvanshi',
         role: 'Founder and President, ChildSafeNet, Nepal',
-        photo: null,
+        slug: 'anil-raghuvanshi',
         bio: "Anil Raghuvanshi is a regional leader in child online protection and digital safety with more than three decades of international development experience. Through ChildSafeNet, he promotes safer internet initiatives, digital literacy, and evidence-based child protection policies across South Asia. He has collaborated with leading international organisations, including UNICEF, ILO, ECPAT International, and Plan International, to strengthen child protection systems and digital safety initiatives. His work continues to inspire regional collaboration on children's rights and online safety."
     },
     {
         name: 'Pratishtha Arora',
         role: 'Chief Executive Officer, Social & Media Matters, India',
-        photo: null,
+        slug: 'pratishtha-arora',
         bio: 'Pratishtha Arora is a digital safety and gender specialist dedicated to creating safer and more inclusive online environments. She develops innovative training programmes and policy initiatives that address online safety, gender equality, and the digital wellbeing of children and young people. Her work focuses on empowering communities through digital literacy and promoting gender-responsive approaches to online safety. She is an advocate for inclusive digital policies that ensure technology remains safe, accessible, and equitable for all.'
     },
     {
         name: 'Dr. M. C. Rasmin',
         role: 'Founder, International Foundation for Digital Child (IFDC), Sri Lanka',
-        photo: null,
+        slug: 'mc-rasmin',
         bio: 'Dr. M. C. Rasmin is a researcher and practitioner specialising in child online safety, digital mental health, internet psychology, and media literacy. His work focuses on preventing online child sexual exploitation, promoting digital wellbeing, and advancing evidence-based policies and interventions that protect children in the digital environment. He has led numerous national and international initiatives on digital rights, child protection, and media literacy while working closely with governments, international organisations, and civil society partners. His research continues to explore the relationship between technology, child development, and mental wellbeing.'
     },
     {
         name: 'Dr. Nayana Perera',
         role: 'Medical Doctor and Clinical Health Psychologist, Sri Lanka',
-        photo: null,
+        slug: 'nayana-perera',
         bio: "Dr. Nayana Perera is a medical doctor and clinical health psychologist with expertise in child health, psychology, and digital mental wellbeing. Her multidisciplinary background enables her to bridge medicine and psychology in supporting children's healthy development and emotional wellbeing in an increasingly digital world. She has extensive experience working with children and families in both clinical and community settings, integrating psychological care with medical practice. Her interests include child development, mental health promotion, and strengthening family resilience in the digital age."
     }
 ];
+
+const PILLAR_COLOURS = ['#2F6F62', '#A9741F', '#5B4B8A', '#9C3F5E', '#4B5A63'];
 
 const PROGRAMMES = [
     {
         id: 'ocsa-2024',
         title: 'Online Child Safety Advocates Fellowship',
         period: '2024–2025',
-        intro: [
-            "The inaugural Online Child Safety Advocates Fellowship was designed to build a national network of advocates equipped to prevent online child sexual exploitation and promote children's digital wellbeing. The two-month virtual programme combined expert-led learning, practical mentoring, and community action, providing participants with both technical knowledge and leadership skills to address emerging online risks.",
-            'The fellowship attracted nearly 220 applications, from which 125 participants were selected to complete six mandatory online learning sessions. Upon successful completion of the programme, 20 fellows were selected to implement voluntary community projects, including school seminars, awareness campaigns, youth workshops, film screenings, performing arts initiatives, and the establishment of DigitalWise community clubs.'
-        ],
+        accent: '#2F6F62',
+        summary:
+            'A two-month virtual programme building a national network of advocates against online child sexual exploitation, combining expert-led learning, mentoring, and community action.',
         stats: [
-            { num: '220', cap: 'Applications received' },
-            { num: '125', cap: 'Participants selected' },
-            { num: '6', cap: 'Mandatory sessions' },
+            { num: '220', cap: 'Applications' },
+            { num: '125', cap: 'Participants' },
+            { num: '6', cap: 'Sessions' },
             { num: '20', cap: 'Community projects' }
         ],
         pillars: [
             {
-                title: 'Understanding Online Child Sexual Exploitation',
-                body: 'Participants developed a comprehensive understanding of online child sexual exploitation and abuse (OCSEA), including online grooming, child sexual abuse material (CSAM), sextortion, the live streaming of child sexual abuse, and emerging forms of technology-facilitated abuse. The programme explored global trends, offender behaviour, legal frameworks, reporting pathways, and evidence-based prevention strategies.'
+                title: 'Understanding online child sexual exploitation',
+                body: 'OCSEA, grooming, CSAM, sextortion and live-streamed abuse — global trends, legal frameworks, and prevention.'
             },
             {
-                title: "Digital Safety, Children's Rights, and Responsible Technology Use",
-                body: "The fellowship strengthened participants' understanding of children's digital rights, online privacy, cybersecurity, digital hygiene, safe internet practices, and responsible technology use. Participants also examined the implications of artificial intelligence, digital evidence collection, reporting mechanisms, and strategies for protecting children in increasingly complex digital environments."
+                title: "Digital safety and children's rights",
+                body: 'Digital rights, privacy, cybersecurity, AI implications, evidence collection, and reporting mechanisms.'
             },
             {
-                title: 'Digital Mental Health and Child Wellbeing',
-                body: "Recognising the growing psychological impact of technology, the programme explored digital addiction, excessive screen use, online trauma, harmful digital experiences, and the relationship between internet use and children's mental health. Fellows learned practical approaches to strengthening resilience, promoting healthy digital habits, and supporting the psychological wellbeing of children affected by online harms."
+                title: 'Digital mental health and wellbeing',
+                body: 'Digital addiction, screen use, online trauma, and building resilience and healthy habits.'
             },
             {
-                title: 'Prevention, Community Engagement, and Advocacy',
-                body: 'Participants gained practical skills to develop awareness campaigns, engage parents, educators, and communities, and advocate for stronger child protection systems. The fellowship introduced evidence-based prevention strategies and emphasised multi-sector collaboration to strengthen safeguarding mechanisms at family, school, community, and policy levels.'
+                title: 'Prevention, community engagement, advocacy',
+                body: 'Awareness campaigns, engaging parents and educators, and multi-sector safeguarding collaboration.'
             },
             {
-                title: 'Leadership and Community Action',
-                body: 'The fellowship encouraged participants to become local champions for online child safety by designing and implementing voluntary projects within their communities. Fellows organised seminars, workshops, youth engagement activities, DigitalWise Clubs, awareness campaigns, and creative initiatives that promoted safer and healthier digital environments while expanding the national movement for child online protection.'
+                title: 'Leadership and community action',
+                body: 'Fellow-led seminars, workshops, DigitalWise Clubs, and campaigns in their own communities.'
             }
         ]
     },
@@ -119,37 +129,35 @@ const PROGRAMMES = [
         id: 'admh-2025',
         title: 'Asian Digital Mental Health Advocates Fellowship',
         period: '2025–2026',
-        intro: [
-            'Building on the success of the inaugural programme, IFDC launched the Asian Digital Mental Health Advocates Fellowship to strengthen regional collaboration on digital mental health and child online safety across Asia.',
-            'The four-month virtual fellowship brought together psychologists, educators, researchers, journalists, child protection professionals, policymakers, and civil society leaders to examine the relationship between technology, mental wellbeing, and child protection through a multidisciplinary lens. Participants engaged in six expert-led learning sessions delivered by internationally recognised specialists from Asia, Africa, Australia, Europe, and North America.',
-            'The programme attracted more than 120 applications, from which participants completed six mandatory learning sessions before submitting concept proposals for community initiatives. Following the evaluation process, 10 fellows were selected to implement small-scale projects addressing digital mental health challenges among children and young people in their respective communities.'
-        ],
+        accent: '#5B4B8A',
+        summary:
+            'A four-month regional fellowship bringing psychologists, educators, researchers, journalists, and policymakers across Asia together to examine technology, mental wellbeing, and child protection.',
         stats: [
-            { num: '120+', cap: 'Applications received' },
-            { num: '4', cap: 'Months, virtual' },
-            { num: '6', cap: 'Expert-led sessions' },
-            { num: '10', cap: 'Fellows funded' }
+            { num: '120+', cap: 'Applications' },
+            { num: '4', cap: 'Months' },
+            { num: '6', cap: 'Expert sessions' },
+            { num: '10', cap: 'Funded fellows' }
         ],
         pillars: [
             {
-                title: 'Digital Mental Health and Youth Wellbeing',
-                body: 'Participants explored the psychological impact of digital technologies on children and young people, including digital addiction, problematic social media use, gaming disorder, loneliness, anxiety, depression, sleep disruption, and healthy digital habits. The fellowship promoted evidence-based approaches to strengthening resilience and supporting positive mental wellbeing.'
+                title: 'Digital mental health and youth wellbeing',
+                body: 'Digital addiction, problematic social media use, gaming disorder, anxiety, sleep, and resilience.'
             },
             {
-                title: 'Child Online Safety and Digital Protection',
-                body: 'The programme examined the evolving landscape of online child protection, including cyberbullying, online grooming, child sexual exploitation, CSAM, sextortion, and the live streaming of child sexual abuse. Participants explored prevention strategies, safeguarding mechanisms, and trauma-informed approaches to protecting children online.'
+                title: 'Child online safety and digital protection',
+                body: 'Cyberbullying, grooming, exploitation, CSAM and sextortion — prevention and trauma-informed response.'
             },
             {
-                title: 'Technology, AI, and Digital Governance',
-                body: "Participants developed an understanding of persuasive technology, algorithmic systems, artificial intelligence, platform accountability, digital rights, and ethical technology governance. Discussions highlighted how emerging technologies influence children's behaviour, safety, and overall wellbeing."
+                title: 'Technology, AI, and digital governance',
+                body: 'Persuasive technology, algorithms, AI, platform accountability, and ethical governance.'
             },
             {
-                title: 'Prevention, Research, and Policy',
-                body: "The fellowship strengthened participants' capacity to design evidence-based interventions, contribute to research, advocate for policy reform, and promote collaborative approaches involving education, health, child protection, and technology sectors. Participants learned how research and evidence can influence national and regional responses to digital challenges."
+                title: 'Prevention, research, and policy',
+                body: 'Evidence-based interventions, research contribution, and policy reform across sectors.'
             },
             {
-                title: 'Regional Leadership and Community Innovation',
-                body: 'The fellowship fostered a growing network of Digital Mental Health Advocates across Asia by encouraging cross-country collaboration, knowledge sharing, and community innovation. Fellows translated their learning into practical initiatives that promoted digital wellbeing, strengthened local partnerships, and demonstrated scalable approaches to addressing digital mental health within diverse cultural contexts.'
+                title: 'Regional leadership and community innovation',
+                body: 'Cross-country collaboration, knowledge sharing, and scalable community initiatives across Asia.'
             }
         ]
     }
@@ -176,15 +184,16 @@ const initials = (name) =>
 
 function ExpertCard({ expert }) {
     const [expanded, setExpanded] = useState(false);
+    const photo = portraitFor(expert.slug);
 
     return (
         <article className="bg-white rounded-2xl border border-outline-variant/30 p-6 shadow-sm hover:shadow-xl transition-shadow duration-300 flex flex-col">
             <div className="flex items-center gap-4 mb-4">
-                {expert.photo ? (
+                {photo ? (
                     <img
-                        src={expert.photo}
+                        src={photo}
                         alt={expert.name}
-                        className="w-20 h-20 rounded-2xl object-cover shrink-0 ring-2 ring-safety-yellow"
+                        className="w-20 h-20 rounded-2xl object-cover object-top shrink-0 ring-2 ring-safety-yellow"
                     />
                 ) : (
                     <div
@@ -221,81 +230,85 @@ function ExpertCard({ expert }) {
     );
 }
 
-function ProgrammeAccordion({ programme, isOpen, onToggle }) {
+function ProgrammeCard({ programme }) {
     return (
-        <div className={`bg-white rounded-2xl border transition-all duration-300 ${isOpen ? 'border-safety-yellow shadow-xl' : 'border-outline-variant/30 shadow-sm'}`}>
-            <h3>
-                <button
-                    type="button"
-                    onClick={onToggle}
-                    aria-expanded={isOpen}
-                    aria-controls={`panel-${programme.id}`}
-                    id={`accordion-${programme.id}`}
-                    className="w-full flex items-center justify-between gap-4 text-left p-6 md:p-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-navy rounded-2xl"
-                >
-                    <span>
-                        <span className="block font-label-md text-label-md text-primary uppercase tracking-wider mb-1">
-                            {programme.period}
-                        </span>
-                        <span className="block font-headline-md text-headline-md text-deep-navy leading-snug">
-                            {programme.title}
-                        </span>
-                    </span>
-                    <span
-                        className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? 'bg-safety-yellow rotate-180' : 'bg-sky-tint'}`}
-                    >
-                        <span className="material-symbols-outlined text-deep-navy">expand_more</span>
-                    </span>
-                </button>
-            </h3>
+        <article className="rounded-[2rem] overflow-hidden shadow-xl bg-white">
 
-            <div
-                id={`panel-${programme.id}`}
-                role="region"
-                aria-labelledby={`accordion-${programme.id}`}
-                hidden={!isOpen}
-                className="px-6 md:px-8 pb-8"
-            >
-                <div className="space-y-4 border-t border-outline-variant/40 pt-6">
-                    {programme.intro.map((para) => (
-                        <p key={para.slice(0, 40)} className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                            {para}
-                        </p>
-                    ))}
+            {/* Coloured header band */}
+            <header className="px-6 md:px-10 py-8 relative overflow-hidden" style={{ backgroundColor: programme.accent }}>
+                <span className="absolute -top-16 -right-10 w-56 h-56 bg-white/10 rounded-full pointer-events-none" aria-hidden="true"></span>
+
+                <div className="relative">
+                    <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white font-label-md text-label-md tracking-wider">
+                        {programme.period}
+                    </span>
+                    <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white mt-4 leading-snug">
+                        {programme.title}
+                    </h3>
+                    <p className="font-body-md text-body-md text-white/85 mt-3 max-w-3xl leading-relaxed">
+                        {programme.summary}
+                    </p>
                 </div>
+            </header>
 
-                <dl className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            <div className="p-6 md:p-10">
+
+                {/* Stats */}
+                <dl className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {programme.stats.map((stat) => (
-                        <div key={stat.cap} className="bg-sky-tint/40 rounded-xl px-4 py-5 text-center">
-                            <dt className="font-display-lg text-headline-md text-deep-navy">{stat.num}</dt>
+                        <div
+                            key={stat.cap}
+                            className="rounded-xl px-4 py-5 text-center"
+                            style={{ backgroundColor: `${programme.accent}14` }}
+                        >
+                            <dt className="font-display-lg text-headline-md" style={{ color: programme.accent }}>
+                                {stat.num}
+                            </dt>
                             <dd className="font-caption text-caption text-on-surface-variant mt-1">{stat.cap}</dd>
                         </div>
                     ))}
                 </dl>
 
-                <h4 className="font-headline-md text-headline-md text-deep-navy mt-10 mb-5">Fellowship Learning Pillars</h4>
-                <ol className="divide-y divide-outline-variant/40 border-t border-outline-variant/40">
-                    {programme.pillars.map((pillar, index) => (
-                        <li key={pillar.title} className="grid grid-cols-1 sm:grid-cols-12 gap-3 sm:gap-6 py-6">
-                            <div className="sm:col-span-1">
-                                <span className="font-display-lg text-headline-md text-safety-yellow leading-none">
-                                    {String(index + 1).padStart(2, '0')}
+                {/* Learning pillars */}
+                <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-10 mb-5">
+                    Learning pillars
+                </p>
+
+                <ol className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {programme.pillars.map((pillar, index) => {
+                        const colour = PILLAR_COLOURS[index % PILLAR_COLOURS.length];
+
+                        return (
+                            <li
+                                key={pillar.title}
+                                className="group flex gap-4 rounded-xl bg-surface p-5 border-l-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
+                                style={{ borderLeftColor: colour }}
+                            >
+                                <span
+                                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 font-bold text-body-md text-white"
+                                    style={{ backgroundColor: colour }}
+                                    aria-hidden="true"
+                                >
+                                    {index + 1}
                                 </span>
-                            </div>
-                            <div className="sm:col-span-11">
-                                <h5 className="font-headline-md text-headline-md text-deep-navy mb-2 leading-snug">{pillar.title}</h5>
-                                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{pillar.body}</p>
-                            </div>
-                        </li>
-                    ))}
+                                <div>
+                                    <h4 className="font-headline-md text-body-lg font-bold text-deep-navy leading-snug mb-1">
+                                        {pillar.title}
+                                    </h4>
+                                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                        {pillar.body}
+                                    </p>
+                                </div>
+                            </li>
+                        );
+                    })}
                 </ol>
             </div>
-        </div>
+        </article>
     );
 }
 
 export default function Advocate() {
-    const [openProgramme, setOpenProgramme] = useState(PROGRAMMES[0].id);
 
     return (
         <>
@@ -441,16 +454,9 @@ export default function Advocate() {
                             <span className="block w-20 h-1 bg-safety-yellow rounded-full mx-auto mt-5"></span>
                         </div>
 
-                        <div className="space-y-5 max-w-5xl mx-auto">
+                        <div className="space-y-8 max-w-5xl mx-auto">
                             {PROGRAMMES.map((programme) => (
-                                <ProgrammeAccordion
-                                    key={programme.id}
-                                    programme={programme}
-                                    isOpen={openProgramme === programme.id}
-                                    onToggle={() =>
-                                        setOpenProgramme((current) => (current === programme.id ? null : programme.id))
-                                    }
-                                />
+                                <ProgrammeCard key={programme.id} programme={programme} />
                             ))}
                         </div>
                     </div>

@@ -22,7 +22,7 @@ const ORGANIZATION_LINKS = [
   { label: 'Annual Report', path: '/annual-report' },
   { label: 'Strategic Plan', path: '/strategic-plan' },
   { label: 'Policies & Governance', path: '/policies' },
-  // { label: 'Our Impact Stories', path: '/impact' }
+  { label: 'Our Impact Stories', path: '/impact' }
 ];
 
 const RESOURCE_LINKS = [

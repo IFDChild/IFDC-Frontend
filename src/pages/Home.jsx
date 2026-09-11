@@ -85,12 +85,12 @@ function ProgrammePillars() {
                             onMouseLeave={() => setHovered(null)}
                             className={`relative bg-white rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 ${
                                 isActive
-                                    ? 'shadow-2xl -translate-y-2 ring-2 ring-safety-yellow'
+                                    ? 'shadow-2xl -translate-y-2 ring-2 ring-deep-navy'
                                     : 'shadow-sm ring-1 ring-outline-variant/30'
                             }`}
                         >
                             <span
-                                className={`absolute inset-x-0 top-0 h-1.5 bg-safety-yellow transition-transform duration-500 origin-left ${
+                                className={`absolute inset-x-0 top-0 h-1.5 bg-deep-navy transition-transform duration-500 origin-left ${
                                     isActive ? 'scale-x-100' : 'scale-x-0'
                                 }`}
                             ></span>
@@ -139,7 +139,7 @@ function ProgrammePillars() {
                         aria-current={index === active}
                         className={`h-2.5 rounded-full transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-navy focus-visible:ring-offset-2 ${
                             index === active
-                                ? 'w-10 bg-safety-yellow'
+                                ? 'w-10 bg-deep-navy'
                                 : 'w-2.5 bg-outline-variant hover:bg-primary/50'
                         }`}
                     />
@@ -810,28 +810,63 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="py-24 px-margin-desktop">
+            {/* Donate */}
+            <section className="py-24 px-margin-mobile md:px-margin-desktop">
                 <div className="max-w-7xl mx-auto">
-                    <div className="relative bg-primary-container rounded-[3rem] overflow-hidden p-12 md:p-24 text-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 rounded-[2.5rem] overflow-hidden shadow-2xl">
 
-                        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                            <div className="absolute -top-24 -left-24 w-96 h-96 bg-safety-yellow rounded-full blur-[100px]"></div>
-                            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-sky-tint rounded-full blur-[100px]"></div>
+                        {/* Image side */}
+                        <div className="lg:col-span-5 relative min-h-[280px] lg:min-h-[520px]">
+                            <img
+                                src={digitalChildren}
+                                alt="Three children each absorbed in their own screen at home"
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <span className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-deep-navy/90 lg:from-transparent to-transparent lg:to-deep-navy" aria-hidden="true"></span>
                         </div>
-                        <div className="relative z-10 max-w-2xl mx-auto space-y-8">
-                            <h2 className="font-display-lg text-headline-lg text-white">Your support changes lives. <br /> Help us secure their digital future.</h2>
-                            <p className="text-on-primary-container font-body-lg text-lg">Every donation provides critical resources for rural schools, safety workshops for parents, and comprehensive training for youth mentors. Join us in building a safer digital world for every child.</p><div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 text-white/90 font-label-md"><div className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10"><span className="text-safety-yellow text-headline-md mb-1">$25</span><span className="">One Safety Kit</span></div><div className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10"><span className="text-safety-yellow text-headline-md mb-1">$50</span><span className="">Parent Workshop</span></div><div className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10"><span className="text-safety-yellow text-headline-md mb-1">$100</span><span className="">Youth Mentorship</span></div></div>
-                            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-4">
-                                <button className="bg-safety-yellow text-primary px-10 py-5 rounded-full font-label-md text-lg shadow-xl hover:scale-105 transition-transform active:scale-95">
-                                    <Link to="/donate" >
-                                        Donate Now
-                                    </Link>
-                                </button>
-                                <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-label-md text-lg hover:bg-white/20 transition-all active:scale-95">
-                                    <Link to="/volunteer" >
-                                        Become a Volunteer
-                                    </Link>
-                                </button>
+
+                        {/* Content side */}
+                        <div className="lg:col-span-7 bg-deep-navy text-white p-10 md:p-14 lg:p-16 flex flex-col justify-center relative overflow-hidden">
+                            <span className="absolute -top-24 -right-24 w-80 h-80 bg-safety-yellow/10 blur-3xl rounded-full pointer-events-none" aria-hidden="true"></span>
+
+                            <div className="relative">
+                                <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-safety-yellow/15 border border-safety-yellow/40 rounded-full text-safety-yellow font-label-md text-label-md">
+                                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+                                    Support our work
+                                </span>
+
+                                <h2 className="font-display-lg text-headline-lg-mobile md:text-headline-lg text-white mt-6 leading-tight">
+                                    Your support changes lives.
+                                </h2>
+
+                                <span className="block w-20 h-1 bg-safety-yellow rounded-full my-6"></span>
+
+                                <p className="font-body-lg text-body-lg text-white/75 leading-relaxed max-w-xl">
+                                    Every donation helps us reach more children, families, and educators across Sri Lanka with the training and tools they need to stay safe online.
+                                </p>
+
+                                <ul className="mt-8 space-y-4">
+                                    {[
+                                        { icon: 'school', text: 'Resources for rural schools' },
+                                        { icon: 'family_restroom', text: 'Safety workshops for parents' },
+                                        { icon: 'diversity_3', text: 'Training for youth mentors' }
+                                    ].map((item) => (
+                                        <li key={item.text} className="flex items-center gap-4">
+                                            <span className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shrink-0">
+                                                <span className="material-symbols-outlined text-safety-yellow text-xl">{item.icon}</span>
+                                            </span>
+                                            <span className="font-body-md text-body-md text-white/85">{item.text}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <Link
+                                    to="/donate"
+                                    className="inline-flex items-center gap-2 bg-safety-yellow text-deep-navy font-label-md text-label-md px-8 py-4 rounded-full mt-10 hover:bg-secondary-fixed-dim transition-all duration-200 active:scale-95 shadow-lg"
+                                >
+                                    Donate now
+                                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                                </Link>
                             </div>
                         </div>
                     </div>

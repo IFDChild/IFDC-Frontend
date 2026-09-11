@@ -27,7 +27,7 @@ export default function Navbar() {
         </div>
 
         {/* Navigation */}
-        <nav className="hidden md:flex items-center gap-8 font-['Poppins']">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-8 font-['Poppins']">
 
           <Link className={linkClass('/')} to="/">
             Home
@@ -35,6 +35,12 @@ export default function Navbar() {
 
           <Link className={linkClass('/about')} to="/about">
             About
+          </Link>
+
+          {/* Full label from lg up; shortened on tablet so the bar does not wrap */}
+          <Link className={`${linkClass('/advocate')} whitespace-nowrap`} to="/advocate">
+            <span className="lg:hidden">Advocate</span>
+            <span className="hidden lg:inline">Advocate Programmes</span>
           </Link>
 
           <Link className={linkClass('/news')} to="/news">
@@ -71,21 +77,6 @@ export default function Navbar() {
                   >
                     <span className="flex-1">
                       Volunteer
-                    </span>
-
-                    <span className="material-symbols-outlined text-[18px] opacity-0 group-hover/item:opacity-100 transition-opacity">
-                      chevron_right
-                    </span>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="flex items-center px-6 py-4 hover:bg-safety-yellow hover:text-deep-navy transition-colors font-sans font-semibold"
-                    to="/advocate"
-                  >
-                    <span className="flex-1">
-                      Advocate
                     </span>
 
                     <span className="material-symbols-outlined text-[18px] opacity-0 group-hover/item:opacity-100 transition-opacity">

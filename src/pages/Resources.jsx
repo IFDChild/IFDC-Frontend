@@ -1,796 +1,401 @@
-
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-import React, { useState } from 'react';
+import heroImage from '../assets/images/childwith Tab.jpg';
+import { fileUrl, getResources, registerResourceDownload } from '../lib/api';
+
+/** Icon + accent per audience; unknown audiences fall back to the first. */
+const AUDIENCE_STYLE = {
+    'Parents & Caregivers': { icon: 'family_restroom', accent: '#2F6F62' },
+    'Educators & Schools': { icon: 'school', accent: '#A9741F' },
+    'Policymakers & Research': { icon: 'gavel', accent: '#5B4B8A' },
+    'Journalists & Media': { icon: 'newspaper', accent: '#9C3F5E' },
+    'Children & Young People': { icon: 'child_care', accent: '#0b3d6e' }
+};
+
+const styleFor = (audience) =>
+    AUDIENCE_STYLE[audience] || { icon: 'folder', accent: '#4B5A63' };
+
+const formatBytes = (bytes) => {
+    if (!bytes || bytes < 1024) return `${bytes || 0} B`;
+    if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
+
+function PdfPreview({ resource, onClose }) {
+    useEffect(() => {
+        const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+        document.addEventListener('keydown', onKey);
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.removeEventListener('keydown', onKey);
+            document.body.style.overflow = '';
+        };
+    }, [onClose]);
+
+    const href = fileUrl(resource.file_url);
+
+    return (
+        <div
+            className="fixed inset-0 z-[100] bg-deep-navy/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Preview of ${resource.title}`}
+        >
+            <div
+                className="relative bg-white w-full max-w-5xl h-[90vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="flex items-center justify-between gap-4 px-5 py-3 border-b border-outline-variant/40 shrink-0">
+                    <h2 className="font-headline-md text-body-lg text-primary truncate">{resource.title}</h2>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                        <a
+                            href={href}
+                            download
+                            onClick={() => registerResourceDownload(resource.id)}
+                            className="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-2 hover:bg-deep-navy transition-colors"
+                        >
+                            <span className="material-symbols-outlined text-sm">download</span>
+                            Download
+                        </a>
+                        <button
+                            onClick={onClose}
+                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors"
+                            aria-label="Close preview"
+                        >
+                            <span className="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                </div>
+
+                <iframe src={href} title={`${resource.title} preview`} className="w-full flex-1" />
+            </div>
+        </div>
+    );
+}
+
+function ResourceCard({ resource, onPreview, eager = false }) {
+    const href = fileUrl(resource.file_url);
+    const thumb = resource.thumbnail_url ? fileUrl(resource.thumbnail_url) : null;
+    const { icon, accent } = styleFor(resource.audience);
+
+    return (
+        <article className="group bg-white rounded-2xl overflow-hidden border border-outline-variant/30 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
+
+            {/* Cover */}
+            <button
+                type="button"
+                onClick={() => onPreview(resource)}
+                className="relative block w-full aspect-[3/4] bg-surface-container overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-safety-yellow"
+                aria-label={`Preview ${resource.title}`}
+            >
+                {thumb ? (
+                    <img
+                        src={thumb}
+                        alt=""
+                        loading={eager ? 'eager' : 'lazy'}
+                        fetchPriority={eager ? 'high' : 'auto'}
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                ) : (
+                    <span className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: `${accent}14` }}>
+                        <span className="material-symbols-outlined text-6xl" style={{ color: accent }}>picture_as_pdf</span>
+                    </span>
+                )}
+
+                {/* Hover overlay */}
+                <span className="absolute inset-0 bg-deep-navy/0 group-hover:bg-deep-navy/45 transition-colors duration-300 flex items-center justify-center">
+                    <span className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-safety-yellow text-deep-navy font-label-md text-label-md opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg">
+                        <span className="material-symbols-outlined text-sm">visibility</span>
+                        Preview
+                    </span>
+                </span>
+
+                {/* Format chip */}
+                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 text-caption font-bold tracking-wide" style={{ color: accent }}>
+                    PDF
+                </span>
+
+                {resource.category && (
+                    <span className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-caption font-semibold text-white" style={{ backgroundColor: accent }}>
+                        {resource.category}
+                    </span>
+                )}
+            </button>
+
+            {/* Body */}
+            <div className="p-5 flex flex-col flex-grow">
+                <h3 className="font-headline-md text-body-lg text-deep-navy leading-snug mb-2">{resource.title}</h3>
+
+                {resource.description && (
+                    <p className="text-on-surface-variant text-body-md leading-relaxed mb-4 flex-grow line-clamp-3">
+                        {resource.description}
+                    </p>
+                )}
+
+                <div className="flex items-center gap-3 text-caption text-outline mb-4">
+                    <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm" style={{ color: accent }}>{icon}</span>
+                        {formatBytes(resource.file_size)}
+                    </span>
+                    {resource.downloads > 0 && (
+                        <span className="flex items-center gap-1">
+                            <span className="material-symbols-outlined text-sm">download</span>
+                            {resource.downloads}
+                        </span>
+                    )}
+                </div>
+
+                <div className="flex gap-2 mt-auto">
+                    <a
+                        href={href}
+                        download
+                        onClick={() => registerResourceDownload(resource.id)}
+                        className="flex-1 px-4 py-2.5 rounded-lg font-label-md text-label-md text-white flex items-center justify-center gap-2 transition-transform active:scale-95"
+                        style={{ backgroundColor: accent }}
+                    >
+                        <span className="material-symbols-outlined text-sm">download</span>
+                        Download
+                    </a>
+                    <button
+                        onClick={() => onPreview(resource)}
+                        className="px-4 py-2.5 border border-outline-variant rounded-lg font-label-md text-label-md text-primary hover:bg-sky-tint transition-colors"
+                    >
+                        Preview
+                    </button>
+                </div>
+            </div>
+        </article>
+    );
+}
 
 export default function Resources() {
-  const [previewPdf, setPreviewPdf] = useState(null);
-  const resources = [
-    {
-      id: 1,
-      title: "2024 Online Safety Guide",
-      description:
-        "Complete toolkit for managing screen time, setting boundaries, and talking about digital privacy with your children.",
-      category: "Parents & Caregivers",
-      file: "/resources/Cover1.pdf",
-      size: "2.4 MB",
-      date: "Oct 2023",
-      isNew: true,
-    },
-    {
-      id: 2,
-      title: "Social Media & Mental Health",
-      description:
-        "Research-backed advice on recognizing signs of digital exhaustion and fostering healthy self-esteem in teens.",
-      category: "Parents & Caregivers",
-      file: "/resources/social-media-mental-health.pdf",
-      size: "1.8 MB",
-      date: "Aug 2023",
-    },
-    {
-      id: 3,
-      title: "Gaming Privacy Settings",
-      description:
-        "Step-by-step instructions for popular gaming consoles to ensure a private and secure play environment.",
-      category: "Parents & Caregivers",
-      file: "/resources/gaming-privacy-settings.pdf",
-      size: "3.1 MB",
-      date: "June 2023",
-    },
-  ];
+    const [resources, setResources] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [previewResource, setPreviewResource] = useState(null);
+    const [activeAudience, setActiveAudience] = useState('All');
+    const [query, setQuery] = useState('');
 
-  return (
-    <>
+    useEffect(() => {
+        let cancelled = false;
 
-      {/* PDF PREVIEW MODAL */}
-      {previewPdf && (
-        <div
-          className="fixed inset-0 z-[100] bg-black/70 flex items-center justify-center p-4"
-          onClick={() => setPreviewPdf(null)}
-        >
-          <div
-            className="relative bg-white w-full max-w-5xl h-[90vh] rounded-xl overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
+        getResources()
+            .then((data) => { if (!cancelled) setResources(data); })
+            .catch((err) => {
+                if (cancelled) return;
+                setError(
+                    err instanceof TypeError
+                        ? 'We could not reach the server. Please try again shortly.'
+                        : err.message
+                );
+            })
+            .finally(() => { if (!cancelled) setIsLoading(false); });
 
-            {/* Modal Header */}
-            <div className="flex items-center justify-between px-5 py-3 border-b bg-white">
+        return () => { cancelled = true; };
+    }, []);
 
-              <h2 className="font-headline-md text-primary">
-                PDF Preview
-              </h2>
+    const closePreview = useCallback(() => setPreviewResource(null), []);
 
-              <div className="flex items-center gap-2">
+    const audiences = useMemo(
+        () => [...new Set(resources.map((item) => item.audience))],
+        [resources]
+    );
 
-                {/* Download from Preview */}
-                <a
-                  href={previewPdf}
-                  download
-                  className="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-2 hover:bg-deep-navy"
-                >
-                  <span className="material-symbols-outlined text-sm">
-                    download
-                  </span>
+    const counts = useMemo(() => {
+        const tally = {};
+        resources.forEach((r) => { tally[r.audience] = (tally[r.audience] || 0) + 1; });
+        return tally;
+    }, [resources]);
 
-                  Download
-                </a>
+    const visible = useMemo(() => {
+        const term = query.trim().toLowerCase();
 
-                {/* Close */}
-                <button
-                  onClick={() => setPreviewPdf(null)}
-                  className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container"
-                  aria-label="Close PDF preview"
-                >
-                  <span className="material-symbols-outlined">
-                    close
-                  </span>
-                </button>
+        return resources.filter((item) => {
+            if (activeAudience !== 'All' && item.audience !== activeAudience) return false;
+            if (!term) return true;
+            return `${item.title} ${item.description || ''} ${item.category || ''}`
+                .toLowerCase()
+                .includes(term);
+        });
+    }, [resources, activeAudience, query]);
 
-              </div>
-            </div>
+    return (
+        <>
+            {previewResource && <PdfPreview resource={previewResource} onClose={closePreview} />}
 
-            {/* PDF Viewer */}
-            <iframe
-              src={previewPdf}
-              title="PDF Preview"
-              className="w-full h-[calc(90vh-65px)]"
-            />
+            <Navbar />
 
-          </div>
-        </div>
-      )}
-
-
-
-      <Navbar />
-      <main className="pt-20">
-
-        <section className="relative overflow-hidden  pb-stack-lg px-margin-mobile md:px-margin-desktop">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-stack-lg items-center">
-            <div className="z-10">
-              <span className="inline-block px-4 py-1 bg-sky-tint text-primary rounded-full font-label-md mb-stack-sm">Education Hub</span>
-              <h1 className="font-display-lg text-display-lg md:text-display-lg text-primary mb-stack-md">Digital Safety Resources</h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-stack-lg">
-                Empowering children, families, and educators with free, evidence-based tools to foster a safer, more positive digital world. Discover our collection of guides, curriculum, and toolkits.
-              </p>
-              <div className="flex flex-wrap gap-stack-sm">
-                <Link className="px-8 py-4 bg-primary text-on-primary rounded-full font-label-md hover:bg-deep-navy transition-all ambient-glow" to="#">Explore Library</Link>
-                <Link className="px-8 py-4 border-2 border-primary text-primary rounded-full font-label-md hover:bg-sky-tint transition-all" to="#">Newest Updates</Link>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute -top-10 -right-10 w-64 h-64 bg-safety-yellow/20 rounded-full blur-3xl"></div>
-              <div className="glass-card rounded-xl overflow-hidden ambient-glow transform rotate-1">
-                <img className="w-full h-[400px] object-cover" data-alt="A diverse group of cheerful elementary students and a teacher in a bright, modern technology lab using tablets and large touch screens. The lighting is soft and warm, reflecting a protective and optimistic educational environment with primary colors like deep blue and soft canary yellow. The style is clean, modern corporate with soft illustration-like quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgU8rk5-RnqUpCb422ukY-Yc5vrmz2WmOyUtgATqrkQWBhbQRJ9-09zT8QOFVrorW5pWyVpvTBtj2z3OFwFxR6q4tWKXId-ftsElCmRf-ZePKbRLy-Banw16SYGq6iOhQtTs_rDr9IsilL430_b6ZxpSh-ogyCHS-J0CqahGTEmm0Uoua8o76B3L3CHvBEyeRA9-0jSG61v28jTsQP8MdDaDr11Lxn2MzXxKlRC_UFCip7PE7Qzhcs" />
-              </div>
-              <div className="absolute -bottom-6 -left-6 glass-card p-stack-md rounded-xl ambient-glow hidden md:block">
-                <div className="flex items-center gap-base">
-                  <div className="w-10 h-10 rounded-full bg-safety-yellow flex items-center justify-center">
-                    <span className="material-symbols-outlined text-deep-navy">download</span>
-                  </div>
-                  <div>
-                    <p className="font-label-md text-primary">50k+ Downloads</p>
-                    <p className="text-caption text-on-surface-variant">This month alone</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* <section className="bg-surface-container-low py-stack-md px-margin-mobile md:px-margin-desktop sticky top-20 z-40 border-y border-outline-variant/30" id="browse">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-stack-md">
-              <div className="w-full lg:max-w-md relative">
-                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
-                <input className="w-full pl-12 pr-4 py-3 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-primary font-body-md" placeholder="Search by topic, keyword, or title..." type="text" />
-              </div>
-              <div className="flex flex-wrap items-center gap-base">
-                <span className="text-caption text-on-surface-variant font-semibold uppercase tracking-wider mr-2">Filter by:</span>
-                <button className="px-4 py-2 bg-primary text-on-primary rounded-full font-label-md">All</button>
-                <button className="px-4 py-2 bg-white text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-sky-tint transition-all">Parents</button>
-                <button className="px-4 py-2 bg-white text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-sky-tint transition-all">Teachers</button>
-                <button className="px-4 py-2 bg-white text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-sky-tint transition-all">Children</button>
-                <button className="px-4 py-2 bg-white text-on-surface-variant border border-outline-variant rounded-full font-label-md hover:bg-sky-tint transition-all">Policymakers</button>
-              </div>
-              <div className="flex items-center gap-stack-sm ml-auto">
-                <select className="bg-white border border-outline-variant rounded-lg px-4 py-2 font-label-md focus:ring-primary">
-                  <option>Newest</option>
-                  <option>Most Downloaded</option>
-                  <option>Alphabetical</option>
-                </select>
-                <div className="hidden sm:block text-caption text-on-surface-variant">
-                  Showing <span className="font-bold text-primary">124</span> Resources
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
-        {/* <section className="py-xxl px-margin-mobile md:px-margin-desktop">
-          <div className="max-w-7xl mx-auto space-y-xxl">
-
-            <div className="space-y-stack-md">
-              <div className="flex items-center gap-base pb-base border-b-2 border-primary w-fit">
-                <span className="material-symbols-outlined text-primary" style={{ "fontVariationSettings": "'FILL' 1" }}>family_restroom</span>
-                <h2 className="font-headline-md text-headline-md text-primary">Parents &amp; Caregivers</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined" style={{ "fontVariationSettings": "'FILL' 1" }}>picture_as_pdf</span>
-                    </div>
-                    <span className="px-2 py-1 bg-surface-container text-caption rounded font-semibold text-on-surface-variant uppercase">New</span>
-                  </div>
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">2024 Online Safety Guide</h3>
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">Complete toolkit for managing screen time, setting boundaries, and talking about digital privacy with your children.</p>
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">description</span> PDF</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">hard_drive</span> 2.4 MB</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">schedule</span> Oct 2023</span>
-                  </div>
-                  <div className="flex gap-base">
-                    <a
-                      href={resource.file}
-                      download
-                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        download
-                      </span>
-                      Download
-                    </a>
-                    <button className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint">Preview</button>
-                  </div>
-                </div>
-
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined" style={{ "fontVariationSettings": "'FILL' 1" }}>picture_as_pdf</span>
-                    </div>
-                  </div>
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">Social Media &amp; Mental Health</h3>
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">Research-backed advice on recognizing signs of digital exhaustion and fostering healthy self-esteem in teens.</p>
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">description</span> PDF</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">hard_drive</span> 1.8 MB</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">schedule</span> Aug 2023</span>
-                  </div>
-                  <div className="flex gap-base">
-                    <Link className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy" download="" to="#">
-                      <span className="material-symbols-outlined text-sm">download</span> Download
-                    </Link>
-                    <button className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint">Preview</button>
-                  </div>
-                </div>
-
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined" style={{ "fontVariationSettings": "'FILL' 1" }}>picture_as_pdf</span>
-                    </div>
-                  </div>
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">Gaming Privacy Settings</h3>
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">Step-by-step instructions for the most popular gaming consoles to ensure a private and secure play environment.</p>
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">description</span> PDF</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">hard_drive</span> 3.1 MB</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">schedule</span> June 2023</span>
-                  </div>
-                  <div className="flex gap-base">
-                    <Link className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy" download="" to="#">
-                      <span className="material-symbols-outlined text-sm">download</span> Download
-                    </Link>
-                    <button className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint">Preview</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-stack-md">
-              <div className="flex items-center gap-base pb-base border-b-2 border-secondary-container w-fit">
-                <span className="material-symbols-outlined text-secondary" style={{ "fontVariationSettings": "'FILL' 1" }}>school</span>
-                <h2 className="font-headline-md text-headline-md text-secondary">Educators &amp; Schools</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-soft-canary rounded-lg flex items-center justify-center text-secondary">
-                      <span className="material-symbols-outlined" style={{ "fontVariationSettings": "'FILL' 1" }}>picture_as_pdf</span>
-                    </div>
-                  </div>
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">Cyber-Citizenship Curriculum</h3>
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">A 12-week modular curriculum for grades 1-5 focusing on digital ethics and empathy.</p>
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">description</span> PDF</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">hard_drive</span> 12.5 MB</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">schedule</span> Sept 2023</span>
-                  </div>
-                  <div className="flex gap-base">
-                    <Link className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy" download="" to="#">
-                      <span className="material-symbols-outlined text-sm">download</span> Download
-                    </Link>
-                    <button className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint">Preview</button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div className="space-y-stack-md">
-              <div className="flex items-center gap-base pb-base border-b-2 border-tertiary w-fit">
-                <span className="material-symbols-outlined text-tertiary" style={{ "fontVariationSettings": "'FILL' 1" }}>policy</span>
-                <h2 className="font-headline-md text-headline-md text-tertiary">Policymakers &amp; Research</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-tertiary">
-                      <span className="material-symbols-outlined" style={{ "fontVariationSettings": "'FILL' 1" }}>picture_as_pdf</span>
-                    </div>
-                  </div>
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">2023 Impact Report</h3>
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">Comprehensive data on digital safety trends and our foundation's global advocacy achievements.</p>
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">description</span> PDF</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">hard_drive</span> 4.2 MB</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-sm">schedule</span> Dec 2023</span>
-                  </div>
-                  <div className="flex gap-base">
-                    <Link className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy" download="" to="#">
-                      <span className="material-symbols-outlined text-sm">download</span> Download
-                    </Link>
-                    <button className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint">Preview</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
-        <section className="py-xxl px-margin-mobile md:px-margin-desktop">
-          <div className="max-w-7xl mx-auto space-y-xxl">
-
-            {/* =========================
-        PARENTS & CAREGIVERS
-    ========================== */}
-            <div className="space-y-stack-md">
-              <div className="flex items-center gap-base pb-base border-b-2 border-primary w-fit">
-                <span
-                  className="material-symbols-outlined text-primary"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  family_restroom
-                </span>
-
-                <h2 className="font-headline-md text-headline-md text-primary">
-                  Parents &amp; Caregivers
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-                {/* Online Safety Guide */}
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
-                      <span
-                        className="material-symbols-outlined"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        picture_as_pdf
-                      </span>
+            <main>
+                {/* Hero */}
+                <section className="relative overflow-hidden bg-deep-navy text-white px-margin-mobile md:px-margin-desktop py-stack-lg">
+                    <div className="absolute -top-32 -right-24 w-96 h-96 bg-safety-yellow/15 blur-3xl rounded-full pointer-events-none"></div>
+                    <div className="absolute inset-y-0 right-0 w-1/3 opacity-20 hidden lg:block">
+                        <img src={heroImage} alt="" className="w-full h-full object-cover" />
+                        <span className="absolute inset-0 bg-gradient-to-r from-deep-navy to-transparent"></span>
                     </div>
 
-                    <span className="px-2 py-1 bg-surface-container text-caption rounded font-semibold text-on-surface-variant uppercase">
-                      New
-                    </span>
-                  </div>
+                    <div className="relative max-w-7xl mx-auto">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-safety-yellow/15 border border-safety-yellow/40 rounded-full text-safety-yellow font-label-md text-label-md">
+                            <span className="w-1.5 h-1.5 rounded-full bg-safety-yellow"></span>
+                            Education Hub
+                        </span>
 
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
-                    2024 Online Safety Guide
-                  </h3>
+                        <h1 className="font-display-lg text-headline-lg-mobile md:text-display-lg text-white mt-6 max-w-3xl leading-tight">
+                            Digital Safety <span className="text-safety-yellow">Resources</span>
+                        </h1>
 
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
-                    Complete toolkit for managing screen time, setting boundaries,
-                    and talking about digital privacy with your children.
-                  </p>
+                        <p className="font-body-lg text-body-lg text-white/75 mt-5 max-w-2xl leading-relaxed">
+                            Free, evidence-based guides and toolkits for children, families, educators and journalists — every one free to preview and download.
+                        </p>
 
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        description
-                      </span>
-                      PDF
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        hard_drive
-                      </span>
-                      2.4 MB
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        schedule
-                      </span>
-                      Oct 2023
-                    </span>
-                  </div>
-
-                  <div className="flex gap-base">
-
-                    {/* DOWNLOAD */}
-                    <a
-                      href="/resources/Cover1.pdf"
-                      download
-                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        download
-                      </span>
-                      Download
-                    </a>
-
-                    {/* PREVIEW */}
-                    <button
-                      onClick={() =>
-                        setPreviewPdf("/resources/online-safety-guide.pdf")
-                      }
-                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
-                    >
-                      Preview
-                    </button>
-
-                  </div>
-                </div>
-
-
-                {/* Social Media & Mental Health */}
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
-                      <span
-                        className="material-symbols-outlined"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        picture_as_pdf
-                      </span>
+                        {/* Live stats */}
+                        <div className="flex flex-wrap gap-8 mt-10">
+                            <div>
+                                <p className="font-display-lg text-headline-lg text-safety-yellow leading-none">
+                                    {isLoading ? '—' : resources.length}
+                                </p>
+                                <p className="font-caption text-caption text-white/60 mt-2 uppercase tracking-widest">Documents</p>
+                            </div>
+                            <div>
+                                <p className="font-display-lg text-headline-lg text-safety-yellow leading-none">
+                                    {isLoading ? '—' : audiences.length}
+                                </p>
+                                <p className="font-caption text-caption text-white/60 mt-2 uppercase tracking-widest">Audiences</p>
+                            </div>
+                            <div>
+                                <p className="font-display-lg text-headline-lg text-safety-yellow leading-none">Free</p>
+                                <p className="font-caption text-caption text-white/60 mt-2 uppercase tracking-widest">Always</p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                </section>
 
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
-                    Social Media &amp; Mental Health
-                  </h3>
+                {/* Filter bar */}
+                <section className="sticky top-20 z-40 bg-surface-container-low/95 backdrop-blur border-y border-outline-variant/30 px-margin-mobile md:px-margin-desktop py-4">
+                    <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center gap-4">
+                        <div className="flex flex-wrap gap-2 flex-grow">
+                            {['All', ...audiences].map((name) => {
+                                const active = activeAudience === name;
+                                const accent = name === 'All' ? '#0b3d6e' : styleFor(name).accent;
 
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
-                    Research-backed advice on recognizing signs of digital exhaustion
-                    and fostering healthy self-esteem in teens.
-                  </p>
+                                return (
+                                    <button
+                                        key={name}
+                                        onClick={() => setActiveAudience(name)}
+                                        className={`px-4 py-2 rounded-full font-label-md text-label-md border transition-all duration-200 flex items-center gap-2 ${
+                                            active ? 'text-white border-transparent shadow-md' : 'bg-white text-on-surface-variant border-outline-variant/50 hover:bg-sky-tint'
+                                        }`}
+                                        style={active ? { backgroundColor: accent } : undefined}
+                                    >
+                                        {name !== 'All' && (
+                                            <span className="material-symbols-outlined text-sm">{styleFor(name).icon}</span>
+                                        )}
+                                        {name}
+                                        <span className={`text-caption ${active ? 'text-white/70' : 'text-outline'}`}>
+                                            {name === 'All' ? resources.length : counts[name]}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
 
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        description
-                      </span>
-                      PDF
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        hard_drive
-                      </span>
-                      1.8 MB
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        schedule
-                      </span>
-                      Aug 2023
-                    </span>
-                  </div>
-
-                  <div className="flex gap-base">
-
-                    <a
-                      href="/resources/social-media-mental-health.pdf"
-                      download
-                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        download
-                      </span>
-                      Download
-                    </a>
-
-                    <button
-                      onClick={() =>
-                        setPreviewPdf("/resources/social-media-mental-health.pdf")
-                      }
-                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
-                    >
-                      Preview
-                    </button>
-
-                  </div>
-                </div>
-
-
-                {/* Gaming Privacy */}
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-
-                  <div className="flex justify-between items-start mb-stack-sm">
-                    <div className="w-12 h-12 bg-sky-tint rounded-lg flex items-center justify-center text-primary">
-                      <span
-                        className="material-symbols-outlined"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        picture_as_pdf
-                      </span>
+                        <label className="relative lg:w-72 shrink-0">
+                            <span className="sr-only">Search resources</span>
+                            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+                            <input
+                                type="search"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="Search resources…"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-full border border-outline-variant/50 bg-white text-body-md focus:border-deep-navy focus:ring-1 focus:ring-deep-navy outline-none"
+                            />
+                        </label>
                     </div>
-                  </div>
+                </section>
 
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
-                    Gaming Privacy Settings
-                  </h3>
+                {/* Library */}
+                <section className="py-stack-lg px-margin-mobile md:px-margin-desktop" id="library">
+                    <div className="max-w-7xl mx-auto">
 
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
-                    Step-by-step instructions for the most popular gaming consoles
-                    to ensure a private and secure play environment.
-                  </p>
+                        {error && (
+                            <div role="alert" className="flex items-start gap-3 rounded-lg border border-error/40 bg-error/10 px-4 py-3 mb-stack-md">
+                                <span className="material-symbols-outlined text-error text-sm mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
+                                <p className="font-body-md text-body-md text-error">{error}</p>
+                            </div>
+                        )}
 
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        description
-                      </span>
-                      PDF
-                    </span>
+                        {isLoading && (
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                {Array.from({ length: 8 }).map((_, i) => (
+                                    <div key={i} className="rounded-2xl overflow-hidden border border-outline-variant/30">
+                                        <div className="aspect-[3/4] bg-surface-container animate-pulse"></div>
+                                        <div className="p-5 space-y-3">
+                                            <div className="h-4 bg-surface-container rounded animate-pulse"></div>
+                                            <div className="h-3 bg-surface-container rounded w-2/3 animate-pulse"></div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        hard_drive
-                      </span>
-                      3.1 MB
-                    </span>
+                        {!isLoading && visible.length === 0 && (
+                            <p className="text-center py-20 text-on-surface-variant font-body-lg">
+                                {resources.length === 0
+                                    ? 'No resources published yet. Check back soon.'
+                                    : 'Nothing matches your search.'}
+                            </p>
+                        )}
 
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        schedule
-                      </span>
-                      June 2023
-                    </span>
-                  </div>
+                        {!isLoading && (() => { let shown = 0; return audiences.map((audience) => {
+                            const items = visible.filter((item) => item.audience === audience);
+                            if (items.length === 0) return null;
 
-                  <div className="flex gap-base">
+                            const { icon, accent } = styleFor(audience);
 
-                    <a
-                      href="/resources/gaming-privacy-settings.pdf"
-                      download
-                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        download
-                      </span>
-                      Download
-                    </a>
+                            return (
+                                <div key={audience} className="mb-stack-lg">
+                                    <div className="flex items-center gap-4 mb-stack-md">
+                                        <span
+                                            className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                                            style={{ backgroundColor: `${accent}1A`, color: accent }}
+                                        >
+                                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>{icon}</span>
+                                        </span>
+                                        <div>
+                                            <h2 className="font-headline-md text-headline-md text-deep-navy leading-tight">{audience}</h2>
+                                            <p className="font-caption text-caption text-on-surface-variant">
+                                                {items.length} {items.length === 1 ? 'document' : 'documents'}
+                                            </p>
+                                        </div>
+                                        <span className="flex-grow h-px" style={{ backgroundColor: `${accent}33` }}></span>
+                                    </div>
 
-                    <button
-                      onClick={() =>
-                        setPreviewPdf("/resources/gaming-privacy-settings.pdf")
-                      }
-                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
-                    >
-                      Preview
-                    </button>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-
-            {/* =========================
-        EDUCATORS & SCHOOLS
-    ========================== */}
-            <div className="space-y-stack-md">
-
-              <div className="flex items-center gap-base pb-base border-b-2 border-secondary-container w-fit">
-
-                <span
-                  className="material-symbols-outlined text-secondary"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  school
-                </span>
-
-                <h2 className="font-headline-md text-headline-md text-secondary">
-                  Educators &amp; Schools
-                </h2>
-
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-                {/* Cyber Citizenship */}
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-
-                  <div className="flex justify-between items-start mb-stack-sm">
-
-                    <div className="w-12 h-12 bg-soft-canary rounded-lg flex items-center justify-center text-secondary">
-
-                      <span
-                        className="material-symbols-outlined"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        picture_as_pdf
-                      </span>
-
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                        {items.map((item) => {
+                                            const eager = shown < 4;
+                                            shown += 1;
+                                            return (
+                                                <ResourceCard
+                                                    key={item.id}
+                                                    resource={item}
+                                                    onPreview={setPreviewResource}
+                                                    eager={eager}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            );
+                        }); })()}
                     </div>
+                </section>
+            </main>
 
-                  </div>
-
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
-                    Cyber-Citizenship Curriculum
-                  </h3>
-
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
-                    A 12-week modular curriculum for grades 1-5 focusing on digital
-                    ethics and empathy.
-                  </p>
-
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        description
-                      </span>
-                      PDF
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        hard_drive
-                      </span>
-                      12.5 MB
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        schedule
-                      </span>
-                      Sept 2023
-                    </span>
-
-                  </div>
-
-                  <div className="flex gap-base">
-
-                    <a
-                      href="/resources/cyber-citizenship-curriculum.pdf"
-                      download
-                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        download
-                      </span>
-                      Download
-                    </a>
-
-                    <button
-                      onClick={() =>
-                        setPreviewPdf(
-                          "/resources/cyber-citizenship-curriculum.pdf"
-                        )
-                      }
-                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
-                    >
-                      Preview
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-
-
-            {/* =========================
-        POLICYMAKERS & RESEARCH
-    ========================== */}
-            <div className="space-y-stack-md">
-
-              <div className="flex items-center gap-base pb-base border-b-2 border-tertiary w-fit">
-
-                <span
-                  className="material-symbols-outlined text-tertiary"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  policy
-                </span>
-
-                <h2 className="font-headline-md text-headline-md text-tertiary">
-                  Policymakers &amp; Research
-                </h2>
-
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-                {/* Impact Report */}
-                <div className="group bg-surface-container-lowest p-stack-md rounded-xl border border-outline-variant/30 hover:shadow-xl transition-all hover:-translate-y-1">
-
-                  <div className="flex justify-between items-start mb-stack-sm">
-
-                    <div className="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center text-tertiary">
-
-                      <span
-                        className="material-symbols-outlined"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        picture_as_pdf
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                  <h3 className="font-headline-md text-body-lg text-primary mb-2">
-                    2023 Impact Report
-                  </h3>
-
-                  <p className="text-on-surface-variant text-body-md mb-stack-md line-clamp-2">
-                    Comprehensive data on digital safety trends and our foundation's
-                    global advocacy achievements.
-                  </p>
-
-                  <div className="flex items-center gap-stack-sm text-caption text-outline mb-stack-md">
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        description
-                      </span>
-                      PDF
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        hard_drive
-                      </span>
-                      4.2 MB
-                    </span>
-
-                    <span className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">
-                        schedule
-                      </span>
-                      Dec 2023
-                    </span>
-
-                  </div>
-
-                  <div className="flex gap-base">
-
-                    <a
-                      href="/resources/impact-report-2023.pdf"
-                      download
-                      className="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-base hover:bg-deep-navy"
-                    >
-                      <span className="material-symbols-outlined text-sm">
-                        download
-                      </span>
-                      Download
-                    </a>
-
-                    <button
-                      onClick={() =>
-                        setPreviewPdf("/resources/impact-report-2023.pdf")
-                      }
-                      className="px-4 py-2 border border-outline-variant text-primary rounded-lg font-label-md hover:bg-sky-tint"
-                    >
-                      Preview
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-
-        <section className="bg-primary text-on-primary py-xxl px-margin-mobile">
-          <div className="max-w-4xl mx-auto text-center space-y-stack-md">
-            <h2 className="font-headline-lg text-headline-lg">Stay Informed, Stay Safe</h2>
-            <p className="font-body-lg text-on-primary-container max-w-2xl mx-auto">Subscribe to our monthly resource digest and get the latest digital safety tips and research delivered straight to your inbox.</p>
-            <form className="flex flex-col sm:flex-row gap-base max-w-lg mx-auto">
-              <input className="flex-1 px-6 py-3 rounded-full text-on-surface border-none focus:ring-safety-yellow" placeholder="Your email address" type="email" />
-              <button className="px-8 py-3 bg-safety-yellow text-primary font-label-md rounded-full hover:bg-white transition-all" type="submit">Subscribe</button>
-            </form>
-            <p className="text-caption text-on-primary-container">We value your privacy. No spam, ever.</p>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-
-
-
-    </>
-  );
+            <Footer />
+        </>
+    );
 }

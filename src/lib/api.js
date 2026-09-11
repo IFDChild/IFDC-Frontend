@@ -1,5 +1,9 @@
 const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/$/, '');
 
+/** Absolute URL for a file stored on the API (e.g. /uploads/xyz.pdf). */
+export const fileUrl = (path) =>
+  !path ? '' : /^https?:\/\//.test(path) ? path : `${API_URL}${path}`;
+
 /**
  * FastAPI returns errors as { detail: "message" } for HTTPException
  * and { detail: [{ loc, msg }, ...] } for validation failures.
@@ -60,4 +64,33 @@ export async function submitVolunteerApplication(payload) {
   }
 
   return response.json();
+}
+
+export async function submitPartnerInquiry(payload) {
+  const response = await fetch(`${API_URL}/api/partners`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Could not submit your inquiry.'));
+  }
+
+  return response.json();
+}
+
+export async function getResources() {
+  const response = await fetch(`${API_URL}/api/resources`);
+
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Could not load resources.'));
+  }
+
+  return response.json();
+}
+
+export function registerResourceDownload(id) {
+  // Fire-and-forget: a failed count must never block the download.
+  fetch(`${API_URL}/api/resources/${id}/download`, { method: 'POST' }).catch(() => {});
 }

@@ -1,14 +1,23 @@
 # Honorary Expert Panel portraits
 
-Drop portrait images here, then wire them up in `src/pages/Advocate.jsx`:
+Portraits load automatically. Just save each photo here using the person's
+slug as the filename — no code changes needed.
 
-1. Save the file, e.g. `emmanuel-adinkra.jpg`
-2. Add an import at the top of `Advocate.jsx`:
-   `import emmanuelAdinkra from '../assets/images/experts/emmanuel-adinkra.jpg';`
-3. Set `photo: emmanuelAdinkra` on that person's entry in the `EXPERTS` array.
+| Filename (any of .jpg .jpeg .png .webp) | Expert |
+|---|---|
+| `emmanuel-adinkra` | Emmanuel Adinkra — Ghana Internet Safety Foundation |
+| `mandy-sanchez` | Dr. Mandy Sanchez — Culture Reframed |
+| `nicolas-makharashvili` | Nicolas Makharashvili — Safe Futures Hub |
+| `arti-mohan` | Arti Mohan — Safe Futures Hub |
+| `zoe-de-melo` | Zoe de Melo — Terre des Hommes Netherlands |
+| `sumudu-mallawaarachchi` | Dr. Sumudu Mallawaarachchi — Univ. of Wollongong |
+| `anil-raghuvanshi` | Anil Raghuvanshi — ChildSafeNet |
+| `pratishtha-arora` | Pratishtha Arora — Social & Media Matters |
+| `mc-rasmin` | Dr. M. C. Rasmin — IFDC |
+| `nayana-perera` | Dr. Nayana Perera |
 
-Entries left as `photo: null` show an initials avatar instead, so the page
-works with any mix of supplied and missing photos.
+Anyone without a matching file keeps an initials avatar, so you can add
+photos one at a time.
 
-Images are rendered in a square 80x80 slot (`object-cover`), so square or
-centre-weighted portraits work best. Around 400x400px is plenty.
+Portraits render in an 80x80 square slot (`object-cover object-top`), so the
+face should be near the top-centre of the frame. Around 400x400px is plenty.
