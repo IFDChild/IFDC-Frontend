@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import fellowshipHero from '../assets/images/Youth Summit.png';
@@ -163,14 +163,126 @@ const PROGRAMMES = [
     }
 ];
 
-const MODEL_INPUTS = [
-    { title: 'Virtual seminars', sub: 'Expert-led' },
-    { title: 'Discussions', sub: 'Interactive' },
-    { title: 'Mentoring', sub: 'One-on-one guidance' },
-    { title: 'Collaborative', sub: 'Peer learning' }
+const MODEL_STEPS = [
+    {
+        stage: 'Learn',
+        tag: 'Learning programme',
+        description: 'Expert-led virtual seminars, interactive discussions, and one-on-one mentoring alongside fellow peers.',
+        chips: ['Seminars', 'Mentoring'],
+        color: '#1F6F6B'
+    },
+    {
+        stage: 'Apply',
+        tag: 'Knowledge into action',
+        description: 'Fellows design and run a community-based initiative on child online safety and digital wellbeing.',
+        chips: ['Online safety', 'Digital wellbeing'],
+        color: '#C9922E'
+    },
+    {
+        stage: 'Lead',
+        tag: 'Leadership and impact',
+        description: 'Measurable impact within their own schools, organisations, and communities — and beyond.',
+        chips: ['Schools', 'Communities'],
+        color: '#B4384A'
+    }
 ];
 
-const MODEL_FOCUS = ['Child online safety', 'Digital wellbeing', 'Digital mental health'];
+function FellowshipModel() {
+    const ref = useRef(null);
+    const [active, setActive] = useState(false);
+
+    // Reveal the connecting track once, when the stepper scrolls into view.
+    useEffect(() => {
+        const node = ref.current;
+        if (!node) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            setActive(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting)) {
+                setActive(true);
+                observer.disconnect();
+            }
+        }, { threshold: 0.4 });
+
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, []);
+
+    return (
+        <section id="fellowship-model" aria-labelledby="fm-heading" className="px-margin-mobile md:px-margin-desktop py-24 bg-[#FBF9F5]">
+            <div className="max-w-[1080px] mx-auto">
+
+                <div className="max-w-[62ch] mx-auto mb-16 md:mb-[72px] text-center">
+                    <p className="text-[13.5px] font-semibold text-[#1F6F6B] mb-3.5 tracking-[0.01em]">Fellowship model</p>
+                    <h2 id="fm-heading" className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy leading-tight">
+                        How the fellowship works
+                    </h2>
+                    <p className="mt-[18px] text-[16.5px] leading-[1.75] text-[#5A6258]">
+                        A practice-oriented model that combines academic knowledge with real-world application — fellows learn from experts, apply it in their own communities, and lead lasting change.
+                    </p>
+                </div>
+
+                <div ref={ref} className="relative">
+                    {/* Connecting track: horizontal on desktop, vertical on mobile */}
+                    <div className="absolute z-0 bg-[#E1DCCC] top-0 bottom-0 left-[34px] w-0.5 md:top-[34px] md:bottom-auto md:left-[16.66%] md:right-[16.66%] md:w-auto md:h-0.5" aria-hidden="true">
+                        {/* Mobile: grows downward */}
+                        <div
+                            className="md:hidden absolute top-0 left-0 w-full transition-[height] duration-[1100ms] ease-[cubic-bezier(.4,0,.2,1)] motion-reduce:transition-none"
+                            style={{ background: 'linear-gradient(180deg, #1F6F6B, #C9922E, #B4384A)', height: active ? '100%' : '0%' }}
+                        ></div>
+                        {/* Desktop: grows left to right */}
+                        <div
+                            className="hidden md:block absolute top-0 left-0 h-full transition-[width] duration-[1100ms] ease-[cubic-bezier(.4,0,.2,1)] motion-reduce:transition-none"
+                            style={{ background: 'linear-gradient(90deg, #1F6F6B, #C9922E, #B4384A)', width: active ? '100%' : '0%' }}
+                        ></div>
+                    </div>
+
+                    <ol className="relative grid grid-cols-1 md:grid-cols-3 gap-[52px] md:gap-0 list-none m-0 p-0">
+                        {MODEL_STEPS.map((step, index) => (
+                            <li key={step.stage} className="relative z-10 pl-[88px] min-h-[68px] text-left md:pl-5 md:pr-5 md:text-center">
+                                <div
+                                    className="absolute left-0 top-0 md:static md:mx-auto md:mb-[22px] w-[68px] h-[68px] rounded-full bg-[#FBF9F5] border-2 flex items-center justify-center italic text-[22px] transition-all duration-500 motion-reduce:transition-none"
+                                    style={{
+                                        borderColor: active ? step.color : '#E1DCCC',
+                                        color: active ? step.color : '#5A6258',
+                                        transform: active ? 'scale(1.05)' : 'scale(1)',
+                                        transitionDelay: `${0.05 + index * 0.3}s`
+                                    }}
+                                    aria-hidden="true"
+                                >
+                                    {index + 1}
+                                </div>
+
+                                <p className="text-[12.5px] font-semibold text-[#5A6258]">{step.tag}</p>
+                                <h3 className="font-headline-md text-[20px] text-deep-navy mt-2 mb-2.5">{step.stage}</h3>
+                                <p className="text-[14.5px] leading-[1.7] text-[#5A6258] md:max-w-[30ch] md:mx-auto">{step.description}</p>
+
+                                <div className="mt-4 flex flex-wrap gap-2 justify-start md:justify-center">
+                                    {step.chips.map((chip) => (
+                                        <span key={chip} className="text-[12.5px] px-[11px] py-[5px] rounded-full border border-[#E1DCCC] text-[#5A6258] bg-white">
+                                            {chip}
+                                        </span>
+                                    ))}
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
+                </div>
+
+                <div className="mt-16 pt-8 border-t border-[#E1DCCC] max-w-[68ch] mx-auto text-center">
+                    <p className="text-[15.5px] leading-[1.75] text-[#5A6258]">
+                        <strong className="font-semibold text-deep-navy">Practice, not just theory.</strong> Every fellow leaves with more than a certificate — they leave having already run something real, with the skills to keep leading long after the fellowship ends.
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
 
 const initials = (name) =>
     name
@@ -376,75 +488,7 @@ export default function Advocate() {
                     </div>
                 </section>
 
-                {/* Fellowship model */}
-                <section className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface">
-                    <div className="max-w-container-max mx-auto">
-                        <div className="text-center max-w-3xl mx-auto mb-stack-md">
-                            <span className="inline-flex items-center gap-2 bg-deep-navy text-safety-yellow px-4 py-1.5 rounded-full text-label-md font-bold uppercase tracking-wider">
-                                <span className="w-1.5 h-1.5 rounded-full bg-safety-yellow"></span>
-                                Our Fellowship Model
-                            </span>
-                            <span className="block w-20 h-1 bg-safety-yellow rounded-full mx-auto my-6"></span>
-                            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                                The IFDC fellowship follows a practice-oriented learning model that combines academic knowledge with real-world application. Participants engage in expert-led virtual seminars, interactive discussions, mentoring, and collaborative learning while developing practical solutions for challenges affecting children in the digital environment.
-                            </p>
-                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mt-4">
-                                Beyond completing the learning programme, fellows are encouraged to translate knowledge into action by designing and implementing community-based initiatives that promote child online safety, digital wellbeing, and digital mental health. This approach enables fellows to build leadership skills while creating measurable impact within their own schools, organisations, and communities.
-                            </p>
-                        </div>
-
-                        {/* Practice-oriented learning model */}
-                        <div className="bg-surface-container-low rounded-[2rem] p-6 md:p-10">
-                            <p className="text-center font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-8">
-                                Practice-oriented learning model
-                            </p>
-
-                            <div className="flex flex-col items-center gap-0">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-                                    {MODEL_INPUTS.map((item) => (
-                                        <div key={item.title} className="bg-sky-tint/60 border border-primary/20 rounded-xl px-5 py-4 text-center">
-                                            <p className="font-headline-md text-body-lg font-bold text-deep-navy">{item.title}</p>
-                                            <p className="font-caption text-caption text-primary mt-1">{item.sub}</p>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <span className="w-0.5 h-8 bg-outline-variant" aria-hidden="true"></span>
-
-                                <div className="w-full max-w-xl bg-deep-navy rounded-xl px-6 py-5 text-center shadow-lg">
-                                    <p className="font-headline-md text-headline-md text-white">Learning programme</p>
-                                    <p className="font-body-md text-body-md text-white/70 mt-1">Academic knowledge meets practice</p>
-                                </div>
-
-                                <span className="w-0.5 h-6 bg-outline-variant" aria-hidden="true"></span>
-                                <p className="font-caption text-caption text-on-surface-variant italic py-1">Translating knowledge into action</p>
-                                <span className="w-0.5 h-6 bg-outline-variant" aria-hidden="true"></span>
-
-                                <div className="w-full max-w-xl bg-safety-yellow rounded-xl px-6 py-5 text-center shadow-lg">
-                                    <p className="font-headline-md text-headline-md text-deep-navy">Community-based initiatives</p>
-                                    <p className="font-body-md text-body-md text-deep-navy/70 mt-1">Designed and implemented by fellows</p>
-                                </div>
-
-                                <span className="w-0.5 h-8 bg-outline-variant" aria-hidden="true"></span>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
-                                    {MODEL_FOCUS.map((focus) => (
-                                        <div key={focus} className="bg-white border border-outline-variant/40 rounded-xl px-5 py-4 text-center">
-                                            <p className="font-body-lg text-body-lg font-semibold text-deep-navy">{focus}</p>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <span className="w-0.5 h-8 bg-outline-variant" aria-hidden="true"></span>
-
-                                <div className="w-full max-w-2xl bg-white border-2 border-deep-navy rounded-xl px-6 py-5 text-center">
-                                    <p className="font-headline-md text-headline-md text-deep-navy">Leadership skills and measurable impact</p>
-                                    <p className="font-body-md text-body-md text-on-surface-variant mt-1">Within schools, organisations, communities</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <FellowshipModel />
 
                 {/* Previous programmes */}
                 <section id="programmes" className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-sky-tint/30 scroll-mt-24">

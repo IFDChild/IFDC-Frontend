@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import AdvisoryCommittee from '../components/AdvisoryCommittee';
 import childTeach from '../assets/images/digitalchild.jpg';
 
 const HERO_FACTS = [
@@ -13,21 +14,25 @@ const HERO_FACTS = [
 const MISSION_PILLARS = [
   {
     icon: 'verified_user',
+    bg: '#1F5FA6', text: '#FFFFFF', iconBg: 'rgba(255,255,255,0.18)', iconColor: '#FFE100',
     title: 'Building digital literacy and safety',
     body: 'We mentor children, parents, and educators to understand and navigate technology responsibly, teaching safe and balanced use of social media, smartphones, gaming platforms, and the internet, so every child can lead a healthy digital life.'
   },
   {
     icon: 'movie_edit',
+    bg: '#FFE100', text: '#0B3D6E', iconBg: 'rgba(11,61,110,0.12)', iconColor: '#0B3D6E',
     title: 'Nurturing young creators',
     body: 'We give children the tools and confidence to tell their own stories, through film, photography, podcasting, and other creative media, helping them shape their identities, express their views, and be heard on issues that affect them.'
   },
   {
     icon: 'campaign',
+    bg: '#D4E3FF', text: '#0B3D6E', iconBg: '#0B3D6E', iconColor: '#FFE100',
     title: "Advocating for children's rights",
     body: "We conduct research, engage policymakers, and work alongside journalists and media producers to produce ethical, child-centered content that puts children's voices at the center of the conversation and strengthens protections for children across Sri Lanka."
   },
   {
     icon: 'self_improvement',
+    bg: '#00274C', text: '#FFFFFF', iconBg: 'rgba(255,225,0,0.16)', iconColor: '#FFE100',
     title: 'Championing digital wellbeing',
     body: 'We support children and young people in building a healthy, balanced relationship with technology, promoting mental resilience and wellbeing in a world shaped by constant connectivity.'
   }
@@ -72,166 +77,111 @@ const APPROACHES = [
 ];
 
 
-const MILESTONE_YEARS = [...new Set(MILESTONES.map((item) => item.year))];
+const MILESTONE_GROUPS = [...new Set(MILESTONES.map((item) => item.year))].map((year) => ({
+  year,
+  items: MILESTONES.filter((item) => item.year === year)
+}));
+
+const YEAR_ACCENTS = {
+  '2022': '#1B8A9E',
+  '2023': '#2E7D5B',
+  '2024': '#C98A0B',
+  '2025': '#C0476B',
+  '2026': '#5B5BD6'
+};
 
 function JourneyTimeline() {
-  const [activeYear, setActiveYear] = useState(MILESTONE_YEARS[0]);
-  const tabRefs = useRef({});
-  const railRef = useRef(null);
-
-  // Keep the selected year visible in the horizontally scrolling rail on small screens.
-  useEffect(() => {
-    const tab = tabRefs.current[activeYear];
-    const rail = railRef.current;
-
-    if (!tab || !rail || rail.scrollWidth <= rail.clientWidth) return;
-
-    // Measure against the rail itself - offsetLeft is relative to the nearest
-    // positioned ancestor, which is not the rail when it is statically positioned.
-    const tabRect = tab.getBoundingClientRect();
-    const railRect = rail.getBoundingClientRect();
-    const gutter = 16;
-    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? 'auto'
-      : 'smooth';
-
-    if (tabRect.left < railRect.left) {
-      rail.scrollBy({ left: tabRect.left - railRect.left - gutter, behavior });
-    } else if (tabRect.right > railRect.right) {
-      rail.scrollBy({ left: tabRect.right - railRect.right + gutter, behavior });
-    }
-  }, [activeYear]);
-
-  const visible = useMemo(
-    () => MILESTONES.filter((item) => item.year === activeYear),
-    [activeYear]
-  );
-
-  const activeIndex = MILESTONE_YEARS.indexOf(activeYear);
-
-  const goTo = (index) => {
-    const next = MILESTONE_YEARS[(index + MILESTONE_YEARS.length) % MILESTONE_YEARS.length];
-    setActiveYear(next);
-    // preventScroll so the browser's focus scrolling does not fight the
-    // rail positioning handled in the effect above.
-    tabRefs.current[next]?.focus({ preventScroll: true });
-  };
-
-  const handleKeyDown = (event) => {
-    const keys = {
-      ArrowDown: activeIndex + 1,
-      ArrowRight: activeIndex + 1,
-      ArrowUp: activeIndex - 1,
-      ArrowLeft: activeIndex - 1,
-      Home: 0,
-      End: MILESTONE_YEARS.length - 1
-    };
-
-    if (event.key in keys) {
-      event.preventDefault();
-      goTo(keys[event.key]);
-    }
-  };
+  let position = 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+    <div className="relative max-w-5xl mx-auto">
+      {/* Central spine: left edge on mobile, centred from md up */}
+      <span
+        className="absolute top-0 bottom-0 left-[19px] md:left-1/2 md:-translate-x-1/2 w-0.5 bg-gradient-to-b from-safety-yellow via-white/25 to-safety-yellow"
+        aria-hidden="true"
+      ></span>
 
-      {/* Year rail */}
-      <div
-        ref={railRef}
-        role="tablist"
-        aria-label="Milestone years"
-        aria-orientation="vertical"
-        onKeyDown={handleKeyDown}
-        className="lg:col-span-3 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 lg:sticky lg:top-28"
-      >
-        {MILESTONE_YEARS.map((year) => {
-          const isActive = year === activeYear;
-          const count = MILESTONES.filter((item) => item.year === year).length;
+      <ol className="relative space-y-10 md:space-y-12">
+        {MILESTONE_GROUPS.map((group, groupIndex) => {
+          const isLatest = groupIndex === MILESTONE_GROUPS.length - 1;
 
           return (
-            <button
-              key={year}
-              ref={(el) => { tabRefs.current[year] = el; }}
-              role="tab"
-              id={`year-tab-${year}`}
-              aria-selected={isActive}
-              aria-controls={`year-panel-${year}`}
-              tabIndex={isActive ? 0 : -1}
-              onClick={() => setActiveYear(year)}
-              className={`shrink-0 flex items-center gap-3 rounded-2xl px-5 py-4 border text-left transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-safety-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-deep-navy ${
-                isActive
-                  ? 'bg-safety-yellow border-safety-yellow shadow-lg lg:translate-x-2'
-                  : 'bg-white/5 border-white/15 hover:bg-white/10 hover:border-white/30'
-              }`}
-            >
-              <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${isActive ? 'bg-deep-navy' : 'bg-safety-yellow/70'}`}></span>
-              <span className="flex flex-col">
-                <span className={`font-bold text-headline-md leading-none ${isActive ? 'text-deep-navy' : 'text-white'}`}>
-                  {year}
+            <li key={group.year}>
+              {/* Year badge on the spine */}
+              <div className="relative flex md:justify-center mb-6">
+                <span
+                  className={`relative z-10 inline-flex items-center gap-2 rounded-full pl-1.5 pr-5 py-1.5 font-bold shadow-lg ${
+                    isLatest
+                      ? 'bg-safety-yellow text-deep-navy'
+                      : 'bg-white text-deep-navy'
+                  }`}
+                >
+                  <span className="w-7 h-7 rounded-full bg-deep-navy text-safety-yellow flex items-center justify-center" aria-hidden="true">
+                    <span className="material-symbols-outlined text-[16px]">{isLatest ? 'flag' : 'event'}</span>
+                  </span>
+                  <span className="text-[20px] leading-none">{group.year}</span>
                 </span>
-                <span className={`font-caption text-caption mt-1 whitespace-nowrap ${isActive ? 'text-deep-navy/70' : 'text-white/60'}`}>
-                  {count} {count === 1 ? 'milestone' : 'milestones'}
-                </span>
-              </span>
-            </button>
+              </div>
+
+              <ul className="space-y-5 md:space-y-4">
+                {group.items.map((milestone) => {
+                  const onRight = position % 2 === 1;
+                  position += 1;
+
+                  return (
+                    <li
+                      key={milestone.title}
+                      className={`relative pl-14 md:pl-0 md:w-1/2 ${
+                        onRight ? 'md:ml-auto md:pl-12' : 'md:pr-12'
+                      }`}
+                    >
+                      {/* Dot on the spine */}
+                      <span
+                        className={`absolute top-6 left-[13px] w-3.5 h-3.5 rounded-full bg-deep-navy border-[3px] border-safety-yellow z-10 ${
+                          onRight ? 'md:left-0 md:-translate-x-1/2' : 'md:left-auto md:right-0 md:translate-x-1/2'
+                        }`}
+                        aria-hidden="true"
+                      ></span>
+                      {/* Connector from dot to card */}
+                      <span
+                        className={`hidden md:block absolute top-[30px] h-px w-10 bg-safety-yellow/50 ${
+                          onRight ? 'left-2' : 'right-2'
+                        }`}
+                        aria-hidden="true"
+                      ></span>
+
+                      <article
+                        className={`relative overflow-hidden rounded-2xl bg-white p-5 pl-6 shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 ${
+                          onRight ? '' : 'md:text-right md:pl-5 md:pr-6'
+                        }`}
+                      >
+                        {/* Accent bar on the side facing the spine */}
+                        <span
+                          className={`absolute top-0 bottom-0 left-0 w-[5px] ${onRight ? '' : 'md:left-auto md:right-0'}`}
+                          style={{ backgroundColor: YEAR_ACCENTS[milestone.year] }}
+                          aria-hidden="true"
+                        ></span>
+                        <span
+                          className="inline-block px-2.5 py-0.5 rounded-full text-caption font-bold tracking-wider text-white"
+                          style={{ backgroundColor: YEAR_ACCENTS[milestone.year] }}
+                        >
+                          {milestone.year}
+                        </span>
+                        <h3 className="mt-2 font-headline-md text-[18px] leading-snug text-deep-navy">
+                          {milestone.title}
+                        </h3>
+                        <p className="mt-2 text-[14.5px] leading-relaxed text-on-surface-variant">
+                          {milestone.body}
+                        </p>
+                      </article>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
           );
         })}
-      </div>
-
-      {/* Milestones */}
-      <div className="lg:col-span-9">
-        <div
-          role="tabpanel"
-          id={`year-panel-${activeYear}`}
-          aria-labelledby={`year-tab-${activeYear}`}
-          key={activeYear}
-          className="relative space-y-4 animate-in fade-in slide-in-from-right-4 duration-500"
-        >
-          <div className="absolute left-[27px] top-4 bottom-4 w-0.5 bg-white/15 hidden sm:block"></div>
-
-          {visible.map((milestone, index) => (
-            <article
-              key={milestone.title}
-              className="relative flex gap-5 bg-white rounded-2xl p-6 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="hidden sm:flex w-14 h-14 shrink-0 rounded-xl bg-sky-tint items-center justify-center">
-                <span className="font-bold text-primary text-body-lg">{String(index + 1).padStart(2, '0')}</span>
-              </div>
-              <div>
-                <div className="flex flex-wrap items-center gap-3 mb-2">
-                  <span className="px-3 py-1 rounded-full bg-deep-navy text-safety-yellow font-bold text-caption">
-                    {milestone.year}
-                  </span>
-                  <h4 className="font-headline-md text-headline-md text-deep-navy">{milestone.title}</h4>
-                </div>
-                <p className="text-on-surface-variant text-body-md leading-relaxed">{milestone.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* Stepper */}
-        <div className="flex items-center justify-between gap-4 mt-8">
-          <button
-            onClick={() => goTo(activeIndex - 1)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/30 text-white font-label-md text-label-md hover:bg-white hover:text-deep-navy transition-colors active:scale-95"
-          >
-            <span className="material-symbols-outlined text-sm">arrow_back</span>
-            Previous
-          </button>
-          <p className="font-caption text-caption text-white/60 text-center">
-            {activeIndex + 1} of {MILESTONE_YEARS.length}
-          </p>
-          <button
-            onClick={() => goTo(activeIndex + 1)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/30 text-white font-label-md text-label-md hover:bg-white hover:text-deep-navy transition-colors active:scale-95"
-          >
-            Next
-            <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </button>
-        </div>
-      </div>
+      </ol>
     </div>
   );
 }
@@ -329,58 +279,70 @@ export default function About() {
           </div>
         </section>
 
-        {/* Mission - statement plus four sub-sections */}
+        {/* Mission - navy statement card plus four colour tiles */}
         <section className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface">
-          <div className="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="max-w-5xl mx-auto">
 
-            <div className="lg:col-span-4 lg:sticky lg:top-28">
-              <p className="font-label-md text-label-md text-primary uppercase tracking-widest mb-3">Our Mission</p>
-              <h2 className="font-headline-lg text-headline-lg text-deep-navy mb-5">
-                Protect, empower, and amplify children's voices
-              </h2>
-              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                The International Foundation for Digital Child Safety (IFDC) Sri Lanka exists to protect, empower, and amplify the voices of children in the digital age.
-              </p>
-              <p className="mt-6 inline-flex items-center gap-2 font-label-md text-label-md text-deep-navy bg-safety-yellow/30 border border-safety-yellow/60 rounded-full px-4 py-2">
-                <span className="material-symbols-outlined text-sm">south_east</span>
-                We do this by
-              </p>
+            <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] items-center gap-6 md:gap-8 bg-deep-navy text-white rounded-3xl px-6 py-7 md:px-10 md:py-9 mb-8 shadow-xl shadow-deep-navy/15">
+              <div
+                className="hidden sm:flex w-24 h-24 rounded-full border-[1.5px] border-white/40 items-center justify-center text-center rotate-[8deg] shrink-0"
+                aria-hidden="true"
+              >
+                <span className="font-bold text-[11px] leading-tight tracking-[0.08em] text-white/75">
+                  IFDC<br />
+                  <span className="text-safety-yellow">SRI LANKA</span>
+                </span>
+              </div>
+              <div>
+                <p className="text-label-md font-bold text-safety-yellow mb-2">Our mission</p>
+                <h2 className="font-headline-lg text-[1.75rem] md:text-[2.25rem] leading-tight text-white mb-3">
+                  Protect, empower, and amplify children's voices
+                </h2>
+                <p className="text-body-md md:text-body-lg leading-relaxed text-white/80 max-w-[62ch]">
+                  IFDC Sri Lanka exists to protect, empower, and amplify the voices of children in the digital age.
+                </p>
+              </div>
             </div>
 
-            <ol className="lg:col-span-8 divide-y divide-outline-variant/40 border-t border-outline-variant/40">
-              {MISSION_PILLARS.map((pillar, index) => (
+            <div className="flex items-center gap-4 mb-5">
+              <h3 className="font-headline-md text-[1.05rem] font-bold text-deep-navy whitespace-nowrap">We do this by</h3>
+              <span className="flex-1 h-px bg-deep-navy/15" aria-hidden="true"></span>
+            </div>
+
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {MISSION_PILLARS.map((pillar) => (
                 <li
                   key={pillar.title}
-                  className="group grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 py-8 transition-colors duration-300 hover:bg-sky-tint/25 rounded-xl sm:px-4 sm:-mx-4"
+                  className="flex flex-col gap-3 rounded-2xl p-6 md:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  style={{ backgroundColor: pillar.bg, color: pillar.text }}
                 >
-                  <div className="sm:col-span-2 flex sm:flex-col items-center sm:items-start gap-4">
-                    <span className="font-display-lg text-headline-md text-deep-navy/20 group-hover:text-safety-yellow transition-colors duration-300 leading-none">
-                      {String(index + 1).padStart(2, '0')}
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: pillar.iconBg }}
+                      aria-hidden="true"
+                    >
+                      <span className="material-symbols-outlined text-[22px]" style={{ color: pillar.iconColor }}>{pillar.icon}</span>
                     </span>
-                    <span className="w-12 h-12 rounded-xl bg-sky-tint flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-primary text-2xl">{pillar.icon}</span>
-                    </span>
+                    <h4 className="font-headline-md text-[1.15rem] font-bold leading-snug">{pillar.title}</h4>
                   </div>
-                  <div className="sm:col-span-10">
-                    <h3 className="font-headline-md text-headline-md text-deep-navy mb-2">{pillar.title}</h3>
-                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{pillar.body}</p>
-                  </div>
+                  <p className="text-body-md leading-relaxed" style={{ opacity: 0.88 }}>{pillar.body}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
         </section>
 
-        <section className="relative py-stack-lg px-margin-desktop bg-deep-navy overflow-hidden">
+        <section className="relative py-stack-lg px-margin-mobile md:px-margin-desktop bg-deep-navy overflow-hidden">
           <div className="absolute -top-40 -right-32 w-96 h-96 bg-safety-yellow/10 blur-3xl rounded-full pointer-events-none"></div>
           <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-sky-tint/10 blur-3xl rounded-full pointer-events-none"></div>
 
           <div className="relative max-w-container-max mx-auto">
-            <div className="text-center mb-stack-lg">
+            <div className="text-center mb-10 xl:mb-12">
               <span className="bg-safety-yellow/15 border border-safety-yellow/40 text-safety-yellow px-4 py-1 rounded-full text-label-md font-bold uppercase tracking-wider">Timeline</span>
               <h2 className="font-headline-lg text-headline-lg text-white mt-4">Our Journey Through Time</h2>
               <p className="font-body-lg text-body-lg text-white/70 mt-3 max-w-2xl mx-auto">
-                Select a year to see what we built along the way.
+                From our founding in 2022 to joining the global movement — every milestone at a glance.
               </p>
             </div>
             <JourneyTimeline />
@@ -1321,216 +1283,7 @@ export default function About() {
           </div>
         </section>
 
-        <section className="py-stack-lg px-margin-desktop bg-deep-navy text-on-primary">
-          <div className="max-w-container-max mx-auto">
-
-            <div className="text-center mb-stack-lg">
-              <h2 className="font-headline-lg text-headline-lg text-white">
-                International Advisory Committee
-              </h2>
-
-              <p className="text-on-primary-container mt-2 text-body-lg">
-                A nation where every child is born and raised in a healthy, safe
-                environment, and educated to be successful citizens in the digital world.
-              </p>
-            </div>
-
-            <div className="auto-carousel" id="advisory-carousel">
-
-              <div className="auto-carousel-track">
-
-                {/* Prof. David Sterling */}
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden group-hover:scale-110 transition-transform mb-4">
-                    <img
-                      alt="Prof. David Sterling"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgk1tACFQctXtK-PxSXydD2tfAeeVoCKe_jRU7EzlLM30R1djyhY4cgm5ZJD66_KblL3-Zk2duhkC9UdGZmxdAXlxSFeTFDTfCEduFd1WUjGV_V1RaNkyGdgAeIVPQP3SQlyPAe-9-pLCwTX2Kq2Q954dXeL986ONiTJeNF_789leTrCQaCy2fswHvJY_ZOJGj95Bv5cosRhcGej50mzoADlaRhSgoVaYBcR2W9FITz1urVZ-A6kYS"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Prof. David Sterling
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Digital Ethicist
-                  </p>
-                </div>
-
-                {/* Ambassador Lima */}
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden group-hover:scale-110 transition-transform mb-4">
-                    <img
-                      alt="Ambassador Lima"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBS36rrp6DX_YfTSyvMbUFNd7p7Aogu7Xa8LYrg2PazaTe5HbrChGETzFlK_Sdi9ld1dqYzbK9fWL-CDGQmkKWQBI94qVq5CECxrWBPRpFTch7xfcQS3CCqmMmZGas5P-iTogbSF1Yy-Z3o4N0kRqDkKtNEMA5fCG2vZTbVwolIRKmJQFEGQNmsTa7J0YaXnKLdfjJEmeNeu6LzReB1Hs8p74LNsgHO8dVu8bDdIJFp7b2WcQz1wjx"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Ambassador Lima
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Human Rights Lead
-                  </p>
-                </div>
-
-                {/* Kento Suzuki */}
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden group-hover:scale-110 transition-transform mb-4">
-                    <img
-                      alt="Kento Suzuki"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOHcvgYsVQu2WUxnGnEF7qLVRwg-VNjSxJ8uX5XHdfSN1XJsd3vVYIEA-CYBgQZAdHC6F0VzSCvDbw_l5Ok8fstPwUKr3xm_bxJ1wOu7Xb7Ycgp8PGqfJnu0XpIxN-D-xpbTmYz88RSiOQFYI3gYyszm35npRTLhE4fp13GsH89Q72w2u3E_et2g0Dw3v_09e47iufdiWErrSOfaIn-y_SPFGt_x6pT3KjdYdGPdT1QkQqSCf0AUQq"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Kento Suzuki
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Privacy Advocate
-                  </p>
-                </div>
-
-                {/* Dr. Maya Patel */}
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden group-hover:scale-110 transition-transform mb-4">
-                    <img
-                      alt="Dr. Maya Patel"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp_CIhJiMTZUeJRCin0URntjxRaaAu0JIsgqC6g3GQcGh0ADouyy8viu0b1yn2ZlQpTsnx-dBZ4NDAUwIcI0FTa-0NCoGv0TECcgBA7cnySh6L6ummOowLCJs7EpDrwl_UoASXqlvapIbPopC902kQ-kxGxSOaSlK1MVM-8i3JToQZPi1dMEznEkCv5_bcSHs0icPp6GuHAP_4r7nodpCsnMGtRXGe2yWavW_w-ZbNEvpnk9q93ouY"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Dr. Maya Patel
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Child Welfare Expert
-                  </p>
-                </div>
-
-                {/* Fifth Advisor */}
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden group-hover:scale-110 transition-transform mb-4">
-                    <img
-                      alt="Dr. Daniel Williams"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgk1tACFQctXtK-PxSXydD2tfAeeVoCKe_jRU7EzlLM30R1djyhY4cgm5ZJD66_KblL3-Zk2duhkC9UdGZmxdAXlxSFeTFDTfCEduFd1WUjGV_V1RaNkyGdgAeIVPQP3SQlyPAe-9-pLCwTX2Kq2Q954dXeL986ONiTJeNF_789leTrCQaCy2fswHvJY_ZOJGj95Bv5cosRhcGej50mzoADlaRhSgoVaYBcR2W9FITz1urVZ-A6kYS"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Dr. Daniel Williams
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Child Safety Researcher
-                  </p>
-                </div>
-
-                {/* DUPLICATES */}
-
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden mb-4">
-                    <img
-                      alt="Prof. David Sterling"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgk1tACFQctXtK-PxSXydD2tfAeeVoCKe_jRU7EzlLM30R1djyhY4cgm5ZJD66_KblL3-Zk2duhkC9UdGZmxdAXlxSFeTFDTfCEduFd1WUjGV_V1RaNkyGdgAeIVPQP3SQlyPAe-9-pLCwTX2Kq2Q954dXeL986ONiTJeNF_789leTrCQaCy2fswHvJY_ZOJGj95Bv5cosRhcGej50mzoADlaRhSgoVaYBcR2W9FITz1urVZ-A6kYS"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Prof. David Sterling
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Digital Ethicist
-                  </p>
-                </div>
-
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden mb-4">
-                    <img
-                      alt="Ambassador Lima"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBS36rrp6DX_YfTSyvMbUFNd7p7Aogu7Xa8LYrg2PazaTe5HbrChGETzFlK_Sdi9ld1dqYzbK9fWL-CDGQmkKWQBI94qVq5CECxrWBPRpFTch7xfcQS3CCqmMmZGas5P-iTogbSF1Yy-Z3o4N0kRqDkKtNEMA5fCG2vZTbVwolIRKmJQFEGQNmsTa7J0YaXnKLdfjJEmeNeu6LzReB1Hs8p74LNsgHO8dVu8bDdIJFp7b2WcQz1wjx"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Ambassador Lima
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Human Rights Lead
-                  </p>
-                </div>
-
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden mb-4">
-                    <img
-                      alt="Kento Suzuki"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOHcvgYsVQu2WUxnGnEF7qLVRwg-VNjSxJ8uX5XHdfSN1XJsd3vVYIEA-CYBgQZAdHC6F0VzSCvDbw_l5Ok8fstPwUKr3xm_bxJ1wOu7Xb7Ycgp8PGqfJnu0XpIxN-D-xpbTmYz88RSiOQFYI3gYyszm35npRTLhE4fp13GsH89Q72w2u3E_et2g0Dw3v_09e47iufdiWErrSOfaIn-y_SPFGt_x6pT3KjdYdGPdT1QkQqSCf0AUQq"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Kento Suzuki
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Privacy Advocate
-                  </p>
-                </div>
-
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden mb-4">
-                    <img
-                      alt="Dr. Maya Patel"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAp_CIhJiMTZUeJRCin0URntjxRaaAu0JIsgqC6g3GQcGh0ADouyy8viu0b1yn2ZlQpTsnx-dBZ4NDAUwIcI0FTa-0NCoGv0TECcgBA7cnySh6L6ummOowLCJs7EpDrwl_UoASXqlvapIbPopC902kQ-kxGxSOaSlK1MVM-8i3JToQZPi1dMEznEkCv5_bcSHs0icPp6GuHAP_4r7nodpCsnMGtRXGe2yWavW_w-ZbNEvpnk9q93ouY"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Dr. Maya Patel
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Child Welfare Expert
-                  </p>
-                </div>
-
-                <div className="auto-carousel-item text-center group">
-                  <div className="w-24 h-24 mx-auto rounded-full border-4 border-primary-container overflow-hidden mb-4">
-                    <img
-                      alt="Dr. Daniel Williams"
-                      className="w-full h-full object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgk1tACFQctXtK-PxSXydD2tfAeeVoCKe_jRU7EzlLM30R1djyhY4cgm5ZJD66_KblL3-Zk2duhkC9UdGZmxdAXlxSFeTFDTfCEduFd1WUjGV_V1RaNkyGdgAeIVPQP3SQlyPAe-9-pLCwTX2Kq2Q954dXeL986ONiTJeNF_789leTrCQaCy2fswHvJY_ZOJGj95Bv5cosRhcGej50mzoADlaRhSgoVaYBcR2W9FITz1urVZ-A6kYS"
-                    />
-                  </div>
-
-                  <h6 className="font-bold text-white text-base">
-                    Dr. Daniel Williams
-                  </h6>
-
-                  <p className="text-safety-yellow text-xs mt-1">
-                    Child Safety Researcher
-                  </p>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        </section>
+        <AdvisoryCommittee />
 
         <section className="py-stack-lg px-margin-desktop bg-surface relative">
           <div className="absolute inset-0 bg-gradient-to-b from-deep-navy/5 to-transparent h-1/2"></div>

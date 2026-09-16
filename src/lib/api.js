@@ -80,6 +80,20 @@ export async function submitPartnerInquiry(payload) {
   return response.json();
 }
 
+export async function submitContactMessage(payload) {
+  const response = await fetch(`${API_URL}/api/contact`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error(await readError(response, 'Could not send your message.'));
+  }
+
+  return response.json();
+}
+
 export async function getResources() {
   const response = await fetch(`${API_URL}/api/resources`);
 

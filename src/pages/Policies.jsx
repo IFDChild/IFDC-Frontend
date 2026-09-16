@@ -1,188 +1,406 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-export default function Policies() {
+/**
+ * Policy documents live in public/policies/ as PDFs, each with a
+ * matching <name>-cover.jpg rendered from page 1.
+ * To add one: drop both files in that folder and add an entry here.
+ */
+const CATEGORIES = [
+    { name: 'Governance', icon: 'account_balance', accent: '#0b3d6e' },
+    { name: 'Child Protection', icon: 'shield_person', accent: '#2F6F62' },
+    { name: 'People & Equality', icon: 'diversity_3', accent: '#5B4B8A' },
+    { name: 'Finance & Procurement', icon: 'payments', accent: '#A9741F' }
+];
+
+const POLICIES = [
+    {
+        slug: 'constitution',
+        title: 'Constitution',
+        description: 'The founding document setting out IFDC’s purpose, structure, and governance.',
+        category: 'Governance',
+        pages: 9
+    },
+    {
+        slug: 'code-of-conduct',
+        title: 'Code of Conduct (CoC)',
+        description: 'The standards of behaviour expected of everyone representing IFDC.',
+        category: 'Governance',
+        pages: 7
+    },
+    {
+        slug: 'conflict-of-interest-policy',
+        title: 'Conflict of Interest Policy (CIP)',
+        description: 'How conflicts of interest are declared, recorded, and managed.',
+        category: 'Governance',
+        pages: 6
+    },
+    {
+        slug: 'whistleblowing-policy',
+        title: 'Whistleblowing Policy',
+        description: 'How to raise concerns about wrongdoing safely, and how those reports are handled.',
+        category: 'Governance',
+        pages: 5
+    },
+    {
+        slug: 'child-privacy-statement',
+        title: 'Child Privacy Statement (CPS)',
+        description: 'How we handle children’s personal data and protect their privacy.',
+        category: 'Child Protection',
+        pages: 4
+    },
+    {
+        slug: 'anti-terrorism-anti-trafficking-policy',
+        title: 'Anti-Terrorism & Anti-Trafficking Policy (ATATP)',
+        description: 'Our safeguards against terrorism financing and human trafficking.',
+        category: 'Child Protection',
+        pages: 4
+    },
+    {
+        slug: 'human-resource-policy',
+        title: 'Human Resource Policy (HRP)',
+        description: 'Recruitment, employment terms, and staff conduct and welfare.',
+        category: 'People & Equality',
+        pages: 7
+    },
+    {
+        slug: 'gender-equality-policy',
+        title: 'Gender Equality Policy (GEP)',
+        description: 'Our commitment to gender equality across programmes and the organisation.',
+        category: 'People & Equality',
+        pages: 5
+    },
+    {
+        slug: 'financial-management-policy',
+        title: 'Financial Management Policy (FMP)',
+        description: 'Controls governing budgeting, accounting, and financial reporting.',
+        category: 'Finance & Procurement',
+        pages: 8
+    },
+    {
+        slug: 'procurement-policy',
+        title: 'Procurement Policy',
+        description: 'How goods and services are sourced, evaluated, and awarded.',
+        category: 'Finance & Procurement',
+        pages: 6
+    },
+    {
+        slug: 'sole-source-procurement-policy',
+        title: 'Sole Source Procurement Policy (SSPP)',
+        description: 'When a single supplier may be used without competitive tender.',
+        category: 'Finance & Procurement',
+        pages: 3
+    }
+];
+
+const fileFor = (slug) => `/policies/${slug}.pdf`;
+const coverFor = (slug) => `/policies/${slug}-cover.jpg`;
+
+const styleFor = (category) =>
+    CATEGORIES.find((c) => c.name === category) || CATEGORIES[0];
+
+function PdfPreview({ policy, onClose }) {
+    useEffect(() => {
+        const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+        document.addEventListener('keydown', onKey);
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.removeEventListener('keydown', onKey);
+            document.body.style.overflow = '';
+        };
+    }, [onClose]);
+
     return (
-        <>
-
-            <Navbar />
-            {/* <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto bg-surface/80 backdrop-blur-md border-b border-white/20 shadow-sm transition-all duration-300 ease-in-out"><div className="flex items-center gap-2"><img alt="IFDC Logo" className="h-10 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuQJn_86eqpwfyllC7phtk3kKJYoJlU3r8eWqN9_PeP8kzGl2Jy6jQGlYFu70M9lokXDVXq1J8Kkiukc50uYNKatCEegxgfQFfVW33-nWGOa4Ri20KHJV2slKbdh9VE45-ke57UZo1hd8LiczRTEiV5XcLBaeJx_CD8dK_gcTH3FjOoIU_CfwgronA4Bfymlut_ui9x8pgQrG78jWObf1-NbB_PPMo6wx8-sXz9qlEpCfCCA2q3c5BwvByk6Y51FpcOw"/></div><div className="hidden md:flex items-center gap-8"><Link className="font-body-md text-body-md text-on-surface-variant hover:text-deep-navy transition-opacity" to="/">Home</Link><Link className="font-body-md text-body-md text-deep-navy font-bold border-b-2 border-safety-yellow pb-1 transition-opacity" to="/about">About</Link><Link className="font-body-md text-body-md text-on-surface-variant hover:text-deep-navy transition-opacity" to="/news">Blogs &amp; News</Link><Link className="font-body-md text-body-md text-on-surface-variant hover:text-deep-navy transition-opacity" to="/resources">Resources</Link></div><div className="flex items-center gap-4"><div className="relative group"><button className="bg-deep-navy text-white px-6 py-2 rounded-full font-label-md text-label-md flex items-center gap-2 hover:opacity-90 transition-opacity">Join Us <span className="material-symbols-outlined text-sm">expand_more</span></button></div></div></nav> */}
-            <main className="pt-24 pb-stack-lg">
-
-                <section className="px-margin-desktop max-w-container-max mx-auto pt-16 pb-12">
-                    <div className="flex flex-col md:flex-row items-center gap-12">
-                        <div className="flex-1 space-y-6">
-                            <span className="bg-sky-tint text-deep-navy px-4 py-1 rounded-lg text-label-md font-label-md inline-block">Governance &amp; Transparency</span>
-                            <h1 className="font-display-lg text-display-lg text-primary">Operating with Integrity</h1>
-                            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-                                Our foundation is built on trust. We maintain rigorous standards for child privacy, data protection, and organizational branding to ensure our mission of a safer digital world for every child remains uncompromising.
-                            </p>
-                        </div>
-                        <div className="flex-1 w-full relative">
-                            <div className="absolute inset-0 bg-secondary-container opacity-10 blur-3xl -z-10 rounded-full"></div>
-                            <div className="glass-card p-4 rounded-3xl overflow-hidden">
-                                <img className="w-full h-80 object-cover rounded-2xl" data-alt="A professional and clean overhead shot of a modern office space with light-filled windows, featuring high-quality minimalist furniture and a soft focus on a digital tablet displaying privacy icons. The scene uses a bright, high-key lighting aesthetic with a palette of deep navy blues and clean whites to communicate institutional trust and modern digital safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhRdVsNepN2Tx_-shErWPoTmfg1Pbs3H-njpKQJx6T7ROWA9yD5nzNy1WS454cxD32qBC8qY4pHk-bhEn_pnA3pP1sOhNbgYRBGdei2pRsTouU9VYGwTq3-bw4OFs7wm-nWzCdl2ppqPa-qxFDOQ5Yx83fTl_1ku_WYHZoKlSgmapoSOiRAU6hi-kZACq_RAlHjxhBPSF1jkfm-4kc4L4xYcIygko60CpRwhVKwhs2lGUanzWvhhOD" />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="px-margin-desktop max-w-container-max mx-auto mb-12">
-                    <div className="glass-card p-6 rounded-2xl flex flex-col md:flex-row gap-4 items-center justify-between">
-                        <div className="relative w-full md:w-96">
-                            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
-                            <input className="w-full pl-12 pr-4 py-3 bg-white border border-sky-tint rounded-xl focus:ring-2 focus:ring-deep-navy focus:outline-none" placeholder="Search policies..." type="text" />
-                        </div>
-                        <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto">
-                            <span className="bg-deep-navy text-white px-4 py-2 rounded-full text-label-md font-label-md cursor-pointer whitespace-nowrap">All Policies</span>
-                            <span className="bg-sky-tint text-deep-navy px-4 py-2 rounded-full text-label-md font-label-md cursor-pointer hover:bg-soft-canary transition-colors whitespace-nowrap">Privacy</span>
-                            <span className="bg-sky-tint text-deep-navy px-4 py-2 rounded-full text-label-md font-label-md cursor-pointer hover:bg-soft-canary transition-colors whitespace-nowrap">Operations</span>
-                            <span className="bg-sky-tint text-deep-navy px-4 py-2 rounded-full text-label-md font-label-md cursor-pointer hover:bg-soft-canary transition-colors whitespace-nowrap">Legal</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
-
-                    <div className="md:col-span-8 glass-card p-8 rounded-[1.5rem] flex flex-col justify-between group hover:border-safety-yellow/50 transition-all">
-                        <div>
-                            <div className="flex items-center justify-between mb-6">
-                                <div className="bg-soft-canary p-3 rounded-xl">
-                                    <span className="material-symbols-outlined text-secondary text-3xl">child_care</span>
-                                </div>
-                                <span className="text-caption font-caption text-outline">Last Updated: Oct 2024</span>
-                            </div>
-                            <h2 className="font-headline-lg text-headline-lg text-deep-navy mb-4">Child Privacy Policy</h2>
-                            <p className="font-body-md text-body-md text-on-surface-variant mb-8 max-w-xl">
-                                Our comprehensive framework for protecting the digital footprint of minors. This policy details how we minimize data collection and ensure parental consent for all youth-oriented digital interactions.
-                            </p>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-4">
-                            <Link className="bg-deep-navy text-white px-6 py-3 rounded-full flex items-center gap-2 font-label-md hover:opacity-90 transition-all" to="#">
-                                <span className="material-symbols-outlined text-lg">download</span>
-                                Download PDF
-                            </Link>
-                            <Link className="text-deep-navy border border-deep-navy px-6 py-3 rounded-full flex items-center gap-2 font-label-md hover:bg-deep-navy hover:text-white transition-all" to="#">
-                                <span className="material-symbols-outlined text-lg">visibility</span>
-                                Read Online
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="md:col-span-4 glass-card p-8 rounded-[1.5rem] flex flex-col group hover:border-safety-yellow/50 transition-all">
-                        <div className="bg-sky-tint p-3 rounded-xl w-fit mb-6">
-                            <span className="material-symbols-outlined text-deep-navy text-3xl">security</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md text-deep-navy mb-4">Data Protection Guidelines</h3>
-                        <p className="font-body-md text-body-md text-on-surface-variant mb-auto">
-                            Technical and administrative safeguards for managing sensitive donor and beneficiary information.
-                        </p>
-                        <div className="pt-8">
-                            <Link className="flex items-center justify-between text-deep-navy font-label-md group-hover:translate-x-1 transition-transform" to="#">
-                                <span className="">View Protocols</span>
-                                <span className="material-symbols-outlined">arrow_forward</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="md:col-span-4 glass-card p-8 rounded-[1.5rem] group hover:border-safety-yellow/50 transition-all">
-                        <div className="bg-secondary-container/20 p-3 rounded-xl w-fit mb-6">
-                            <span className="material-symbols-outlined text-on-secondary-container text-3xl">brand_family</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md text-deep-navy mb-4">Branding Policy</h3>
-                        <p className="font-body-md text-body-md text-on-surface-variant mb-6">
-                            Guidelines for partners and media on correctly utilizing our identity.
-                        </p>
-                        <Link className="inline-flex items-center gap-2 text-deep-navy font-label-md hover:underline" to="#">
-                            <span className="material-symbols-outlined">file_download</span>
-                            Logo Assets &amp; Guidelines
-                        </Link>
-                    </div>
-
-                    <div className="md:col-span-4 glass-card p-8 rounded-[1.5rem] group hover:border-safety-yellow/50 transition-all">
-                        <div className="bg-surface-container-high p-3 rounded-xl w-fit mb-6">
-                            <span className="material-symbols-outlined text-on-surface-variant text-3xl">gavel</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md text-deep-navy mb-4">Terms of Service</h3>
-                        <p className="font-body-md text-body-md text-on-surface-variant mb-6">
-                            The legal agreement governing your use of our digital platforms and tools.
-                        </p>
-                        <Link className="inline-flex items-center gap-2 text-deep-navy font-label-md hover:underline" to="#">
-                            <span className="material-symbols-outlined">description</span>
-                            View Legal Agreement
-                        </Link>
-                    </div>
-
-                    <div className="md:col-span-4 glass-card p-8 rounded-[1.5rem] group hover:border-safety-yellow/50 transition-all">
-                        <div className="bg-error-container/20 p-3 rounded-xl w-fit mb-6">
-                            <span className="material-symbols-outlined text-error text-3xl">diversity_3</span>
-                        </div>
-                        <h3 className="font-headline-md text-headline-md text-deep-navy mb-4">Code of Conduct</h3>
-                        <p className="font-body-md text-body-md text-on-surface-variant mb-6">
-                            Defining the ethical behavior expected from our staff, volunteers, and partners.
-                        </p>
-                        <Link className="inline-flex items-center gap-2 text-deep-navy font-label-md hover:underline" to="#">
-                            <span className="material-symbols-outlined">verified</span>
-                            Ethical Framework
-                        </Link>
-                    </div>
-                </section>
-
-                <section className="px-margin-desktop max-w-container-max mx-auto mt-stack-lg">
-                    <div className="bg-safety-yellow p-10 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-8">
-                        <div className="flex items-center gap-6">
-                            <div className="bg-deep-navy text-white p-4 rounded-full">
-                                <span className="material-symbols-outlined text-4xl">notification_important</span>
-                            </div>
-                            <div>
-                                <h4 className="font-headline-md text-headline-md text-deep-navy mb-1">Compliance Reporting</h4>
-                                <p className="font-body-md text-body-md text-on-secondary-container">Have you spotted a policy violation or have a privacy concern? Report it immediately.</p>
-                            </div>
-                        </div>
-                        <button className="bg-deep-navy text-white px-8 py-4 rounded-full font-label-md text-label-md whitespace-nowrap shadow-lg hover:scale-105 transition-transform">
-                            Emergency Reporting Link
+        <div
+            className="fixed inset-0 z-[100] bg-deep-navy/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={onClose}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Preview of ${policy.title}`}
+        >
+            <div
+                className="relative bg-white w-full max-w-5xl h-[90vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="flex items-center justify-between gap-4 px-5 py-3 border-b border-outline-variant/40 shrink-0">
+                    <h2 className="font-headline-md text-body-lg text-primary truncate">{policy.title}</h2>
+                    <div className="flex items-center gap-2 shrink-0">
+                        <a
+                            href={fileFor(policy.slug)}
+                            download
+                            className="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-2 hover:bg-deep-navy transition-colors"
+                        >
+                            <span className="material-symbols-outlined text-sm">download</span>
+                            Download
+                        </a>
+                        <button
+                            onClick={onClose}
+                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors"
+                            aria-label="Close preview"
+                        >
+                            <span className="material-symbols-outlined">close</span>
                         </button>
                     </div>
+                </div>
+                <iframe src={fileFor(policy.slug)} title={`${policy.title} preview`} className="w-full flex-1" />
+            </div>
+        </div>
+    );
+}
+
+function PolicyCard({ policy, onPreview, eager }) {
+    const { accent } = styleFor(policy.category);
+
+    return (
+        <article className="group bg-white rounded-2xl overflow-hidden border border-outline-variant/30 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
+            <button
+                type="button"
+                onClick={() => onPreview(policy)}
+                className="relative block w-full aspect-[3/4] bg-surface-container overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-safety-yellow"
+                aria-label={`Preview ${policy.title}`}
+            >
+                <img
+                    src={coverFor(policy.slug)}
+                    alt=""
+                    loading={eager ? 'eager' : 'lazy'}
+                    fetchPriority={eager ? 'high' : 'auto'}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+
+                <span className="absolute inset-0 bg-deep-navy/0 group-hover:bg-deep-navy/45 transition-colors duration-300 flex items-center justify-center">
+                    <span className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-safety-yellow text-deep-navy font-label-md text-label-md opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg">
+                        <span className="material-symbols-outlined text-sm">visibility</span>
+                        Preview
+                    </span>
+                </span>
+
+                <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 text-caption font-bold" style={{ color: accent }}>
+                    PDF
+                </span>
+            </button>
+
+            <div className="p-5 flex flex-col flex-grow">
+                <h3 className="font-headline-md text-body-lg text-deep-navy leading-snug mb-2">{policy.title}</h3>
+                <p className="text-on-surface-variant text-body-md leading-relaxed mb-4 flex-grow">{policy.description}</p>
+
+                <div className="flex items-center gap-3 text-caption text-outline mb-4">
+                    <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">auto_stories</span>
+                        {policy.pages} pages
+                    </span>
+                </div>
+
+                <div className="flex gap-2 mt-auto">
+                    <a
+                        href={fileFor(policy.slug)}
+                        download
+                        className="flex-1 px-4 py-2.5 rounded-lg font-label-md text-label-md text-white flex items-center justify-center gap-2 transition-transform active:scale-95"
+                        style={{ backgroundColor: accent }}
+                    >
+                        <span className="material-symbols-outlined text-sm">download</span>
+                        Download
+                    </a>
+                    <button
+                        onClick={() => onPreview(policy)}
+                        className="px-4 py-2.5 border border-outline-variant rounded-lg font-label-md text-label-md text-primary hover:bg-sky-tint transition-colors"
+                    >
+                        Read
+                    </button>
+                </div>
+            </div>
+        </article>
+    );
+}
+
+export default function Policies() {
+    const [preview, setPreview] = useState(null);
+    const [activeCategory, setActiveCategory] = useState('All');
+    const [query, setQuery] = useState('');
+
+    const counts = useMemo(() => {
+        const tally = {};
+        POLICIES.forEach((p) => { tally[p.category] = (tally[p.category] || 0) + 1; });
+        return tally;
+    }, []);
+
+    const visible = useMemo(() => {
+        const term = query.trim().toLowerCase();
+
+        return POLICIES.filter((p) => {
+            if (activeCategory !== 'All' && p.category !== activeCategory) return false;
+            if (!term) return true;
+            return `${p.title} ${p.description}`.toLowerCase().includes(term);
+        });
+    }, [activeCategory, query]);
+
+    let shown = 0;
+
+    return (
+        <>
+            {preview && <PdfPreview policy={preview} onClose={() => setPreview(null)} />}
+
+            <Navbar />
+
+            <main>
+                {/* Hero */}
+                <section className="relative overflow-hidden bg-deep-navy text-white px-margin-mobile md:px-margin-desktop py-stack-lg">
+                    <div className="absolute -top-32 -right-24 w-96 h-96 bg-safety-yellow/15 blur-3xl rounded-full pointer-events-none"></div>
+                    <div className="absolute -bottom-40 -left-32 w-96 h-96 bg-sky-tint/10 blur-3xl rounded-full pointer-events-none"></div>
+
+                    <div className="relative max-w-container-max mx-auto">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-safety-yellow/15 border border-safety-yellow/40 rounded-full text-safety-yellow font-label-md text-label-md">
+                            <span className="material-symbols-outlined text-sm">verified_user</span>
+                            Governance &amp; Transparency
+                        </span>
+
+                        <h1 className="font-display-lg text-headline-lg-mobile md:text-display-lg text-white mt-6 leading-tight max-w-3xl">
+                            Policies &amp; <span className="text-safety-yellow">Governance</span>
+                        </h1>
+
+                        <p className="font-body-lg text-body-lg text-white/75 mt-5 max-w-2xl leading-relaxed">
+                            The documents that govern how IFDC operates — published in full so partners, funders, and the public can read exactly how we work.
+                        </p>
+
+                        <div className="flex flex-wrap gap-8 mt-10">
+                            <div>
+                                <p className="font-display-lg text-headline-lg text-safety-yellow leading-none">{POLICIES.length}</p>
+                                <p className="font-caption text-caption text-white/60 mt-2 uppercase tracking-widest">Documents</p>
+                            </div>
+                            <div>
+                                <p className="font-display-lg text-headline-lg text-safety-yellow leading-none">{CATEGORIES.length}</p>
+                                <p className="font-caption text-caption text-white/60 mt-2 uppercase tracking-widest">Areas</p>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
-                <section className="px-margin-desktop max-w-container-max mx-auto mt-stack-lg border-t border-outline-variant/30 pt-stack-lg">
-                    <h2 className="font-headline-lg text-headline-lg text-deep-navy mb-12 text-center">Frequently Asked Questions</h2>
-                    <div className="max-w-3xl mx-auto space-y-4">
-                        <details className="group bg-white p-6 rounded-2xl border border-sky-tint cursor-pointer">
-                            <summary className="flex justify-between items-center font-label-md text-label-md text-deep-navy list-none">
-                                How often are these policies reviewed?
-                                <span className="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-                            </summary>
-                            <p className="mt-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                                Our governance board reviews all organizational policies annually, or more frequently if there are significant changes in international digital safety laws such as COPPA or GDPR-K.
+                {/* Filter bar */}
+                <section className="sticky top-20 z-40 bg-surface-container-low/95 backdrop-blur border-y border-outline-variant/30 px-margin-mobile md:px-margin-desktop py-4">
+                    <div className="max-w-container-max mx-auto flex flex-col lg:flex-row lg:items-center gap-4">
+                        <div className="flex flex-wrap gap-2 flex-grow">
+                            {['All', ...CATEGORIES.map((c) => c.name)].map((name) => {
+                                const active = activeCategory === name;
+                                const accent = name === 'All' ? '#0b3d6e' : styleFor(name).accent;
+
+                                return (
+                                    <button
+                                        key={name}
+                                        onClick={() => setActiveCategory(name)}
+                                        className={`px-4 py-2 rounded-full font-label-md text-label-md border transition-all duration-200 flex items-center gap-2 ${
+                                            active ? 'text-white border-transparent shadow-md' : 'bg-white text-on-surface-variant border-outline-variant/50 hover:bg-sky-tint'
+                                        }`}
+                                        style={active ? { backgroundColor: accent } : undefined}
+                                    >
+                                        {name !== 'All' && (
+                                            <span className="material-symbols-outlined text-sm">{styleFor(name).icon}</span>
+                                        )}
+                                        {name}
+                                        <span className={`text-caption ${active ? 'text-white/70' : 'text-outline'}`}>
+                                            {name === 'All' ? POLICIES.length : counts[name]}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        <label className="relative lg:w-72 shrink-0">
+                            <span className="sr-only">Search policies</span>
+                            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+                            <input
+                                type="search"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                placeholder="Search policies…"
+                                className="w-full pl-10 pr-4 py-2.5 rounded-full border border-outline-variant/50 bg-white text-body-md focus:border-deep-navy focus:ring-1 focus:ring-deep-navy outline-none"
+                            />
+                        </label>
+                    </div>
+                </section>
+
+                {/* Documents */}
+                <section className="py-stack-lg px-margin-mobile md:px-margin-desktop">
+                    <div className="max-w-container-max mx-auto">
+
+                        {visible.length === 0 && (
+                            <p className="text-center py-20 text-on-surface-variant font-body-lg">
+                                No policies match your search.
                             </p>
-                        </details>
-                        <details className="group bg-white p-6 rounded-2xl border border-sky-tint cursor-pointer">
-                            <summary className="flex justify-between items-center font-label-md text-label-md text-deep-navy list-none">
-                                Can educational institutions license your branding?
-                                <span className="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-                            </summary>
-                            <p className="mt-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                                Yes, non-profit educational institutions can apply for a branding license to use our materials in classroom settings. Please refer to our Branding Policy for the application process.
-                            </p>
-                        </details>
-                        <details className="group bg-white p-6 rounded-2xl border border-sky-tint cursor-pointer">
-                            <summary className="flex justify-between items-center font-label-md text-label-md text-deep-navy list-none">
-                                Is my donation data secure?
-                                <span className="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-                            </summary>
-                            <p className="mt-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                                We use bank-level encryption and secure processing through certified gateways. We never store credit card information on our servers. See our Data Protection Guidelines for full details.
-                            </p>
-                        </details>
+                        )}
+
+                        {CATEGORIES.map((category) => {
+                            const items = visible.filter((p) => p.category === category.name);
+                            if (items.length === 0) return null;
+
+                            return (
+                                <div key={category.name} className="mb-stack-lg">
+                                    <div className="flex items-center gap-4 mb-stack-md">
+                                        <span
+                                            className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                                            style={{ backgroundColor: `${category.accent}1A`, color: category.accent }}
+                                        >
+                                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
+                                                {category.icon}
+                                            </span>
+                                        </span>
+                                        <div>
+                                            <h2 className="font-headline-md text-headline-md text-deep-navy leading-tight">{category.name}</h2>
+                                            <p className="font-caption text-caption text-on-surface-variant">
+                                                {items.length} {items.length === 1 ? 'document' : 'documents'}
+                                            </p>
+                                        </div>
+                                        <span className="flex-grow h-px" style={{ backgroundColor: `${category.accent}33` }}></span>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                        {items.map((policy) => {
+                                            const eager = shown < 4;
+                                            shown += 1;
+                                            return (
+                                                <PolicyCard
+                                                    key={policy.slug}
+                                                    policy={policy}
+                                                    onPreview={setPreview}
+                                                    eager={eager}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
+
+                {/* Reporting a concern */}
+                <section className="px-margin-mobile md:px-margin-desktop pb-stack-lg">
+                    <div className="max-w-container-max mx-auto">
+                        <div className="bg-safety-yellow p-8 md:p-10 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-8">
+                            <div className="flex items-center gap-6">
+                                <span className="bg-deep-navy text-white p-4 rounded-full shrink-0">
+                                    <span className="material-symbols-outlined text-3xl">notification_important</span>
+                                </span>
+                                <div>
+                                    <h2 className="font-headline-md text-headline-md text-deep-navy mb-1">Reporting a concern</h2>
+                                    <p className="font-body-md text-body-md text-deep-navy/80">
+                                        If you believe one of these policies has been breached, please get in touch with us directly.
+                                    </p>
+                                </div>
+                            </div>
+                            <Link
+                                to="/contact"
+                                className="bg-deep-navy text-white px-8 py-4 rounded-full font-label-md text-label-md whitespace-nowrap shadow-lg hover:bg-surface-tint transition-colors active:scale-95"
+                            >
+                                Contact us
+                            </Link>
+                        </div>
                     </div>
                 </section>
             </main>
 
             <Footer />
-
         </>
     );
 }

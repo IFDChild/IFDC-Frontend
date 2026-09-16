@@ -46,30 +46,6 @@ export default function Footer() {
 
       <div className="relative max-w-7xl mx-auto px-5 md:px-10">
 
-        {/* Call to action */}
-        <div className="py-10 md:py-12 border-b border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div>
-            <h2 className="font-headline-md text-headline-md text-white">Ready to make a difference?</h2>
-            <p className="font-body-md text-body-md text-white/70 mt-1">
-              Join the people helping children stay safe online.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              to="/volunteer"
-              className="inline-flex items-center justify-center gap-2 bg-safety-yellow text-deep-navy font-label-md text-label-md px-6 py-3 rounded-full hover:bg-secondary-fixed-dim transition-all duration-200 active:scale-95 shadow-lg"
-            >
-              Become a Volunteer
-            </Link>
-            <Link
-              to="/partner"
-              className="inline-flex items-center justify-center gap-2 border border-white/40 text-white font-label-md text-label-md px-6 py-3 rounded-full hover:bg-white hover:text-deep-navy transition-all duration-200 active:scale-95"
-            >
-              Partner With Us
-            </Link>
-          </div>
-        </div>
-
         {/* Main columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 py-14">
 
@@ -140,6 +116,13 @@ export default function Footer() {
                 </span>
               </li>
             </ul>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 mt-6 border border-white/30 text-white font-label-md text-label-md px-5 py-2.5 rounded-full hover:bg-safety-yellow hover:text-deep-navy hover:border-safety-yellow transition-all duration-200"
+            >
+              <span className="material-symbols-outlined text-sm">forum</span>
+              Contact Us
+            </Link>
           </div>
         </div>
 

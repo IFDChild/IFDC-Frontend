@@ -1,6 +1,54 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+
+const FELLOWSHIP_STATS = [
+    { value: '70', label: 'Fellows engaged', note: 'across programme touchpoints' },
+    { value: '17', label: 'Districts represented', note: 'across Sri Lanka' },
+    { value: '98%', label: 'Would recommend', note: 'the programme to others' },
+    { value: '99%', label: 'Plan to continue', note: 'to the next session' }
+];
+
+const SESSION_RATINGS = [
+    { label: 'Excellent', percent: 56, count: 65, color: '#2F6F62' },
+    { label: 'Good', percent: 37, count: 43, color: '#0b3d6e' },
+    { label: 'Neutral', percent: 6, count: 7, color: '#A9741F' },
+    { label: 'Very poor', percent: 2, count: 2, color: '#9C3F5E' }
+];
+
+const FELLOW_PROFILE = [
+    { icon: 'cake', label: 'Average age', value: '28 years (range 17–51)' },
+    { icon: 'wc', label: 'Gender', value: 'Female 66% · Male 34%' },
+    { icon: 'translate', label: 'Languages', value: 'Tamil 55% · Sinhala 29% · English 15%' },
+    { icon: 'work', label: 'Occupation', value: '45% students · 21% NGO staff · rest public/private sector & self-employed' },
+    { icon: 'location_on', label: 'Top districts', value: 'Ampara, Batticaloa, Colombo, Gampaha' }
+];
+
+const LEARNING_COLOURS = ['#2F6F62', '#A9741F', '#5B4B8A', '#9C3F5E', '#0b3d6e'];
+
+const FELLOW_LEARNINGS = [
+    {
+        title: 'Spotting grooming, sextortion & CSAM warning signs',
+        body: 'The most-cited takeaway: recognising the manipulation tactics predators use and the red flags that precede abuse.'
+    },
+    {
+        title: "Sri Lanka's reporting channels & legal protections",
+        body: 'Which authorities to contact, how cases are handled, and what the law provides for affected children.'
+    },
+    {
+        title: 'Digital parenting & family conversations',
+        body: 'Practical ways to help parents set screen-time limits, use parental controls, and talk openly with children.'
+    },
+    {
+        title: 'Mental-health impact of online abuse',
+        body: "How grooming and exploitation affect a child's trust, self-worth, and long-term wellbeing — and where to refer support."
+    },
+    {
+        title: "AI risks and children's digital rights",
+        body: 'Emerging AI-enabled threats, policy gaps, and the responsible use of technology to protect children online.'
+    }
+];
+
 
 export default function Impact() {
     return (
@@ -51,6 +99,128 @@ export default function Impact() {
                     </div>
                 </section>
 
+                {/* Fellowship programme impact */}
+                <section className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface-container-low">
+                    <div className="max-w-container-max mx-auto">
+
+                        <div className="max-w-3xl">
+                            <span className="inline-flex items-center gap-2 bg-deep-navy text-safety-yellow px-4 py-1.5 rounded-full text-label-md font-bold uppercase tracking-wider">
+                                <span className="w-1.5 h-1.5 rounded-full bg-safety-yellow"></span>
+                                Fellowship Impact
+                            </span>
+                            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mt-5">
+                                Online Child Protection Advocates &amp; Ambassador Program
+                            </h2>
+                            <span className="block w-20 h-1 bg-safety-yellow rounded-full my-5"></span>
+                            <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                                The IFDC Online Child Protection Advocates &amp; Ambassador Program equips young people and professionals across Sri Lanka with the knowledge and tools to protect children in digital spaces. Through expert-led sessions on online grooming, sextortion, digital parenting, AI risks, and children&rsquo;s digital rights, fellows build practical skills to recognize abuse, support families, and advocate for safer online environments in their own communities.
+                            </p>
+                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mt-4">
+                                Since its launch, the program has engaged fellows from 17 districts across the island &mdash; students, NGO staff, counsellors, teachers, and social workers alike &mdash; with 98% saying they&rsquo;d recommend it to others and 99% continuing on to further sessions. Beyond the sessions themselves, fellows go on to become community educators, digital counsellors, and advocates, extending child protection awareness far beyond the program itself.
+                            </p>
+                        </div>
+
+                        {/* Headline numbers */}
+                        <dl className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-stack-md">
+                            {FELLOWSHIP_STATS.map((stat) => (
+                                <div key={stat.label} className="bg-white rounded-2xl p-6 border border-outline-variant/30 shadow-sm">
+                                    <dt className="font-display-lg text-headline-lg text-deep-navy leading-none">{stat.value}</dt>
+                                    <dd className="mt-3">
+                                        <span className="block font-label-md text-label-md text-deep-navy">{stat.label}</span>
+                                        <span className="block font-caption text-caption text-on-surface-variant mt-1">{stat.note}</span>
+                                    </dd>
+                                </div>
+                            ))}
+                        </dl>
+
+                        {/* Ratings + profile */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+
+                            <div className="bg-white rounded-2xl p-7 border border-outline-variant/30 shadow-sm">
+                                <h3 className="font-headline-md text-headline-md text-deep-navy mb-1">How fellows rated session quality</h3>
+                                <p className="font-caption text-caption text-on-surface-variant mb-6">
+                                    Based on 117 Ambassador Program evaluations, Jan&ndash;Apr 2025
+                                </p>
+
+                                <ul className="space-y-4">
+                                    {SESSION_RATINGS.map((rating) => (
+                                        <li key={rating.label}>
+                                            <div className="flex items-baseline justify-between mb-1.5">
+                                                <span className="font-label-md text-label-md text-deep-navy">{rating.label}</span>
+                                                <span className="font-caption text-caption text-on-surface-variant">
+                                                    {rating.percent}% &middot; {rating.count}
+                                                </span>
+                                            </div>
+                                            <div className="h-2.5 rounded-full bg-surface-container overflow-hidden">
+                                                <div
+                                                    className="h-full rounded-full"
+                                                    style={{ width: `${rating.percent}%`, backgroundColor: rating.color }}
+                                                ></div>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <p className="font-body-md text-body-md text-on-surface-variant mt-6 pt-5 border-t border-outline-variant/40 leading-relaxed">
+                                    Across 47 workshop feedback responses, 92% rated the content relevant to very relevant and 100% said they&rsquo;d recommend it. Fellows attended an average of 5 of 6 sessions &mdash; evidence of sustained, not one-off, engagement.
+                                </p>
+                            </div>
+
+                            <div className="bg-deep-navy rounded-2xl p-7 text-white relative overflow-hidden">
+                                <span className="absolute -top-20 -right-16 w-64 h-64 bg-safety-yellow/10 blur-3xl rounded-full pointer-events-none" aria-hidden="true"></span>
+                                <div className="relative">
+                                    <h3 className="font-headline-md text-headline-md text-white mb-1">Who our fellows are</h3>
+                                    <p className="font-caption text-caption text-white/60 mb-6">Demographic profile, 2025</p>
+
+                                    <dl className="space-y-5">
+                                        {FELLOW_PROFILE.map((row) => (
+                                            <div key={row.label} className="flex gap-4">
+                                                <span className="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shrink-0">
+                                                    <span className="material-symbols-outlined text-safety-yellow text-xl">{row.icon}</span>
+                                                </span>
+                                                <div>
+                                                    <dt className="font-caption text-caption text-white/60 uppercase tracking-widest">{row.label}</dt>
+                                                    <dd className="font-body-md text-body-md text-white/90 mt-0.5">{row.value}</dd>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* What fellows learned */}
+                        <div className="mt-6 bg-white rounded-2xl p-7 md:p-9 border border-outline-variant/30 shadow-sm">
+                            <h3 className="font-headline-md text-headline-md text-deep-navy mb-1">What fellows say they learned</h3>
+                            <p className="font-caption text-caption text-on-surface-variant mb-7">
+                                Most-cited takeaways from open-ended evaluation responses
+                            </p>
+
+                            <ol className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                {FELLOW_LEARNINGS.map((item, index) => (
+                                    <li key={item.title} className="flex gap-4">
+                                        <span
+                                            className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 font-bold text-body-md text-white"
+                                            style={{ backgroundColor: LEARNING_COLOURS[index % LEARNING_COLOURS.length] }}
+                                            aria-hidden="true"
+                                        >
+                                            {index + 1}
+                                        </span>
+                                        <div>
+                                            <h4 className="font-headline-md text-body-lg font-bold text-deep-navy leading-snug mb-1">{item.title}</h4>
+                                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{item.body}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+
+                        <p className="font-caption text-caption text-on-surface-variant mt-6">
+                            Source: IFDC Contact Information, Evaluation &amp; Feedback, and Workshop Feedback response forms, 2025 (n=117 and n=42).
+                        </p>
+                    </div>
+                </section>
+
                 <section className="px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
                     <h2 className="font-headline-lg text-headline-lg text-deep-navy mb-stack-md text-center md:text-left" style={{ "opacity": "0.5", "transition": "opacity 1s ease-out" }}>Spotlight on Success</h2>
                     <div className="glass-card rounded-[2rem] overflow-hidden flex flex-col lg:flex-row group transition-all duration-500 hover:shadow-xl">
@@ -71,77 +241,6 @@ export default function Impact() {
                                     <span className="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="bg-surface-container-lowest px-margin-mobile md:px-margin-desktop py-stack-lg">
-                    <div className="max-w-container-max mx-auto">
-                        <div className="flex flex-col md:flex-row justify-between items-end mb-stack-md gap-6">
-                            <div>
-                                <h2 className="font-headline-lg text-headline-lg text-deep-navy" style={{ "opacity": "1", "transition": "opacity 1s ease-out" }}>More Stories of Change</h2>
-                                <p className="text-on-surface-variant max-w-lg mt-2 font-body-md">Real stories from the families, schools, and communities we serve every day across the globe.</p>
-                            </div>
-                            <div className="flex gap-2">
-                                <button className="px-4 py-2 bg-white border border-outline-variant rounded-lg text-label-md text-on-surface-variant hover:border-deep-navy transition-colors">All Stories</button>
-                                <button className="px-4 py-2 bg-white border border-outline-variant rounded-lg text-label-md text-on-surface-variant hover:border-deep-navy transition-colors">Education</button>
-                                <button className="px-4 py-2 bg-white border border-outline-variant rounded-lg text-label-md text-on-surface-variant hover:border-deep-navy transition-colors">Prevention</button>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-
-                            <div className="glass-card rounded-2xl overflow-hidden group">
-                                <div className="h-56 overflow-hidden relative">
-                                    <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A vibrant digital illustration in a soft-edged, professional style showing two children playing a game on a laptop while a protective glowing shield symbol floats subtly in the air behind them. The color scheme is predominantly white, sky-tint, and deep navy with yellow accents, creating a sense of optimistic security." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRbn4m_7LSh_kezVCpuZ7OgSJimNF5TZ2HHfNL18Q-250Yc5DpB5b9-npa4FyiyRzKDRM7Rus47VssMZp9RHZjs-StrQDu3Y3FVn9ont94_11DfdQw-N-hr-iDC-4qyvomjkkRvOYyypED4GzYqtOfk5SrmTH62e09-abVIhu7B7C_lsYiPXnGkwwi3Lvj6VpU-1Wz4wQN_ktnLw-gBVxKY11s1eCdUOxlqt0mr-wKF03w7H3gpyQF" />
-                                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur text-deep-navy rounded-lg text-caption font-bold">SUCCESS</div>
-                                </div>
-                                <div className="p-6 space-y-4">
-                                    <h4 className="font-headline-md text-headline-md text-deep-navy line-clamp-2">Securing the Smith Family's Digital Home</h4>
-                                    <p className="text-body-md text-on-surface-variant line-clamp-3">
-                                        Discover how a single consultation transformed one family's anxious relationship with technology into a journey of shared discovery.
-                                    </p>
-                                    <button className="text-deep-navy font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                                        Read More <span className="material-symbols-outlined">chevron_right</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="glass-card rounded-2xl overflow-hidden group">
-                                <div className="h-56 overflow-hidden relative">
-                                    <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A professional photograph of a teacher standing in front of a classroom using an interactive whiteboard that displays digital safety icons. The classroom is modern and filled with light, suggesting a transparent and open learning environment. The mood is empowering and educational, consistent with the foundation's corporate-modern visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTvmqapNIv7iNMeHYGYz2d1bGCJFXqtVx11odj8JhL1r6YK3KpXV33yR1CJPpBBcfj0Epq9a5l188oNVU1ImAqVjpKOuchj2nsS9uT70CQsZRVgPEoiztVB8SwK8T_ulv6Xw9CusjOmhFNHcqQrebUje6u1gPEUfWuPaPGGl98g62l6rcZ5DFgfpU35XQ5kO9Az4qLmIzricrOIvuOZOwfsZVDJUstHxRozhrEaX2P8bD4haVE8XHW" />
-                                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur text-deep-navy rounded-lg text-caption font-bold">EDUCATION</div>
-                                </div>
-                                <div className="p-6 space-y-4">
-                                    <h4 className="font-headline-md text-headline-md text-deep-navy line-clamp-2">1,000 Classrooms: The Curriculum Project</h4>
-                                    <p className="text-body-md text-on-surface-variant line-clamp-3">
-                                        A retrospective on our most ambitious educational rollout yet, reaching underserved communities with critical digital literacy resources.
-                                    </p>
-                                    <button className="text-deep-navy font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                                        Read More <span className="material-symbols-outlined">chevron_right</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className="glass-card rounded-2xl overflow-hidden group">
-                                <div className="h-56 overflow-hidden relative">
-                                    <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A high-tech digital shield icon rendered in a 3D glassmorphic style, floating over a stylized motherboard pattern. The lighting is cool blue and deep navy, representing trust and technological prowess. This abstract visual represents the foundation's back-end work in child safety policy and technical prevention measures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGxn5QXrSf5zdE9P1Vh0HQ4CpEVdDhkbe34bl9IJOlbhiCrSqcioO2SfrjRg086k30KBuwqRjHzWsL95cr3pioR9r5EJ-FLMTOwOr8j6PbKctA6Wph8Z9GtzXLq9Jqbs6zofX4V2oU_3VPmiS9fchGTWdzLS2JqZsxuj6NSk4H5_S9vpaBiC19y0sX40tOfUF5lpp5-rr9zxjl7porB6F1oTnyCjGdoveZuQDjm2l-zaUk_dS1LtFM" />
-                                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur text-deep-navy rounded-lg text-caption font-bold">TECH</div>
-                                </div>
-                                <div className="p-6 space-y-4">
-                                    <h4 className="font-headline-md text-headline-md text-deep-navy line-clamp-2">Algorithm for Good: Preventing Harm Early</h4>
-                                    <p className="text-body-md text-on-surface-variant line-clamp-3">
-                                        How our new technical tool helped identify and mitigate digital threats before they could impact a vulnerable group of students.
-                                    </p>
-                                    <button className="text-deep-navy font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                                        Read More <span className="material-symbols-outlined">chevron_right</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mt-stack-lg text-center">
-                            <button className="border-2 border-deep-navy text-deep-navy px-12 py-4 rounded-full font-label-md hover:bg-deep-navy hover:text-white transition-all">
-                                Load More Impact Stories
-                            </button>
                         </div>
                     </div>
                 </section>

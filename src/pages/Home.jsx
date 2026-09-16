@@ -11,143 +11,42 @@ import digitalWellbeingBlog from "../assets/images/digitalboy.jpg";
 import onlineSafetyBlog from '../assets/images/digital children.jpg'
 import youthTechnologyBlog from "../assets/images/coverImage1.jpg";
 
-const PROGRAMME_PILLARS = [
+const PROGRAMMES = [
     {
-        tag: '#DigitalWise',
         title: 'Building healthy digital lives',
-        desc: 'Digital literacy, online safety, critical thinking, and healthy technology habits for children, parents, and educators.',
+        description: 'Digital literacy, online safety, online child protection, critical thinking, and healthy technology habits for children, parents, and educators.',
         icon: (
-            <>
-                <path d="M2 5c2.5-1.2 5.5-1.2 8 0v14c-2.5-1.2-5.5-1.2-8 0Z" />
-                <path d="M22 5c-2.5-1.2-5.5-1.2-8 0v14c2.5-1.2 5.5-1.2 8 0Z" />
-            </>
+            <path d="M12 3.5L19 6V11.5C19 16 16 19.3 12 20.5C8 19.3 5 16 5 11.5V6L12 3.5Z" strokeWidth="1.5" strokeLinejoin="round" />
         )
     },
     {
-        tag: '#Kidspression',
         title: 'Empowering young digital creators',
-        desc: 'Self-expression through storytelling, filmmaking, photography, podcasting, and other creative media.',
+        description: 'Self-expression through storytelling, filmmaking, photography, podcasting, and other creative media.',
         icon: (
             <>
-                <path d="M15 8l6-3v14l-6-3" />
-                <rect x="2" y="6" width="13" height="12" rx="2" />
+                <path d="M3.5 8.5C3.5 7.4 4.4 6.5 5.5 6.5H8L9 5H15L16 6.5H18.5C19.6 6.5 20.5 7.4 20.5 8.5V16.5C20.5 17.6 19.6 18.5 18.5 18.5H5.5C4.4 18.5 3.5 17.6 3.5 16.5V8.5Z" strokeWidth="1.5" strokeLinejoin="round" />
+                <circle cx="12" cy="12.5" r="3.4" strokeWidth="1.5" />
             </>
         )
     },
     {
-        tag: '#Voice4Kids',
         title: 'Research, advocacy & child rights',
-        desc: "Research and advocacy that strengthen child protection, influence policy, and amplify children's voices online.",
-        icon: <path d="M12 3v18M5 7h14M5 7 2 13a3 3 0 0 0 6 0L5 7Zm14 0-3 6a3 3 0 0 0 6 0l-3-6Z" />
+        description: "Research and advocacy that strengthen child protection, influence policy, and amplify children's voices online.",
+        icon: (
+            <>
+                <path d="M3.5 10.2V14.3C3.5 14.9 3.9 15.3 4.5 15.3H6.3L12.5 19V5.5L6.3 9.2H4.5C3.9 9.2 3.5 9.6 3.5 10.2Z" strokeWidth="1.5" strokeLinejoin="round" />
+                <path d="M15.6 8.4C16.7 9.3 17.3 10.6 17.3 12C17.3 13.4 16.7 14.7 15.6 15.6" strokeWidth="1.5" strokeLinecap="round" />
+            </>
+        )
     },
     {
-        tag: '#TechCare',
         title: 'Digital mental health & wellbeing',
-        desc: "Healthy relationships with technology, supporting children's and young people's digital resilience.",
-        icon: <path d="M2 12h4l2 7 4-14 2 7h8" />
+        description: "Healthy relationships with technology, supporting children's and young people's digital resilience.",
+        icon: (
+            <path d="M12 19.3C12 19.3 4 14.6 4 9.1C4 6.4 6.1 4.3 8.6 4.3C10.1 4.3 11.4 5 12 6.3C12.6 5 13.9 4.3 15.4 4.3C17.9 4.3 20 6.4 20 9.1C20 14.6 12 19.3 12 19.3Z" strokeWidth="1.5" strokeLinejoin="round" />
+        )
     }
 ];
-
-function ProgrammePillars() {
-    const [spotlight, setSpotlight] = useState(0);
-    const [hovered, setHovered] = useState(null);
-    const [pinned, setPinned] = useState(false);
-
-    const active = hovered !== null ? hovered : spotlight;
-
-    // Auto-advance the spotlight until the visitor takes control.
-    useEffect(() => {
-        if (pinned || hovered !== null) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        const timer = setInterval(() => {
-            setSpotlight((index) => (index + 1) % PROGRAMME_PILLARS.length);
-        }, 5000);
-
-        return () => clearInterval(timer);
-    }, [pinned, hovered]);
-
-    const select = (index) => {
-        setSpotlight(index);
-        setPinned(true);
-    };
-
-    return (
-        <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {PROGRAMME_PILLARS.map((pillar, index) => {
-                    const isActive = index === active;
-
-                    return (
-                        <div
-                            key={pillar.tag}
-                            onMouseEnter={() => setHovered(index)}
-                            onMouseLeave={() => setHovered(null)}
-                            className={`relative bg-white rounded-2xl p-8 text-center overflow-hidden transition-all duration-500 ${
-                                isActive
-                                    ? 'shadow-2xl -translate-y-2 ring-2 ring-deep-navy'
-                                    : 'shadow-sm ring-1 ring-outline-variant/30'
-                            }`}
-                        >
-                            <span
-                                className={`absolute inset-x-0 top-0 h-1.5 bg-deep-navy transition-transform duration-500 origin-left ${
-                                    isActive ? 'scale-x-100' : 'scale-x-0'
-                                }`}
-                            ></span>
-
-                            <div
-                                className={`w-[68px] h-[68px] bg-safety-yellow flex items-center justify-center mx-auto mt-2 mb-6 transition-transform duration-700 ${
-                                    isActive ? 'scale-110 rotate-6' : 'scale-100 rotate-0'
-                                }`}
-                                style={{ borderRadius: '42% 58% 55% 45% / 48% 42% 58% 52%' }}
-                            >
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    strokeWidth="1.8"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="w-[28px] h-[28px] stroke-deep-navy"
-                                    aria-hidden="true"
-                                >
-                                    {pillar.icon}
-                                </svg>
-                            </div>
-
-                            <p className="font-label-md text-label-md text-primary font-semibold mb-2">
-                                {pillar.tag}
-                            </p>
-                            <h3 className="font-headline-md text-headline-md text-deep-navy mb-3 leading-snug">
-                                {pillar.title}
-                            </h3>
-                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                                {pillar.desc}
-                            </p>
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* Spotlight controls */}
-            <div className="flex items-center justify-center gap-3 mt-12">
-                {PROGRAMME_PILLARS.map((pillar, index) => (
-                    <button
-                        key={pillar.tag}
-                        type="button"
-                        onClick={() => select(index)}
-                        aria-label={`Highlight ${pillar.tag} — ${pillar.title}`}
-                        aria-current={index === active}
-                        className={`h-2.5 rounded-full transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-deep-navy focus-visible:ring-offset-2 ${
-                            index === active
-                                ? 'w-10 bg-deep-navy'
-                                : 'w-2.5 bg-outline-variant hover:bg-primary/50'
-                        }`}
-                    />
-                ))}
-            </div>
-        </div>
-    );
-}
 
 const SLIDES = [
     {
@@ -369,25 +268,63 @@ export default function Home() {
 
 
 
-            <section className="py-stack-lg px-margin-mobile md:px-margin-desktop bg-surface-container-low -mt-8 relative z-20 rounded-t-[3rem]">
-                <div className="max-w-container-max mx-auto">
+            {/* Our Programmes */}
+            <section className="bg-[#0A3D64] px-[6vw] pt-[4.5rem] pb-20">
 
-                    {/* Centred heading */}
-                    <div className="text-center max-w-3xl mx-auto mb-14">
-                        <span className="inline-flex items-center gap-2 bg-deep-navy text-safety-yellow px-4 py-1.5 rounded-full text-label-md font-bold uppercase tracking-wider">
-                            <span className="w-1.5 h-1.5 rounded-full bg-safety-yellow"></span>
-                            Our Programmes
+                <div className="max-w-[600px] mx-auto mb-12 text-center">
+                    <h2 className="font-headline-lg text-[clamp(2rem,3.2vw,2.6rem)] leading-[1.15] tracking-[-0.01em] text-[#F4F7FA] mb-4">
+                        Our Programmes
+                    </h2>
+                    <p className="text-[1.05rem] leading-[1.65] text-[#C3D2DE]">Four strategic pillars. One goal.</p>
+                </div>
+
+                <div className="relative max-w-[420px] min-[901px]:max-w-[1180px] mx-auto grid grid-cols-1 min-[901px]:grid-cols-4 gap-[2.4rem] min-[901px]:gap-0">
+                    {/* Horizontal connector behind the icons (desktop) */}
+                    <span className="hidden min-[901px]:block absolute top-[26px] left-[12.5%] right-[12.5%] h-px bg-[#F4F7FA]/20 z-0" aria-hidden="true"></span>
+
+                    {PROGRAMMES.map((programme, index) => (
+                        <div
+                            key={programme.title}
+                            className={`relative pb-[2.4rem] last:pb-0 min-[901px]:pb-0 min-[901px]:pr-[2.2rem] ${
+                                index > 0
+                                    ? 'border-t border-[#F4F7FA]/20 pt-[2.4rem] min-[901px]:border-t-0 min-[901px]:pt-0 min-[901px]:border-l min-[901px]:pl-[2.2rem]'
+                                    : ''
+                            }`}
+                        >
+                            <span className="relative z-10 w-[52px] h-[52px] rounded-full border-[1.5px] border-[#F4F7FA] bg-[#0A3D64] flex items-center justify-center mb-[1.6rem]">
+                                <svg viewBox="0 0 24 24" fill="none" className="w-[22px] h-[22px] stroke-[#F4F7FA]" aria-hidden="true">
+                                    {programme.icon}
+                                </svg>
+                            </span>
+
+                            <h3 className="font-headline-md text-[1.08rem] leading-[1.34] text-[#F4F7FA] mb-[0.7rem] min-[901px]:max-w-[20ch]">
+                                {programme.title}
+                            </h3>
+                            <p className="text-[0.92rem] leading-[1.62] text-[#93ABBB] min-[901px]:max-w-[27ch]">
+                                {programme.description}
+                            </p>
+                            <span className="block w-[22px] h-[3px] rounded-sm bg-[#FEE502] mt-[1.2rem]" aria-hidden="true"></span>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Converging outcome */}
+                <div className="relative max-w-[1180px] mx-auto pt-[1.6rem] min-[901px]:pt-0">
+                    <span className="min-[901px]:hidden absolute top-0 left-1/2 w-px h-[1.6rem] bg-[#F4F7FA]/20" aria-hidden="true"></span>
+
+                    <svg className="hidden min-[901px]:block w-full h-14" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true">
+                        {[12.5, 37.5, 62.5, 87.5].map((x) => (
+                            <path key={x} d={`M${x} 0 L50 32`} fill="none" stroke="rgba(244,247,250,0.2)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                        ))}
+                    </svg>
+
+                    <div className="relative z-10 w-fit mx-auto min-[901px]:-mt-0.5 text-center px-[1.6rem] py-[1.4rem] min-[901px]:px-[2.6rem] min-[901px]:py-[1.6rem] border-[1.5px] border-[#F4F7FA] rounded-[14px] bg-[#0A3D64]">
+                        <span className="block text-[0.82rem] text-[#93ABBB] mb-[0.6rem]">Our shared goal</span>
+                        <span className="block font-headline-md text-[1.05rem] min-[901px]:text-[1.25rem] leading-[1.35] whitespace-nowrap text-[#F4F7FA]">
+                            Every child thrives online
                         </span>
-                        <h2 className="font-headline-lg text-headline-lg text-deep-navy mt-5">
-                            How we build a safer internet for children
-                        </h2>
-                        <span className="block w-20 h-1 bg-safety-yellow rounded-full mx-auto my-5"></span>
-                        <p className="font-body-lg text-body-lg text-on-surface-variant">
-                            Four connected pillars guide how IFDC works with children, families, and educators online.
-                        </p>
+                        <span className="block w-[26px] h-[3px] rounded-sm bg-[#FEE502] mt-[0.9rem] mx-auto" aria-hidden="true"></span>
                     </div>
-
-                    <ProgrammePillars />
                 </div>
             </section>
 
