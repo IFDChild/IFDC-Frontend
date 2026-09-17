@@ -188,7 +188,7 @@ export default function ArticleGallery({ images }) {
   }
 
   return (
-    <div className="my-10 lg:-mx-12 xl:-mx-28">
+    <div className="my-10">
       {count > 1 && (
         <div className="flex items-center justify-between gap-3 mb-4 px-1">
           <p className="inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-wider text-deep-navy">

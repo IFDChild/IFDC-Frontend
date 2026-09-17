@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Hand from '../assets/images/handshake.jpg';
-import { submitPartnerInquiry } from '../lib/api';
 
 const REASONS = [
     {
@@ -61,215 +59,15 @@ const WAYS_TO_PARTNER = [
     }
 ];
 
-const EMPTY_INQUIRY = {
-    organizationName: '',
-    contactPerson: '',
-    email: '',
-    website: '',
-    partnershipType: WAYS_TO_PARTNER[0].title,
-    message: ''
-};
+const PARTNERSHIP_EMAIL = 'partnerships@ifdchild.org';
 
-const inputClass =
-    'w-full px-4 py-3 rounded-xl border-sky-tint bg-white/50 focus:ring-2 focus:ring-deep-navy focus:border-deep-navy transition-all disabled:opacity-60';
-
-function PartnerInquiryForm() {
-    const [formData, setFormData] = useState(EMPTY_INQUIRY);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [submitError, setSubmitError] = useState('');
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (isSubmitting) return;
-
-        setIsSubmitting(true);
-        setSubmitError('');
-
-        try {
-            await submitPartnerInquiry({
-                organization_name: formData.organizationName,
-                contact_person: formData.contactPerson,
-                email: formData.email,
-                website: formData.website || null,
-                partnership_type: formData.partnershipType,
-                message: formData.message
-            });
-
-            setIsSubmitted(true);
-        } catch (error) {
-            setSubmitError(
-                error instanceof TypeError
-                    ? 'We could not reach the server. Please check your connection and try again.'
-                    : error.message
-            );
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    if (isSubmitted) {
-        return (
-            <div className="glass-card p-8 md:p-12 rounded-[2rem] shadow-xl text-center">
-                <div className="w-20 h-20 bg-safety-yellow/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="material-symbols-outlined text-4xl text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>
-                        check_circle
-                    </span>
-                </div>
-                <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-4">
-                    Inquiry received
-                </h3>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-lg mx-auto">
-                    Thank you for reaching out. A partnership director will contact you within 48 hours.
-                </p>
-                <button
-                    type="button"
-                    onClick={() => { setIsSubmitted(false); setFormData(EMPTY_INQUIRY); setSubmitError(''); }}
-                    className="mt-8 px-8 py-3 rounded-full bg-deep-navy text-on-primary font-bold hover:bg-surface-tint transition-all"
-                >
-                    Send another inquiry
-                </button>
-            </div>
-        );
-    }
-
-    return (
-        <form onSubmit={handleSubmit} className="glass-card p-8 md:p-12 rounded-[2rem] shadow-xl space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                    <label className="block text-label-md font-bold text-deep-navy mb-2" htmlFor="orgName">
-                        Organization Name<span className="text-secondary">*</span>
-                    </label>
-                    <input
-                        id="orgName"
-                        name="organizationName"
-                        value={formData.organizationName}
-                        onChange={handleChange}
-                        required
-                        disabled={isSubmitting}
-                        className={inputClass}
-                        placeholder="e.g., Global Tech Inc."
-                        type="text"
-                    />
-                </div>
-                <div>
-                    <label className="block text-label-md font-bold text-deep-navy mb-2" htmlFor="contactPerson">
-                        Contact Person<span className="text-secondary">*</span>
-                    </label>
-                    <input
-                        id="contactPerson"
-                        name="contactPerson"
-                        value={formData.contactPerson}
-                        onChange={handleChange}
-                        required
-                        disabled={isSubmitting}
-                        className={inputClass}
-                        placeholder="Jane Doe"
-                        type="text"
-                    />
-                </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                    <label className="block text-label-md font-bold text-deep-navy mb-2" htmlFor="partnerEmail">
-                        Email Address<span className="text-secondary">*</span>
-                    </label>
-                    <input
-                        id="partnerEmail"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        disabled={isSubmitting}
-                        className={inputClass}
-                        placeholder="jane@organization.com"
-                        type="email"
-                    />
-                </div>
-                <div>
-                    <label className="block text-label-md font-bold text-deep-navy mb-2" htmlFor="website">
-                        Website (Optional)
-                    </label>
-                    <input
-                        id="website"
-                        name="website"
-                        value={formData.website}
-                        onChange={handleChange}
-                        disabled={isSubmitting}
-                        className={inputClass}
-                        placeholder="https://www.website.com"
-                        type="url"
-                    />
-                </div>
-            </div>
-
-            <div>
-                <label className="block text-label-md font-bold text-deep-navy mb-2" htmlFor="partnershipType">
-                    Partnership Type<span className="text-secondary">*</span>
-                </label>
-                <select
-                    id="partnershipType"
-                    name="partnershipType"
-                    value={formData.partnershipType}
-                    onChange={handleChange}
-                    required
-                    disabled={isSubmitting}
-                    className={inputClass}
-                >
-                    {WAYS_TO_PARTNER.map((way) => (
-                        <option key={way.title} value={way.title}>{way.title}</option>
-                    ))}
-                </select>
-            </div>
-
-            <div>
-                <label className="block text-label-md font-bold text-deep-navy mb-2" htmlFor="collaborate">
-                    How would you like to collaborate?<span className="text-secondary">*</span>
-                </label>
-                <textarea
-                    id="collaborate"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    disabled={isSubmitting}
-                    className={inputClass}
-                    placeholder="Tell us about your mission and goals..."
-                    rows="4"
-                ></textarea>
-            </div>
-
-            {submitError && (
-                <div role="alert" className="flex items-start gap-3 rounded-lg border border-error/40 bg-error/10 px-4 py-3">
-                    <span className="material-symbols-outlined text-error text-sm mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>error</span>
-                    <p className="font-body-md text-body-md text-error whitespace-pre-line">{submitError}</p>
-                </div>
-            )}
-
-            <div className="pt-4">
-                <button
-                    className="w-full bg-deep-navy text-on-primary font-bold py-4 rounded-xl hover:shadow-lg transform active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100 inline-flex items-center justify-center gap-2"
-                    type="submit"
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting ? 'Submitting…' : 'Submit Inquiry'}
-                    {isSubmitting && (
-                        <span className="material-symbols-outlined text-sm animate-spin">progress_activity</span>
-                    )}
-                </button>
-                <p className="text-caption text-on-surface-variant mt-4 text-center">
-                    By submitting, you agree to our <Link className="underline hover:text-primary" to="/policies">Privacy Policy</Link> regarding your data.
-                </p>
-            </div>
-        </form>
+const PARTNERSHIP_MAILTO =
+    `mailto:${PARTNERSHIP_EMAIL}` +
+    '?subject=' + encodeURIComponent('Partnership enquiry - IFDC') +
+    '&body=' + encodeURIComponent(
+        'Hello IFDC team,\n\nWe are interested in partnering with the International Foundation for Digital Child.\n\n' +
+        'Organization: \nContact person: \nWebsite: \nType of partnership: \n\nHow we would like to collaborate:\n\n\nThank you.'
     );
-}
 
 export default function Partner() {
     return (
@@ -316,7 +114,7 @@ export default function Partner() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                                <a className="bg-deep-navy text-on-primary font-bold px-8 py-4 rounded-full text-center hover:bg-opacity-95 transition-all active:scale-95 shadow-lg" href="#inquiry-form">
+                                <a className="bg-deep-navy text-on-primary font-bold px-8 py-4 rounded-full text-center hover:bg-opacity-95 transition-all active:scale-95 shadow-lg" href="#contact-partnerships">
                                     Start a conversation
                                 </a>
                                 <a className="bg-white border-2 border-deep-navy text-deep-navy font-bold px-8 py-4 rounded-full text-center hover:bg-sky-tint transition-all active:scale-95" href="#ways">
@@ -387,46 +185,53 @@ export default function Partner() {
                     </div>
                 </section>
 
-                {/* Start a conversation */}
-                <section className="py-stack-lg relative bg-surface-container-low scroll-mt-24" id="inquiry-form">
-                    <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid lg:grid-cols-5 gap-stack-lg">
-                        <div className="lg:col-span-2">
-                            <div className="lg:sticky lg:top-28">
-                                <h2 className="font-headline-lg text-headline-lg text-deep-navy mb-6">Start a Conversation</h2>
-                                <p className="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
-                                    Our team is ready to explore how your organization can contribute to a safer digital frontier. Fill out the form, and a partnership director will contact you within 48 hours.
-                                </p>
+                {/* Start a conversation - email */}
+                <section className="py-stack-lg bg-surface-container-low scroll-mt-24" id="contact-partnerships">
+                    <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                        <div className="relative overflow-hidden rounded-[2rem] bg-deep-navy text-white px-6 py-10 md:px-14 md:py-14 shadow-xl">
+                            <span className="absolute -top-24 -right-20 w-72 h-72 rounded-full border-[36px] border-safety-yellow/10 pointer-events-none" aria-hidden="true"></span>
+                            <span className="absolute -bottom-32 -left-24 w-80 h-80 bg-sky-tint/10 blur-3xl rounded-full pointer-events-none" aria-hidden="true"></span>
 
-                                <div className="space-y-6">
-                                    <div className="flex items-start gap-4">
-                                        <div className="bg-safety-yellow p-2 rounded-lg text-deep-navy shrink-0">
-                                            <span className="material-symbols-outlined">mail</span>
-                                        </div>
-                                        <div>
-                                            <h3 className="font-bold text-deep-navy">Email Us</h3>
-                                            <a className="text-on-surface-variant hover:text-primary transition-colors" href="mailto:partnerships@ifdchild.org">
-                                                partnerships@ifdchild.org
-                                            </a>
-                                        </div>
-                                    </div>
+                            <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                                <div className="lg:col-span-7">
+                                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-safety-yellow/15 border border-safety-yellow/40 text-safety-yellow text-label-md font-bold uppercase tracking-wider">
+                                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">handshake</span>
+                                        Start a conversation
+                                    </span>
+                                    <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white mt-5 leading-tight">
+                                        Interested in <span className="text-safety-yellow">partnering with us?</span>
+                                    </h2>
+                                    <p className="mt-4 text-body-lg text-white/75 leading-relaxed max-w-2xl">
+                                        Just email us. Tell us a little about your organization and how you&apos;d like to work together, and our team will get back to you to explore the partnership.
+                                    </p>
+                                    <ul className="mt-6 flex flex-wrap gap-2">
+                                        {WAYS_TO_PARTNER.map((way) => (
+                                            <li key={way.title} className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.08] border border-white/15 px-3 py-1.5 text-[13px] text-white/85">
+                                                <span className="material-symbols-outlined text-[16px] text-safety-yellow" aria-hidden="true">{way.icon}</span>
+                                                {way.title}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
 
-                                    <div className="flex items-start gap-4">
-                                        <div className="bg-safety-yellow p-2 rounded-lg text-deep-navy shrink-0">
-                                            <span className="material-symbols-outlined">location_on</span>
-                                        </div>
-                                        <div>
-                                            <h3 className="font-bold text-deep-navy">Headquarters</h3>
-                                            <p className="text-on-surface-variant">
-                                                10/24, Ranaviru Prabath Cooray Mawatha, Nawala, Sri Lanka
-                                            </p>
-                                        </div>
+                                <div className="lg:col-span-5">
+                                    <div className="rounded-2xl bg-white/[0.06] border border-white/15 p-6 md:p-7">
+                                        <p className="text-[13px] font-semibold uppercase tracking-wider text-white/60">Email us at</p>
+                                        <a href={`mailto:${PARTNERSHIP_EMAIL}`} className="mt-2 flex items-center gap-3 text-[1.25rem] md:text-[1.4rem] font-bold text-white hover:text-safety-yellow transition-colors break-all">
+                                            <span className="material-symbols-outlined text-safety-yellow text-[28px] shrink-0" aria-hidden="true">mail</span>
+                                            {PARTNERSHIP_EMAIL}
+                                        </a>
+                                        <a
+                                            href={PARTNERSHIP_MAILTO}
+                                            className="mt-6 w-full inline-flex items-center justify-center gap-2 bg-safety-yellow text-deep-navy px-6 py-3.5 rounded-full font-bold hover:bg-white hover:-translate-y-0.5 transition-all duration-200 shadow-lg"
+                                        >
+                                            <span className="material-symbols-outlined text-[20px]" aria-hidden="true">send</span>
+                                            Email us about a partnership
+                                        </a>
+                                        <p className="mt-3 text-center text-caption text-white/55">Opens your email app with a ready-made message.</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="lg:col-span-3">
-                            <PartnerInquiryForm />
                         </div>
                     </div>
                 </section>

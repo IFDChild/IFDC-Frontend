@@ -16,15 +16,15 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 });
 
 const PROSE = [
-  'text-body-lg leading-[1.85] text-on-surface',
+  'text-[1.0625rem] md:text-[1.125rem] leading-[1.85] text-[#23272e] break-words',
   '[&_p]:mb-6',
-  '[&_h2]:font-headline-md [&_h2]:text-[1.6rem] [&_h2]:text-deep-navy [&_h2]:mt-10 [&_h2]:mb-4',
-  '[&_h3]:font-headline-md [&_h3]:text-[1.35rem] [&_h3]:text-deep-navy [&_h3]:mt-10 [&_h3]:mb-3',
+  '[&_h2]:font-headline-md [&_h2]:text-[1.5rem] [&_h2]:leading-snug [&_h2]:text-deep-navy [&_h2]:mt-12 [&_h2]:mb-4',
+  '[&_h3]:font-headline-md [&_h3]:text-[1.3rem] [&_h3]:leading-snug [&_h3]:text-deep-navy [&_h3]:mt-10 [&_h3]:mb-3',
   '[&_h4]:font-bold [&_h4]:text-deep-navy [&_h4]:mt-8 [&_h4]:mb-2',
   '[&_strong]:font-bold [&_strong]:text-deep-navy',
-  '[&_a]:text-primary [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-deep-navy',
-  '[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-6 [&_ol]:pl-6 [&_ul]:mb-6 [&_ol]:mb-6 [&_li]:mb-2',
-  '[&_blockquote]:border-l-4 [&_blockquote]:border-safety-yellow [&_blockquote]:pl-5 [&_blockquote]:italic [&_blockquote]:my-8'
+  '[&_a]:text-primary [&_a]:font-semibold [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-deep-navy',
+  '[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-6 [&_ol]:pl-6 [&_ul]:mb-6 [&_ol]:mb-6 [&_li]:mb-2.5 [&_li]:pl-1 marker:[&_li]:text-primary',
+  '[&_blockquote]:border-l-4 [&_blockquote]:border-safety-yellow [&_blockquote]:bg-soft-canary/60 [&_blockquote]:rounded-r-xl [&_blockquote]:px-5 [&_blockquote]:py-3 [&_blockquote]:italic [&_blockquote]:my-8'
 ].join(' ');
 
 /** An element that is only a picture: <figure><img/>(caption)</figure> or <p><img/></p>. */

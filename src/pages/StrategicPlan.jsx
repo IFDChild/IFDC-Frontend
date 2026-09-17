@@ -12,11 +12,11 @@ const ACCENT = {
 };
 
 const BASELINE_STATS = [
-  { num: '9', cap: 'Programmes delivered', icon: 'school', bg: '#0B3D6E', numColor: '#FFE100', capColor: 'rgba(255,255,255,0.8)' },
-  { num: '4', cap: 'Strategic pillars', icon: 'account_tree', bg: '#FFE100', numColor: '#0B3D6E', capColor: 'rgba(11,61,110,0.8)' },
-  { num: '471+', cap: 'Confirmed direct participants', icon: 'groups', bg: '#1F5FA6', numColor: '#FFFFFF', capColor: 'rgba(255,255,255,0.82)' },
-  { num: '25', cap: 'Schools reached (flagship)', icon: 'apartment', bg: '#D4E3FF', numColor: '#0B3D6E', capColor: 'rgba(11,61,110,0.78)' },
-  { num: '6', cap: 'Partner & government bodies', icon: 'handshake', bg: '#00274C', numColor: '#FFE100', capColor: 'rgba(255,255,255,0.8)' }
+  { num: '9', cap: 'Programmes delivered', icon: 'school', iconBg: '#FFE100', iconColor: '#0B3D6E', bg: '#0B3D6E', numColor: '#FFE100', capColor: 'rgba(255,255,255,0.8)' },
+  { num: '4', cap: 'Strategic pillars', icon: 'account_tree', iconBg: '#0B3D6E', iconColor: '#FFE100', bg: '#FFE100', numColor: '#0B3D6E', capColor: 'rgba(11,61,110,0.8)' },
+  { num: '471+', cap: 'Confirmed direct participants', icon: 'groups', iconBg: '#FFFFFF', iconColor: '#1F5FA6', bg: '#1F5FA6', numColor: '#FFFFFF', capColor: 'rgba(255,255,255,0.82)' },
+  { num: '25', cap: 'Schools reached (flagship)', icon: 'apartment', iconBg: '#0B3D6E', iconColor: '#FFE100', bg: '#D4E3FF', numColor: '#0B3D6E', capColor: 'rgba(11,61,110,0.78)' },
+  { num: '6', cap: 'Partner & government bodies', icon: 'handshake', iconBg: '#FFE100', iconColor: '#00274C', bg: '#00274C', numColor: '#FFE100', capColor: 'rgba(255,255,255,0.8)' }
 ];
 
 // Priorities grouped under the four programme pillars, in IFDC theme colours.
@@ -125,14 +125,14 @@ function PriorityPillars() {
               style={selected ? { backgroundColor: item.bg, borderColor: item.bg } : undefined}
             >
               <span
-                className="w-[38px] h-[38px] rounded-[10px] flex items-center justify-center"
+                className="w-[50px] h-[50px] rounded-[12px] flex items-center justify-center"
                 style={{
                   backgroundColor: selected ? 'rgba(255,255,255,0.22)' : '#F3F5F9',
                   color: selected ? item.fg : item.accent
                 }}
                 aria-hidden="true"
               >
-                <span className="material-symbols-outlined text-[21px]">{item.icon}</span>
+                <span className="material-symbols-outlined" style={{ fontSize: 28 }}>{item.icon}</span>
               </span>
               <span
                 className="text-[11.5px] font-bold tracking-[0.02em]"
@@ -161,11 +161,11 @@ function PriorityPillars() {
         {/* Group header */}
         <div className="flex flex-col sm:flex-row items-start gap-4 pb-6 mb-6 border-b border-outline-variant/40">
           <span
-            className="w-[52px] h-[52px] rounded-[14px] flex items-center justify-center shrink-0 bg-white border border-outline-variant/30"
+            className="w-[68px] h-[68px] rounded-[18px] flex items-center justify-center shrink-0 bg-white border border-outline-variant/30"
             style={{ color: pillar.accent }}
             aria-hidden="true"
           >
-            <span className="material-symbols-outlined text-[28px]">{pillar.icon}</span>
+            <span className="material-symbols-outlined" style={{ fontSize: 38 }}>{pillar.icon}</span>
           </span>
           <div>
             <p className="text-[12.5px] font-bold mb-1" style={{ color: pillar.accent }}>{pillar.hashtag}</p>
@@ -188,7 +188,7 @@ function PriorityPillars() {
               <h4 className="font-headline-md text-[16.5px] font-bold leading-snug text-deep-navy mb-2.5">{item.title}</h4>
               <p className="text-[13.5px] leading-relaxed text-on-surface-variant mb-4 flex-1">{item.desc}</p>
               <div className="pt-3.5 border-t border-outline-variant/40 text-[12.5px] leading-normal text-on-surface-variant">
-                <b className="block text-[11px] font-bold uppercase tracking-wider text-deep-navy mb-1">2029 target</b>
+                <b className="block text-[12px] font-bold uppercase tracking-wider text-deep-navy mb-1">2029 target</b>
                 {item.target}
               </div>
             </article>
@@ -253,7 +253,7 @@ export default function StrategicPlan() {
                 className="inline-flex items-center gap-2 bg-safety-yellow text-deep-navy font-label-md text-label-md px-6 py-3 rounded-full hover:bg-secondary-fixed-dim transition-all duration-200 active:scale-95 shadow-lg"
               >
                 Ten priorities
-                <span className="material-symbols-outlined text-sm">arrow_downward</span>
+                <span className="material-symbols-outlined" style={{ fontSize: 20 }}>arrow_downward</span>
               </a>
               <a
                 href="#roadmap"
@@ -279,7 +279,13 @@ export default function StrategicPlan() {
                   style={{ backgroundColor: stat.bg }}
                 >
                   <dt className="flex flex-col items-center font-display-lg text-headline-md" style={{ color: stat.numColor }}>
-                    <span className="material-symbols-outlined text-[22px] mb-2 opacity-85" aria-hidden="true">{stat.icon}</span>
+                    <span
+                      className="mb-3 w-16 h-16 rounded-2xl flex items-center justify-center shadow-md ring-4 ring-white/15"
+                      style={{ backgroundColor: stat.iconBg, color: stat.iconColor }}
+                      aria-hidden="true"
+                    >
+                      <span className="material-symbols-outlined" style={{ fontSize: 34 }}>{stat.icon}</span>
+                    </span>
                     {stat.num}
                   </dt>
                   <dd className="font-caption text-caption mt-2 leading-snug" style={{ color: stat.capColor }}>{stat.cap}</dd>

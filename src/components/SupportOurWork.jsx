@@ -90,10 +90,10 @@ export default function SupportOurWork() {
     <section
       id="support-our-work"
       aria-labelledby="support-heading"
-      className="relative overflow-hidden px-[6vw] py-[4.5rem] md:py-[6.5rem]"
+      className="relative overflow-hidden px-[6vw] py-12 md:py-16 mb-10 md:mb-14"
       style={{
         background:
-          'radial-gradient(ellipse 900px 500px at 85% -10%, rgba(254,229,2,0.09), transparent 60%), linear-gradient(160deg, #0A3D64 0%, #072B47 100%)'
+          'radial-gradient(ellipse 900px 500px at 85% -10%, rgba(254,229,2,0.09), transparent 60%), #0B3D6E'
       }}
     >
       <span
@@ -102,18 +102,18 @@ export default function SupportOurWork() {
         aria-hidden="true"
       />
 
-      <div className="relative max-w-[1160px] mx-auto grid grid-cols-1 min-[861px]:grid-cols-[1.05fr_0.95fr] gap-12 min-[861px]:gap-20 items-start">
+      <div className="relative max-w-[1160px] mx-auto grid grid-cols-1 min-[861px]:grid-cols-[1.05fr_0.95fr] gap-8 min-[861px]:gap-16 items-center">
         {/* Intro + sign-up */}
         <div className="motion-safe:animate-[support-rise_0.7s_cubic-bezier(.2,.7,.3,1)_both]">
-          <svg className="w-10 h-10 mb-7" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <svg className="w-9 h-9 mb-4" viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <path d="M20 33C20 33 6 24.8 6 15.6C6 10.9 9.7 7.2 14.2 7.2C16.7 7.2 19 8.4 20 10.4C21 8.4 23.3 7.2 25.8 7.2C30.3 7.2 34 10.9 34 15.6C34 24.8 20 33 20 33Z" stroke="#FEE502" strokeWidth="1.6" strokeLinejoin="round" />
           </svg>
 
-          <h2 id="support-heading" className="font-headline-lg text-[#F4F7FA] text-[clamp(2.1rem,3.4vw,2.9rem)] leading-[1.12] tracking-[-0.01em] mb-[1.1rem] min-[861px]:max-w-[11ch]">
+          <h2 id="support-heading" className="font-headline-lg text-[#F4F7FA] text-[clamp(2.1rem,3.4vw,2.9rem)] leading-[1.12] tracking-[-0.01em] mb-3">
             Support our work
           </h2>
           <p className="text-[1.2rem] font-medium text-[#F4F7FA] mb-[0.9rem]">Your support changes lives.</p>
-          <p className="text-[1.02rem] leading-[1.65] text-[#C3D2DE] max-w-[42ch] mb-10">
+          <p className="text-[1.02rem] leading-[1.6] text-[#C3D2DE] max-w-[46ch] mb-6">
             Every donation funds the four programs behind our work — helping children build digital literacy, express themselves creatively, have their voices heard, and grow up with a healthy relationship to technology.
           </p>
 
@@ -196,19 +196,22 @@ export default function SupportOurWork() {
         </div>
 
         {/* Impact list */}
-        <ul className="relative mt-2 list-none p-0 m-0">
-          <span className="absolute left-[21px] top-[22px] bottom-[22px] w-px bg-[#F4F7FA]/15 origin-top motion-safe:animate-[support-drawline_1s_ease_0.4s_both]" aria-hidden="true" />
+        <ul className="relative list-none p-0 m-0">
           {IMPACT.map((item, index) => (
             <li
               key={item.title}
-              className={`grid grid-cols-[44px_1fr] gap-5 py-6 motion-safe:animate-[support-rise_0.6s_cubic-bezier(.2,.7,.3,1)_both] ${index > 0 ? 'border-t border-[#F4F7FA]/15' : ''}`}
+              className={`relative grid grid-cols-[44px_1fr] items-start gap-4 py-3.5 motion-safe:animate-[support-rise_0.6s_cubic-bezier(.2,.7,.3,1)_both] ${index > 0 ? 'border-t border-[#F4F7FA]/15' : ''}`}
               style={{ animationDelay: `${0.15 + index * 0.17}s` }}
             >
-              <span className="relative z-10 w-11 h-11 rounded-full bg-[#072B47] border border-[#FEE502]/35 flex items-center justify-center" aria-hidden="true">
+              {/* Connector from this icon's centre to the next icon's centre */}
+              {index < IMPACT.length - 1 && (
+                <span className="absolute left-[21px] top-[36px] h-full w-px bg-[#F4F7FA]/15 origin-top motion-safe:animate-[support-drawline_0.5s_ease_both]" style={{ animationDelay: `${0.4 + index * 0.2}s` }} aria-hidden="true" />
+              )}
+              <span className="relative z-10 w-11 h-11 rounded-full bg-deep-navy border border-[#FEE502]/35 flex items-center justify-center" aria-hidden="true">
                 <svg className="w-5 h-5 stroke-[#FEE502]" viewBox="0 0 24 24" fill="none">{item.icon}</svg>
               </span>
               <div>
-                <h3 className="font-headline-md text-[1.12rem] leading-[1.3] text-[#F4F7FA] mt-[0.35rem] mb-[0.3rem]">{item.title}</h3>
+                <h3 className="font-headline-md text-[1.08rem] leading-[1.3] text-[#F4F7FA] mt-0.5 mb-0.5">{item.title}</h3>
                 <p className="text-[0.95rem] leading-[1.5] text-[#86A0B2] m-0">{item.text}</p>
               </div>
             </li>

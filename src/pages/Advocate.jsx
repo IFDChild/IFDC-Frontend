@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import FellowReflections from '../components/FellowReflections';
+import FellowshipInterest from '../components/FellowshipInterest';
 import fellowshipHero from '../assets/images/Youth Summit.png';
 
 /**
@@ -538,6 +539,8 @@ export default function Advocate() {
                     </div>
                 </section>
 
+
+                <FellowshipInterest />
             </main>
             <Footer />
         </>

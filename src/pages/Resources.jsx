@@ -275,7 +275,7 @@ export default function Resources() {
                 </section>
 
                 {/* Filter bar */}
-                <section className="sticky top-20 z-40 bg-surface-container-low/95 backdrop-blur border-y border-outline-variant/30 px-margin-mobile md:px-margin-desktop py-4">
+                <section className="md:sticky md:top-20 z-40 bg-surface-container-low/95 backdrop-blur border-y border-outline-variant/30 px-margin-mobile md:px-margin-desktop py-4">
                     <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center gap-4">
                         <div className="flex flex-wrap gap-2 flex-grow">
                             {['All', ...audiences].map((name) => {

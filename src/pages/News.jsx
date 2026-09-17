@@ -63,7 +63,7 @@ function ItemCard({ item }) {
     <article className="group relative bg-white rounded-3xl overflow-hidden shadow-sm border border-outline-variant/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
       <div className="relative h-52 overflow-hidden bg-sky-tint">
         <Thumb item={item} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-        <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 text-deep-navy text-[11px] font-bold uppercase tracking-wider shadow">
+        <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/95 text-deep-navy text-[12px] font-bold uppercase tracking-wider shadow">
           {item.category}
         </span>
       </div>
@@ -176,7 +176,7 @@ function ContentSection({ type, items, status, query }) {
                 </div>
                 <div className="p-8 lg:p-12 flex flex-col justify-center">
                   <div className="flex flex-wrap items-center gap-3 mb-5">
-                    <span className="px-3 py-1 rounded-full bg-safety-yellow text-deep-navy text-[11px] font-bold uppercase tracking-wider">Latest</span>
+                    <span className="px-3 py-1 rounded-full bg-safety-yellow text-deep-navy text-[12px] font-bold uppercase tracking-wider">Latest</span>
                     <span className="text-caption font-semibold text-primary">{featured.category}</span>
                   </div>
                   <h3 className="font-headline-lg text-[1.5rem] md:text-[1.9rem] leading-tight text-deep-navy group-hover:text-primary transition-colors">

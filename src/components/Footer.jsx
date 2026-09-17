@@ -106,10 +106,6 @@ export default function Footer() {
                 <a className={linkClass} href="mailto:info@ifdchild.org">info@ifdchild.org</a>
               </li>
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-safety-yellow text-xl mt-0.5">call</span>
-                <a className={linkClass} href="tel:+94773667530">+94 77 366 7530</a>
-              </li>
-              <li className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-safety-yellow text-xl mt-0.5">location_on</span>
                 <span className="text-white/70 font-body-md text-body-md">
                   110/24, Ranaviru Prabath Cooray Mawatha, Nawala, Sri Lanka

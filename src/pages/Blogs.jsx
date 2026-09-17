@@ -59,10 +59,10 @@ function BlogCard({ blog, layout }) {
         </div>
         <div className="flex-1 p-6 flex flex-col">
           <div className="flex items-center justify-between mb-2">
-            <span className={`px-3 py-1 rounded-full font-label-md text-[10px] uppercase tracking-wider ${catStyle}`}>
+            <span className={`px-3 py-1 rounded-full font-label-md text-[11px] uppercase tracking-wider ${catStyle}`}>
               {blog.category}
             </span>
-            <span className="font-caption text-[11px] text-on-surface-variant flex items-center gap-1">
+            <span className="font-caption text-[12px] text-on-surface-variant flex items-center gap-1">
               <span className="material-symbols-outlined text-[14px]" aria-hidden="true">schedule</span>
               {blog.readTime}
             </span>
@@ -73,12 +73,12 @@ function BlogCard({ blog, layout }) {
           <p className="font-body-md text-[13px] text-on-surface-variant mb-4 line-clamp-2 flex-grow">{blog.excerpt}</p>
           <div className="flex items-center justify-between pt-3 border-t border-outline-variant/30 gap-3">
             <div className="flex items-center gap-2 min-w-0">
-              <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 ${blog.authorColor}`}>
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-[11px] shrink-0 ${blog.authorColor}`}>
                 {blog.authorInitials}
               </div>
-              <span className="font-caption text-[11px] font-semibold text-deep-navy truncate">{blog.author}</span>
+              <span className="font-caption text-[12px] font-semibold text-deep-navy truncate">{blog.author}</span>
               <span className="text-outline-variant">·</span>
-              <span className="font-caption text-[11px] text-on-surface-variant whitespace-nowrap">{blog.date}</span>
+              <span className="font-caption text-[12px] text-on-surface-variant whitespace-nowrap">{blog.date}</span>
             </div>
             <Link to={to} className="text-deep-navy font-bold hover:underline flex items-center text-[12px] shrink-0">
               Read <span className="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_right_alt</span>
@@ -93,14 +93,14 @@ function BlogCard({ blog, layout }) {
     <article className="glass-card rounded-2xl overflow-hidden flex flex-col group hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
       <div className="relative aspect-video overflow-hidden">
         <CardImage src={blog.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-        <span className={`absolute top-4 left-4 px-3 py-1 rounded-full font-label-md text-[11px] uppercase tracking-wider bg-white/95 ${catStyle}`}>
+        <span className={`absolute top-4 left-4 px-3 py-1 rounded-full font-label-md text-[12px] uppercase tracking-wider bg-white/95 ${catStyle}`}>
           {blog.category}
         </span>
       </div>
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex items-center justify-between mb-3">
-          <span className="font-caption text-[11px] text-on-surface-variant">{blog.date}</span>
-          <span className="font-caption text-[11px] text-on-surface-variant flex items-center gap-1">
+          <span className="font-caption text-[12px] text-on-surface-variant">{blog.date}</span>
+          <span className="font-caption text-[12px] text-on-surface-variant flex items-center gap-1">
             <span className="material-symbols-outlined text-[14px]" aria-hidden="true">schedule</span>
             {blog.readTime}
           </span>
@@ -255,7 +255,7 @@ export default function Blogs() {
       </section>
 
       {/* ── Filter Bar ── */}
-      <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-outline-variant/30 py-3 px-margin-mobile md:px-margin-desktop">
+      <div className="md:sticky md:top-20 z-40 bg-background/95 backdrop-blur-sm border-b border-outline-variant/30 py-3 px-margin-mobile md:px-margin-desktop">
         <div className="max-w-container-max mx-auto flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
             {categories.map((cat) => (
@@ -340,12 +340,12 @@ export default function Blogs() {
                       <div className="lg:w-3/5 h-[260px] lg:h-[440px] overflow-hidden relative">
                         <CardImage src={featured.image} iconSize="text-[64px]" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute top-6 left-6">
-                          <span className="bg-safety-yellow text-deep-navy font-label-md text-[11px] px-4 py-1.5 rounded-full shadow-lg uppercase tracking-wider">
+                          <span className="bg-safety-yellow text-deep-navy font-label-md text-[12px] px-4 py-1.5 rounded-full shadow-lg uppercase tracking-wider">
                             {featured.category}
                           </span>
                         </div>
                         <div className="absolute bottom-6 left-6 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full">
-                          <span className="text-white text-[11px] flex items-center gap-1">
+                          <span className="text-white text-[12px] flex items-center gap-1">
                             <span className="material-symbols-outlined text-[14px]" aria-hidden="true">schedule</span>
                             {featured.readTime}
                           </span>
@@ -441,7 +441,7 @@ export default function Blogs() {
                       </span>
                       <div className="flex-1">
                         <p className="text-[13px] font-semibold text-deep-navy group-hover:text-primary transition-colors leading-snug line-clamp-2">{post.title}</p>
-                        <span className="text-[11px] text-on-surface-variant mt-1 block">{post.date} · {post.readTime}</span>
+                        <span className="text-[12px] text-on-surface-variant mt-1 block">{post.date} · {post.readTime}</span>
                       </div>
                     </Link>
                   ))}

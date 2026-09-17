@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import NewsCard from '../components/NewsCard';
-import RichContent from '../components/RichContent';
-import { fileUrl, getNews, getNewsArticle } from '../lib/api';
+import ArticleView from '../components/ArticleView';
+import { getNews, getNewsArticle } from '../lib/api';
 import { formatNewsDate, plainText, readingTime } from '../lib/news';
 
 // Imported summaries are the opening words of the article body - don't repeat them above it.
@@ -20,7 +19,6 @@ export default function ArticleDetail() {
   const [article, setArticle] = useState(null);
   const [related, setRelated] = useState([]);
   const [status, setStatus] = useState('loading'); // loading | ready | missing | error
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -56,23 +54,11 @@ export default function ArticleDetail() {
     };
   }, [article]);
 
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard unavailable - nothing else to do.
-    }
-  };
-
   return (
     <>
       <Navbar />
 
-      <main className="pb-stack-lg">
+      <main>
         {status === 'loading' && (
           <div className="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop pt-12 animate-pulse" aria-busy="true" aria-label="Loading article">
             <div className="h-4 w-48 rounded bg-surface-container mb-8" />
@@ -111,114 +97,29 @@ export default function ArticleDetail() {
         )}
 
         {status === 'ready' && article && (
-          <>
-            <article>
-              <header className="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop pt-10 md:pt-14">
-                <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-caption text-on-surface-variant mb-8">
-                  <Link className="hover:text-primary flex items-center gap-1" to="/">
-                    <span className="material-symbols-outlined text-[16px]" aria-hidden="true">home</span> Home
-                  </Link>
-                  <span className="material-symbols-outlined text-[14px]" aria-hidden="true">chevron_right</span>
-                  <Link className="hover:text-primary" to="/news#news">News</Link>
-                  <span className="material-symbols-outlined text-[14px]" aria-hidden="true">chevron_right</span>
-                  <span className="text-primary font-semibold truncate max-w-[180px] sm:max-w-sm">{article.title}</span>
-                </nav>
-
-                {article.category && (
-                  <span className="inline-block px-3 py-1 bg-safety-yellow text-deep-navy font-label-md text-label-md rounded-lg mb-4">
-                    {article.category}
-                  </span>
-                )}
-
-                <h1 className="font-display-lg text-headline-lg-mobile md:text-display-lg text-deep-navy leading-tight">
-                  {article.title}
-                </h1>
-
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5 text-on-surface-variant text-body-md">
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">calendar_today</span>
-                    <time dateTime={article.published_at || article.created_at}>
-                      {formatNewsDate(article.published_at || article.created_at)}
-                    </time>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">schedule</span>
-                    {readingTime(article.content)} min read
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">apartment</span>
-                    IFDC
-                  </span>
-                </div>
-
-                {article.summary && !summaryRepeatsBody(article.summary, article.content) && (
-                  <p className="mt-6 text-body-lg md:text-[1.25rem] leading-relaxed text-on-surface border-l-4 border-safety-yellow pl-5">
-                    {article.summary}
-                  </p>
-                )}
-              </header>
-
-              {article.image && (
-                <div className="max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop mt-10">
-                  <img
-                    src={fileUrl(article.image)}
-                    alt=""
-                    className="w-full max-h-[560px] object-cover rounded-[2rem] shadow-lg"
-                  />
-                </div>
-              )}
-
-              <div className="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop mt-10">
-                <RichContent content={article.content} />
-
-                <div className="mt-12 pt-8 border-t border-outline-variant flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="font-label-md text-label-md text-on-surface-variant">Share:</span>
-                    <a
-                      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-deep-navy text-white flex items-center justify-center hover:bg-primary transition-colors"
-                      aria-label="Share on Facebook"
-                    >
-                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
-                    </a>
-                    <a
-                      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-[#0077B5] text-white flex items-center justify-center hover:opacity-90 transition-opacity"
-                      aria-label="Share on LinkedIn"
-                    >
-                      <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                    </a>
-                    <button
-                      type="button"
-                      onClick={copyLink}
-                      className="h-10 px-4 rounded-full bg-sky-tint text-deep-navy font-label-md text-label-md inline-flex items-center gap-2 hover:bg-primary-fixed transition-colors"
-                    >
-                      <span className="material-symbols-outlined text-[18px]" aria-hidden="true">{copied ? 'check' : 'link'}</span>
-                      {copied ? 'Copied' : 'Copy link'}
-                    </button>
-                  </div>
-
-                  <Link to="/news#news" className="inline-flex items-center gap-2 text-primary font-label-md hover:underline">
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
-                    All news
-                  </Link>
-                </div>
-              </div>
-            </article>
-
-            {related.length > 0 && (
-              <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mt-stack-lg">
-                <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-stack-md">More from the Foundation</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {related.map((item) => <NewsCard key={item.id} article={item} />)}
-                </div>
-              </section>
-            )}
-          </>
+          <ArticleView
+            article={{
+              title: article.title,
+              category: article.category,
+              dateIso: article.published_at || article.created_at,
+              dateLabel: formatNewsDate(article.published_at || article.created_at),
+              readTime: `${readingTime(article.content)} min read`,
+              author: 'IFDC',
+              authorNote: 'International Foundation for Digital Child',
+              summary: article.summary && !summaryRepeatsBody(article.summary, article.content) ? article.summary : null,
+              image: article.image,
+              content: article.content
+            }}
+            crumbs={[{ to: '/', label: 'Home' }, { to: '/news#news', label: 'News' }]}
+            back={{ to: '/news#news', label: 'All news' }}
+            relatedTitle="More from the Foundation"
+            related={related.map((item) => ({
+              href: `/news/${item.slug}`,
+              title: item.title,
+              image: item.image,
+              date: formatNewsDate(item.published_at || item.created_at)
+            }))}
+          />
         )}
       </main>
 

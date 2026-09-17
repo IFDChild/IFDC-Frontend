@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
-import youthSummit from "../assets/images/coverImage1.jpg";
+import heroClassroom from "../assets/images/hero/hero-classroom-computers.jpg";
+import heroKidsTablet from "../assets/images/hero/hero-kids-tablet.jpg";
 import Footer from '../components/Footer';
 import LatestNews from '../components/LatestNews';
 import FromOurBlog from '../components/FromOurBlog';
 import SupportOurWork from '../components/SupportOurWork';
-import digitalchild from '../assets/images/childwithlap.jpg'
 import digitalChildren from '../assets/images/digital children.jpg'
 
 const PROGRAMMES = [
@@ -48,8 +48,9 @@ const PROGRAMMES = [
 
 const SLIDES = [
     {
-        img: youthSummit,
-        alt: "Empowering Every Child",
+        img: heroClassroom,
+        alt: "A teacher helping children use a computer in a classroom",
+        position: "55% 35%",
         title: <>Education for a Better <br /><span className="text-safety-yellow">Digital Future</span></>,
         body: "Providing the resources and training needed to equip the next generation with essential digital literacy skills.",
         ctas: [
@@ -59,14 +60,16 @@ const SLIDES = [
     },
     {
         img: digitalChildren,
-        alt: "Fostering Digital Safety Communities",
+        alt: "Children using phones and tablets together on a sofa",
+        position: "50% 45%",
         title: <>Education for a Better <br /><span className="text-safety-yellow">Digital Future</span></>,
         body: "Providing the resources and training needed to equip the next generation with essential digital literacy skills.",
         ctas: [{ label: "Learn More", variant: "primary" }],
     },
     {
-        img: digitalchild,
-        alt: "Education for a Better Digital Future",
+        img: heroKidsTablet,
+        alt: "Two children looking at a tablet together",
+        position: "58% 38%",
         title: <>Education for a Better <br /><span className="text-safety-yellow">Digital Future</span></>,
         body: "Providing the resources and training needed to equip the next generation with essential digital literacy skills.",
         ctas: [{ label: "Join Our Mission", variant: "primary" }],
@@ -137,21 +140,29 @@ export default function Home() {
             <Navbar />
 
             {/* ── Hero Carousel ── */}
-            <section className="relative w-full overflow-hidden bg-deep-navy" style={{ height: '400px' }} id="hero-carousel">
+            <section className="relative w-full overflow-hidden bg-deep-navy h-[440px] md:h-[400px]" id="hero-carousel">
                 {SLIDES.map((slide, idx) => (
                     <div
                         key={idx}
                         className={`absolute inset-0 transition-opacity duration-1000 ${idx === current ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-deep-navy/90 via-deep-navy/60 to-transparent z-10" />
-                        <img alt={slide.alt} className="w-full h-full object-cover" src={slide.img} />
+                        <img
+                            alt={slide.alt}
+                            className="w-full h-full object-cover"
+                            style={{ objectPosition: slide.position }}
+                            src={slide.img}
+                            loading={idx === 0 ? 'eager' : 'lazy'}
+                            fetchPriority={idx === 0 ? 'high' : 'auto'}
+                            decoding="async"
+                        />
                         <div className="absolute inset-0 z-20 flex items-center">
-                            <div className="max-w-7xl mx-auto px-margin-desktop w-full">
-                                <div className={`max-w-2xl space-y-stack-md text-on-primary ${idx === current ? 'animate-slide-up' : ''}`}>
-                                    <h1 className="font-display-lg text-display-lg leading-tight drop-shadow-lg">
+                            <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop w-full">
+                                <div className={`max-w-2xl space-y-4 md:space-y-stack-md text-on-primary ${idx === current ? 'animate-slide-up' : ''}`}>
+                                    <h1 className="font-display-lg text-[2.1rem] leading-[1.15] sm:text-[2.75rem] md:text-[3.5625rem] drop-shadow-lg">
                                         {slide.title}
                                     </h1>
-                                    <p className="font-body-lg text-body-lg text-white/90 max-w-lg drop-shadow-md">
+                                    <p className="font-body-lg text-[1rem] leading-relaxed md:text-[1.125rem] text-white/90 max-w-lg drop-shadow-md">
                                         {slide.body}
                                     </p>
                                     {/* <div className="flex flex-wrap gap-gutter pt-4" >
@@ -267,13 +278,17 @@ export default function Home() {
 
 
             {/* Our Programmes */}
-            <section className="bg-[#0A3D64] px-[6vw] pt-[4.5rem] pb-20">
+            <section className="bg-deep-navy px-[6vw] pt-[4.5rem] pb-20">
 
                 <div className="max-w-[600px] mx-auto mb-12 text-center">
                     <h2 className="font-headline-lg text-[clamp(2rem,3.2vw,2.6rem)] leading-[1.15] tracking-[-0.01em] text-[#F4F7FA] mb-4">
                         Our Programmes
                     </h2>
-                    <p className="text-[1.05rem] leading-[1.65] text-[#C3D2DE]">Four strategic pillars. One goal.</p>
+                    <p className="inline-flex items-center gap-3 text-[1.2rem] md:text-[1.35rem] font-semibold tracking-[0.01em] leading-[1.5] text-safety-yellow">
+                        <span className="w-8 h-0.5 bg-safety-yellow/60 rounded-full" aria-hidden="true"></span>
+                        Four strategic pillars. One goal.
+                        <span className="w-8 h-0.5 bg-safety-yellow/60 rounded-full" aria-hidden="true"></span>
+                    </p>
                 </div>
 
                 <div className="relative max-w-[420px] min-[901px]:max-w-[1180px] mx-auto grid grid-cols-1 min-[901px]:grid-cols-4 gap-[2.4rem] min-[901px]:gap-0">
@@ -289,16 +304,16 @@ export default function Home() {
                                     : ''
                             }`}
                         >
-                            <span className="relative z-10 w-[52px] h-[52px] rounded-full border-[1.5px] border-[#F4F7FA] bg-[#0A3D64] flex items-center justify-center mb-[1.6rem]">
-                                <svg viewBox="0 0 24 24" fill="none" className="w-[22px] h-[22px] stroke-[#F4F7FA]" aria-hidden="true">
+                            <span className="relative z-10 w-[52px] h-[52px] rounded-full border-[1.5px] border-[#F4F7FA] bg-deep-navy flex items-center justify-center mb-[1.6rem]">
+                                <svg viewBox="0 0 24 24" fill="none" className="w-[24px] h-[24px] stroke-[#FEE502]" aria-hidden="true">
                                     {programme.icon}
                                 </svg>
                             </span>
 
-                            <h3 className="font-headline-md text-[1.08rem] leading-[1.34] text-[#F4F7FA] mb-[0.7rem] min-[901px]:max-w-[20ch]">
+                            <h3 className="font-headline-md text-[1.22rem] leading-[1.32] text-[#F4F7FA] mb-[0.75rem] min-[901px]:max-w-[20ch]">
                                 {programme.title}
                             </h3>
-                            <p className="text-[0.92rem] leading-[1.62] text-[#93ABBB] min-[901px]:max-w-[27ch]">
+                            <p className="text-[1.02rem] leading-[1.65] text-[#93ABBB] min-[901px]:max-w-[28ch]">
                                 {programme.description}
                             </p>
                             <span className="block w-[22px] h-[3px] rounded-sm bg-[#FEE502] mt-[1.2rem]" aria-hidden="true"></span>
@@ -316,7 +331,7 @@ export default function Home() {
                         ))}
                     </svg>
 
-                    <div className="relative z-10 w-fit mx-auto min-[901px]:-mt-0.5 text-center px-[1.6rem] py-[1.4rem] min-[901px]:px-[2.6rem] min-[901px]:py-[1.6rem] border-[1.5px] border-[#F4F7FA] rounded-[14px] bg-[#0A3D64]">
+                    <div className="relative z-10 w-fit mx-auto min-[901px]:-mt-0.5 text-center px-[1.6rem] py-[1.4rem] min-[901px]:px-[2.6rem] min-[901px]:py-[1.6rem] border-[1.5px] border-[#F4F7FA] rounded-[14px] bg-deep-navy">
                         <span className="block text-[0.82rem] text-[#93ABBB] mb-[0.6rem]">Our shared goal</span>
                         <span className="block font-headline-md text-[1.05rem] min-[901px]:text-[1.25rem] leading-[1.35] whitespace-nowrap text-[#F4F7FA]">
                             Every child thrives online

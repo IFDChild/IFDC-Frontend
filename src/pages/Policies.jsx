@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -371,31 +370,6 @@ export default function Policies() {
                                 </div>
                             );
                         })}
-                    </div>
-                </section>
-
-                {/* Reporting a concern */}
-                <section className="px-margin-mobile md:px-margin-desktop pb-stack-lg">
-                    <div className="max-w-container-max mx-auto">
-                        <div className="bg-safety-yellow p-8 md:p-10 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-8">
-                            <div className="flex items-center gap-6">
-                                <span className="bg-deep-navy text-white p-4 rounded-full shrink-0">
-                                    <span className="material-symbols-outlined text-3xl">notification_important</span>
-                                </span>
-                                <div>
-                                    <h2 className="font-headline-md text-headline-md text-deep-navy mb-1">Reporting a concern</h2>
-                                    <p className="font-body-md text-body-md text-deep-navy/80">
-                                        If you believe one of these policies has been breached, please get in touch with us directly.
-                                    </p>
-                                </div>
-                            </div>
-                            <Link
-                                to="/contact"
-                                className="bg-deep-navy text-white px-8 py-4 rounded-full font-label-md text-label-md whitespace-nowrap shadow-lg hover:bg-surface-tint transition-colors active:scale-95"
-                            >
-                                Contact us
-                            </Link>
-                        </div>
                     </div>
                 </section>
             </main>

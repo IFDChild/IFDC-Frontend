@@ -39,20 +39,6 @@ const ADVISORS = [
     expertise: ['Child Rights and Child Protection', 'Online Child Safety and OCSEA Prevention', 'Digital Wellbeing and Digital Citizenship', 'Child Safeguarding', 'Public Policy', 'Capacity Building', 'Research and Programme Development']
   },
   {
-    slug: 'amali-ranasinghe',
-    name: 'Amali Ranasinghe',
-    credential: 'Attorney-at-Law',
-    role: 'Child Protection Legal Specialist',
-    specialism: 'Safeguarding Trainer',
-    country: 'Sri Lanka',
-    organisation: 'PEaCE/ECPAT Sri Lanka',
-    bio: [
-      'Amali Ranasinghe is an Attorney-at-Law specializing in child safeguarding, abuse prevention, legal advocacy, and community awareness. As Programme Officer at PEaCE/ECPAT Sri Lanka, she leads projects on preventing child abuse through awareness raising, capacity building, legal support, and multi-sector collaboration, and designs training programmes for communities, educators, and professionals on protection and reporting mechanisms. She previously served as Project Officer at PEaCE/ECPAT Sri Lanka, implementing community education programmes.',
-      'Earlier in her legal career, she worked with Julius & Creasy on intellectual property and contract matters before practicing privately in civil and criminal law. She holds an LLB (General Sir John Kotelawala Defence University), an LLM (University of Colombo), and is a qualified Attorney-at-Law (Sri Lanka Law College).'
-    ],
-    expertise: ['Child Protection', 'Child Safeguarding', 'Child Abuse Prevention', 'Legal Advocacy', 'Community Awareness', 'Capacity Building', 'Child Rights']
-  },
-  {
     slug: 'vidhya',
     name: 'Dr. S. Vidhya',
     role: 'Researcher',
@@ -143,10 +129,12 @@ const summaryFor = (advisor) => {
 
 function Portrait({ advisor, size }) {
   const src = portraitFor(advisor.slug);
-  const dimension = size === 'lg' ? 'w-28 h-28 text-[30px]' : 'w-20 h-20 text-[22px]';
+  const shape = size === 'lg'
+    ? 'w-28 h-28 text-[30px] rounded-full ring-4 ring-safety-yellow/80'
+    : 'w-24 h-24 text-[26px] rounded-2xl ring-4 ring-white shadow-md';
 
   return (
-    <span className={`${dimension} shrink-0 rounded-full overflow-hidden ring-4 ring-safety-yellow/80 bg-sky-tint flex items-center justify-center`}>
+    <span className={`${shape} shrink-0 overflow-hidden bg-sky-tint flex items-center justify-center`}>
       {src ? (
         <img src={src} alt={`Portrait of ${advisor.name}`} className="w-full h-full object-cover" loading="lazy" />
       ) : (
@@ -279,43 +267,48 @@ export default function AdvisoryCommittee() {
           </dl>
         </div>
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {ADVISORS.map((advisor) => (
             <li key={advisor.slug} className="flex">
-              <article className="group flex flex-col w-full bg-white rounded-3xl p-5 shadow-lg text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                <div className="flex flex-col items-center">
-                  <Portrait advisor={advisor} />
-                  <h3 className="mt-4 font-headline-md text-[1.05rem] font-bold leading-snug text-deep-navy">{advisor.name}</h3>
-                  <p className="text-caption font-semibold text-primary mt-1 leading-snug">{advisor.role}</p>
-                  <p className="inline-flex items-center gap-1 text-caption text-on-surface-variant mt-1.5">
-                    <span className="material-symbols-outlined text-[15px]" aria-hidden="true">location_on</span>
+              <article className="group relative flex flex-col w-full bg-white overflow-hidden rounded-tl-[2.5rem] rounded-br-[2.5rem] rounded-tr-lg rounded-bl-lg shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                {/* Header band */}
+                <div className="relative h-24 bg-gradient-to-br from-primary to-[#1F5FA6] overflow-hidden" aria-hidden="true">
+                  <span className="absolute -right-8 -top-10 w-32 h-32 rounded-full border-[18px] border-safety-yellow/25" />
+                  <span className="absolute left-5 top-4 inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[12px] font-semibold text-white">
+                    <span className="material-symbols-outlined text-[14px]">location_on</span>
                     {advisor.country}
-                  </p>
+                  </span>
                 </div>
 
-                <p className="mt-4 text-[0.85rem] leading-relaxed text-on-surface-variant flex-1">{summaryFor(advisor)}</p>
+                <div className="relative px-6 pb-6 -mt-12 flex flex-col flex-1">
+                  <Portrait advisor={advisor} />
+                  <h3 className="mt-4 font-headline-md text-[1.1rem] font-bold leading-snug text-deep-navy">{advisor.name}</h3>
+                  <p className="text-caption font-semibold text-primary mt-1 leading-snug">{advisor.role}</p>
 
-                <ul className="flex flex-wrap justify-center gap-1.5 mt-4">
-                  {advisor.expertise.slice(0, 2).map((area) => (
-                    <li key={area} className="rounded-full bg-sky-tint text-deep-navy px-2.5 py-1 text-[11.5px] font-semibold">{area}</li>
-                  ))}
-                  {advisor.expertise.length > 2 && (
-                    <li className="rounded-full bg-safety-yellow/40 text-deep-navy px-2.5 py-1 text-[11.5px] font-bold">
-                      +{advisor.expertise.length - 2} more
-                    </li>
-                  )}
-                </ul>
+                  <p className="mt-3 text-[0.88rem] leading-relaxed text-on-surface-variant flex-1">{summaryFor(advisor)}</p>
 
-                <button
-                  type="button"
-                  onClick={() => setSelected(advisor)}
-                  className="mt-5 pt-4 border-t border-outline-variant/40 inline-flex items-center justify-between gap-2 text-label-md font-bold text-deep-navy hover:text-primary transition-colors cursor-pointer"
-                >
-                  View full profile
-                  <span className="w-8 h-8 rounded-full bg-deep-navy text-safety-yellow flex items-center justify-center transition-transform group-hover:translate-x-1" aria-hidden="true">
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                  </span>
-                </button>
+                  <ul className="flex flex-wrap gap-1.5 mt-4">
+                    {advisor.expertise.slice(0, 2).map((area) => (
+                      <li key={area} className="rounded-md bg-sky-tint text-deep-navy px-2.5 py-1 text-[11.5px] font-semibold">{area}</li>
+                    ))}
+                    {advisor.expertise.length > 2 && (
+                      <li className="rounded-md bg-safety-yellow/40 text-deep-navy px-2.5 py-1 text-[11.5px] font-bold">
+                        +{advisor.expertise.length - 2} more
+                      </li>
+                    )}
+                  </ul>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelected(advisor)}
+                    className="mt-5 self-start inline-flex items-center gap-2 rounded-full bg-deep-navy text-white pl-4 pr-1.5 py-1.5 text-label-md font-bold hover:bg-primary transition-colors cursor-pointer"
+                  >
+                    View full profile
+                    <span className="w-7 h-7 rounded-full bg-safety-yellow text-deep-navy flex items-center justify-center transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+                      <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </span>
+                  </button>
+                </div>
               </article>
             </li>
           ))}
