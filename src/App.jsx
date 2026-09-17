@@ -16,6 +16,7 @@ import MemberProfile from './pages/MemberProfile';
 import Advocate from './pages/Advocate';
 import Donate from './pages/Donate';
 import Blogs from './pages/Blogs';
+import BlogDetail from './pages/BlogDetail';
 
 // Scroll to top on navigation
 function ScrollToTop() {
@@ -56,6 +57,7 @@ export default function App() {
         <Route path="/advocate" element={<Advocate />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:slug" element={<BlogDetail />} />
         <Route path="/policies" element={<Policies />} />
         <Route path="/impact" element={<Impact />} />
         <Route path="/strategic-plan" element={<StrategicPlan />} />

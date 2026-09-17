@@ -221,30 +221,6 @@ export default function Impact() {
                     </div>
                 </section>
 
-                <section className="px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto">
-                    <h2 className="font-headline-lg text-headline-lg text-deep-navy mb-stack-md text-center md:text-left" style={{ "opacity": "0.5", "transition": "opacity 1s ease-out" }}>Spotlight on Success</h2>
-                    <div className="glass-card rounded-[2rem] overflow-hidden flex flex-col lg:flex-row group transition-all duration-500 hover:shadow-xl">
-                        <div className="lg:w-1/2 h-80 lg:h-auto overflow-hidden">
-                            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A close-up, high-quality image of a young student using a tablet responsibly in a cozy, sun-filled library. The lighting is golden and hopeful, focusing on the child's expression of discovery and safety. The composition follows the modern-corporate style with a slight cinematic blur on the background, emphasizing protection and empowerment in the digital age." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRPQsAcwpQsNSfNLIkFNS42AO8VmCNDW3zA5cNNtqkbGhpT4zlpVR7Ded89pb7rSMcyNIfV7oMqkcIaa924kTN_15H9dznlskRPhHhiYGzX7b91SPXUK8w7_pa2ff1v8L8rHSz19ZpcXZHoy5LX2Zhvz7WFkOX8XlH66HS7dH0YNDArnvU8Pxk63aRdxxNSAKgBld2LIcNmVwXvUjJ2EhfV2jCq2C4a9zblvbJwWOIPibynXNdWCXc" />
-                        </div>
-                        <div className="lg:w-1/2 p-8 md:p-12 flex flex-col justify-center gap-6">
-                            <div className="flex gap-2">
-                                <span className="px-3 py-1 bg-sky-tint text-deep-navy rounded-lg text-caption font-bold">CYBER-AWARENESS</span>
-                            </div>
-                            <h3 className="font-headline-lg text-headline-lg text-deep-navy" style={{ "opacity": "1", "transition": "opacity 1s ease-out" }}>Empowering Maya: A Journey from Vulnerability to Leadership</h3>
-                            <p className="text-body-md text-on-surface-variant">
-                                When 12-year-old Maya encountered aggressive cyberbullying, our rapid response team didn't just step in to help—they provided her with the tools to become a digital safety ambassador for her entire school. Today, her program reaches over 2,000 peers monthly.
-                            </p>
-                            <div>
-                                <button className="bg-safety-yellow text-deep-navy px-8 py-3 rounded-full font-label-md flex items-center gap-2 hover:shadow-lg transition-all group/btn">
-                                    Read Maya's Full Story
-                                    <span className="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <section className="px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto text-center">
                     <div className="bg-deep-navy rounded-[3rem] p-8 md:p-16 relative overflow-hidden">
                         <div className="absolute inset-0 opacity-10">

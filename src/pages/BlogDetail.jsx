@@ -2,22 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import NewsCard from '../components/NewsCard';
 import RichContent from '../components/RichContent';
-import { fileUrl, getNews, getNewsArticle } from '../lib/api';
-import { formatNewsDate, plainText, readingTime } from '../lib/news';
+import { fileUrl, getBlogPost, getBlogs } from '../lib/api';
+import { formatNewsDate, initialsOf, readingTime } from '../lib/news';
 
-// Imported summaries are the opening words of the article body - don't repeat them above it.
-const summaryRepeatsBody = (summary, content) => {
-  const lead = plainText(summary).replace(/[….\s]+$/, '').slice(0, 120);
-  return lead.length > 0 && plainText(content).includes(lead);
-};
+export default function BlogDetail() {
+  const { slug } = useParams();
 
-export default function ArticleDetail() {
-  // The route is /news/:id - the segment is the article's slug.
-  const { id: slug } = useParams();
-
-  const [article, setArticle] = useState(null);
+  const [post, setPost] = useState(null);
   const [related, setRelated] = useState([]);
   const [status, setStatus] = useState('loading'); // loading | ready | missing | error
   const [copied, setCopied] = useState(false);
@@ -27,14 +19,14 @@ export default function ArticleDetail() {
     setStatus('loading');
     window.scrollTo(0, 0);
 
-    Promise.all([getNewsArticle(slug), getNews().catch(() => [])])
+    Promise.all([getBlogPost(slug), getBlogs().catch(() => [])])
       .then(([item, all]) => {
         if (cancelled) return;
         if (!item) {
           setStatus('missing');
           return;
         }
-        setArticle(item);
+        setPost(item);
         setRelated(all.filter((other) => other.slug !== item.slug).slice(0, 3));
         setStatus('ready');
       })
@@ -48,13 +40,13 @@ export default function ArticleDetail() {
   }, [slug]);
 
   useEffect(() => {
-    if (!article) return undefined;
+    if (!post) return undefined;
     const previousTitle = document.title;
-    document.title = `${article.title} | IFDC News`;
+    document.title = `${post.title} | IFDC Blog`;
     return () => {
       document.title = previousTitle;
     };
-  }, [article]);
+  }, [post]);
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
 
@@ -64,7 +56,7 @@ export default function ArticleDetail() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard unavailable - nothing else to do.
+      // Clipboard unavailable.
     }
   };
 
@@ -74,10 +66,10 @@ export default function ArticleDetail() {
 
       <main className="pb-stack-lg">
         {status === 'loading' && (
-          <div className="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop pt-12 animate-pulse" aria-busy="true" aria-label="Loading article">
+          <div className="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop pt-12 animate-pulse" aria-busy="true" aria-label="Loading blog post">
             <div className="h-4 w-48 rounded bg-surface-container mb-8" />
             <div className="h-10 w-5/6 rounded bg-surface-container mb-4" />
-            <div className="h-5 w-40 rounded bg-surface-container mb-8" />
+            <div className="h-5 w-56 rounded bg-surface-container mb-8" />
             <div className="h-[360px] rounded-[2rem] bg-surface-container mb-8" />
             <div className="space-y-3">
               <div className="h-4 rounded bg-surface-container" />
@@ -93,83 +85,75 @@ export default function ArticleDetail() {
               {status === 'missing' ? 'search_off' : 'cloud_off'}
             </span>
             <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mt-4">
-              {status === 'missing' ? 'Article not found' : 'We couldn’t load this article'}
+              {status === 'missing' ? 'Blog post not found' : 'We couldn’t load this post'}
             </h1>
             <p className="text-body-lg text-on-surface-variant mt-3">
-              {status === 'missing'
-                ? 'It may have been moved or is no longer published.'
-                : 'Please check your connection and try again shortly.'}
+              {status === 'missing' ? 'It may have been moved or is no longer published.' : 'Please try again shortly.'}
             </p>
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 mt-8 bg-deep-navy text-white px-6 py-3 rounded-full font-label-md hover:bg-primary transition-colors"
-            >
+            <Link to="/blogs" className="inline-flex items-center gap-2 mt-8 bg-deep-navy text-white px-6 py-3 rounded-full font-label-md hover:bg-primary transition-colors">
               <span className="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
-              Back to home
+              All blog posts
             </Link>
           </div>
         )}
 
-        {status === 'ready' && article && (
+        {status === 'ready' && post && (
           <>
             <article>
-              <header className="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop pt-10 md:pt-14">
-                <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-caption text-on-surface-variant mb-8">
-                  <Link className="hover:text-primary flex items-center gap-1" to="/">
-                    <span className="material-symbols-outlined text-[16px]" aria-hidden="true">home</span> Home
-                  </Link>
-                  <span className="material-symbols-outlined text-[14px]" aria-hidden="true">chevron_right</span>
-                  <Link className="hover:text-primary" to="/news#news">News</Link>
-                  <span className="material-symbols-outlined text-[14px]" aria-hidden="true">chevron_right</span>
-                  <span className="text-primary font-semibold truncate max-w-[180px] sm:max-w-sm">{article.title}</span>
-                </nav>
+              <header className="bg-deep-navy text-white">
+                <div className="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop pt-10 pb-14 md:pt-14 md:pb-20">
+                  <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-caption text-white/60 mb-8">
+                    <Link className="hover:text-white" to="/">Home</Link>
+                    <span className="material-symbols-outlined text-[14px]" aria-hidden="true">chevron_right</span>
+                    <Link className="hover:text-white" to="/blogs">Blogs</Link>
+                    <span className="material-symbols-outlined text-[14px]" aria-hidden="true">chevron_right</span>
+                    <span className="text-white font-semibold truncate max-w-[160px] sm:max-w-sm">{post.title}</span>
+                  </nav>
 
-                {article.category && (
-                  <span className="inline-block px-3 py-1 bg-safety-yellow text-deep-navy font-label-md text-label-md rounded-lg mb-4">
-                    {article.category}
-                  </span>
-                )}
+                  {post.category && (
+                    <span className="inline-block px-3 py-1 bg-safety-yellow text-deep-navy font-label-md text-label-md rounded-lg mb-5">
+                      {post.category}
+                    </span>
+                  )}
 
-                <h1 className="font-display-lg text-headline-lg-mobile md:text-display-lg text-deep-navy leading-tight">
-                  {article.title}
-                </h1>
+                  <h1 className="font-display-lg text-[1.9rem] md:text-[2.75rem] leading-tight">{post.title}</h1>
 
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5 text-on-surface-variant text-body-md">
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">calendar_today</span>
-                    <time dateTime={article.published_at || article.created_at}>
-                      {formatNewsDate(article.published_at || article.created_at)}
-                    </time>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">schedule</span>
-                    {readingTime(article.content)} min read
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[18px]" aria-hidden="true">apartment</span>
-                    IFDC
-                  </span>
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-8">
+                    <span className="flex items-center gap-3">
+                      <span className="w-11 h-11 rounded-full bg-safety-yellow text-deep-navy font-bold flex items-center justify-center" aria-hidden="true">
+                        {initialsOf(post.author)}
+                      </span>
+                      <span>
+                        <span className="block font-semibold">{post.author || 'IFDC'}</span>
+                        <span className="block text-caption text-white/60">International Foundation for Digital Child</span>
+                      </span>
+                    </span>
+                    <span className="flex items-center gap-4 text-white/75 text-body-md">
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">calendar_today</span>
+                        <time dateTime={post.published_at}>{formatNewsDate(post.published_at || post.created_at)}</time>
+                      </span>
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-[18px]" aria-hidden="true">schedule</span>
+                        {readingTime(post.content)} min read
+                      </span>
+                    </span>
+                  </div>
                 </div>
-
-                {article.summary && !summaryRepeatsBody(article.summary, article.content) && (
-                  <p className="mt-6 text-body-lg md:text-[1.25rem] leading-relaxed text-on-surface border-l-4 border-safety-yellow pl-5">
-                    {article.summary}
-                  </p>
-                )}
               </header>
 
-              {article.image && (
-                <div className="max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop mt-10">
+              {post.featured_image && (
+                <div className="max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop -mt-8 md:-mt-12">
                   <img
-                    src={fileUrl(article.image)}
+                    src={fileUrl(post.featured_image)}
                     alt=""
-                    className="w-full max-h-[560px] object-cover rounded-[2rem] shadow-lg"
+                    className="w-full max-h-[560px] object-cover rounded-[2rem] shadow-xl bg-surface-container"
                   />
                 </div>
               )}
 
-              <div className="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop mt-10">
-                <RichContent content={article.content} />
+              <div className="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop mt-12">
+                <RichContent content={post.content} />
 
                 <div className="mt-12 pt-8 border-t border-outline-variant flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
@@ -202,9 +186,9 @@ export default function ArticleDetail() {
                     </button>
                   </div>
 
-                  <Link to="/news#news" className="inline-flex items-center gap-2 text-primary font-label-md hover:underline">
+                  <Link to="/blogs" className="inline-flex items-center gap-2 text-primary font-label-md hover:underline">
                     <span className="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_back</span>
-                    All news
+                    All blog posts
                   </Link>
                 </div>
               </div>
@@ -212,9 +196,25 @@ export default function ArticleDetail() {
 
             {related.length > 0 && (
               <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mt-stack-lg">
-                <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-stack-md">More from the Foundation</h2>
+                <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-stack-md">More from our blog</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {related.map((item) => <NewsCard key={item.id} article={item} />)}
+                  {related.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={`/blogs/${item.slug}`}
+                      className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
+                    >
+                      <div className="h-48 overflow-hidden bg-sky-tint">
+                        {item.featured_image && (
+                          <img src={fileUrl(item.featured_image)} alt="" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        )}
+                      </div>
+                      <div className="p-6 flex flex-col flex-1">
+                        <span className="text-caption text-on-surface-variant">{formatNewsDate(item.published_at)}</span>
+                        <h3 className="font-headline-md text-[1.15rem] text-deep-navy mt-2 leading-snug group-hover:text-primary transition-colors line-clamp-3">{item.title}</h3>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </section>
             )}
