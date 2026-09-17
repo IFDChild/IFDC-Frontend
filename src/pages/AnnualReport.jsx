@@ -207,16 +207,16 @@ export default function AnnualReport() {
                                 <span className="flex-grow h-px bg-deep-navy/15"></span>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                                 {previous.map((report) => (
                                     <article
                                         key={report.file}
-                                        className="group bg-white rounded-2xl overflow-hidden border border-outline-variant/30 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col"
+                                        className="group bg-white rounded-2xl overflow-hidden border border-outline-variant/30 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-row"
                                     >
                                         <button
                                             type="button"
                                             onClick={() => setPreview(report)}
-                                            className="relative block w-full aspect-[3/4] overflow-hidden focus:outline-none focus-visible:ring-4 focus-visible:ring-safety-yellow"
+                                            className="relative block w-28 sm:w-36 shrink-0 self-start aspect-[3/4] m-4 mr-0 rounded-lg overflow-hidden shadow-md focus:outline-none focus-visible:ring-4 focus-visible:ring-safety-yellow"
                                             aria-label={`Preview ${report.title}`}
                                         >
                                             <img
@@ -226,17 +226,17 @@ export default function AnnualReport() {
                                                 className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                                             />
                                             <span className="absolute inset-0 bg-deep-navy/0 group-hover:bg-deep-navy/45 transition-colors duration-300 flex items-center justify-center">
-                                                <span className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-safety-yellow text-deep-navy font-label-md text-label-md opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg">
+                                                <span className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-safety-yellow text-deep-navy text-[12px] font-bold opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 shadow-lg">
                                                     <span className="material-symbols-outlined text-sm">visibility</span>
                                                     Read online
                                                 </span>
                                             </span>
-                                            <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-deep-navy text-safety-yellow text-caption font-bold">
+                                            <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-deep-navy text-safety-yellow text-caption font-bold">
                                                 {report.year}
                                             </span>
                                         </button>
 
-                                        <div className="p-5 flex flex-col flex-grow">
+                                        <div className="p-4 sm:p-5 flex flex-col flex-grow min-w-0">
                                             <h3 className="font-headline-md text-body-lg text-deep-navy mb-2">{report.title}</h3>
                                             <p className="text-on-surface-variant text-body-md leading-relaxed mb-4 flex-grow line-clamp-3">
                                                 {report.summary}
