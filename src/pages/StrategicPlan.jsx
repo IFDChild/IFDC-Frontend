@@ -135,19 +135,19 @@ function PriorityPillars() {
                 <span className="material-symbols-outlined" style={{ fontSize: 28 }}>{item.icon}</span>
               </span>
               <span
-                className="text-[11.5px] font-bold tracking-[0.02em]"
+                className="text-[13px] font-bold tracking-[0.02em]"
                 style={{ color: selected ? item.fg : item.accent, opacity: selected ? 0.8 : 1 }}
               >
                 {item.hashtag}
               </span>
               <span
-                className="font-headline-md text-[15px] font-bold leading-tight"
+                className="font-headline-md text-[17.5px] font-bold leading-tight"
                 style={{ color: selected ? item.fg : '#0B3D6E' }}
               >
                 {item.name}
               </span>
               <span
-                className="text-[12px] font-semibold"
+                className="text-[13.5px] font-semibold"
                 style={{ color: selected ? item.fg : '#6B7280', opacity: selected ? 0.75 : 1 }}
               >
                 {item.items.length} {item.items.length === 1 ? 'priority' : 'priorities'}
@@ -168,9 +168,9 @@ function PriorityPillars() {
             <span className="material-symbols-outlined" style={{ fontSize: 38 }}>{pillar.icon}</span>
           </span>
           <div>
-            <p className="text-[12.5px] font-bold mb-1" style={{ color: pillar.accent }}>{pillar.hashtag}</p>
-            <h3 className="font-headline-md text-[24px] font-bold text-deep-navy mb-2">{pillar.name}</h3>
-            <p className="text-[15px] leading-relaxed text-on-surface-variant max-w-[70ch]">{pillar.intro}</p>
+            <p className="text-[14px] font-bold mb-1" style={{ color: pillar.accent }}>{pillar.hashtag}</p>
+            <h3 className="font-headline-md text-[27px] font-bold text-deep-navy mb-2">{pillar.name}</h3>
+            <p className="text-[16.5px] leading-relaxed text-on-surface-variant max-w-[70ch]">{pillar.intro}</p>
           </div>
         </div>
 
@@ -182,13 +182,13 @@ function PriorityPillars() {
               className="relative flex flex-col bg-white rounded-2xl border border-outline-variant/40 px-5 py-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <span className="absolute top-0 left-0 right-0 h-1" style={{ backgroundColor: pillar.accent }} aria-hidden="true"></span>
-              <span className="text-[12px] font-bold tracking-wider mb-2" style={{ color: pillar.accent }}>
+              <span className="text-[13.5px] font-bold tracking-wider mb-2" style={{ color: pillar.accent }}>
                 Priority {item.num}
               </span>
-              <h4 className="font-headline-md text-[16.5px] font-bold leading-snug text-deep-navy mb-2.5">{item.title}</h4>
-              <p className="text-[13.5px] leading-relaxed text-on-surface-variant mb-4 flex-1">{item.desc}</p>
-              <div className="pt-3.5 border-t border-outline-variant/40 text-[12.5px] leading-normal text-on-surface-variant">
-                <b className="block text-[12px] font-bold uppercase tracking-wider text-deep-navy mb-1">2029 target</b>
+              <h4 className="font-headline-md text-[18.5px] font-bold leading-snug text-deep-navy mb-2.5">{item.title}</h4>
+              <p className="text-[15px] leading-relaxed text-on-surface-variant mb-4 flex-1">{item.desc}</p>
+              <div className="pt-3.5 border-t border-outline-variant/40 text-[14px] leading-normal text-on-surface-variant">
+                <b className="block text-[12.5px] font-bold uppercase tracking-wider text-deep-navy mb-1">2029 target</b>
                 {item.target}
               </div>
             </article>
