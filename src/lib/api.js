@@ -1,4 +1,15 @@
-const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/$/, '');
+/**
+ * Base address of the API. A VITE_API_URL without a scheme (e.g. entered in
+ * Vercel as "ifdc-backend-production.up.railway.app") would otherwise be read
+ * as a path on this site, so add https:// unless it is already there.
+ */
+const normaliseBase = (value) => {
+  const base = (value || '').trim().replace(/\/+$/, '');
+  if (!base) return 'http://localhost:8000';
+  return /^https?:\/\//.test(base) ? base : `https://${base}`;
+};
+
+const API_URL = normaliseBase(import.meta.env.VITE_API_URL);
 
 /** Absolute URL for a file stored on the API (e.g. /uploads/xyz.pdf). */
 export const fileUrl = (path) =>
