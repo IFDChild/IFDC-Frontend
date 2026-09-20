@@ -219,7 +219,7 @@ export default function Home() {
 
             {/* <section className="bg-yellow-400 pt-10 pb-10"> <div className="max-w-7xl mx-auto px-margin-desktop"> <div className="grid grid-cols-2 md:grid-cols-5 gap-8"> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.children >= 1000 ? `${Math.floor(counts.children / 1000)}k+` : counts.children} </div> <div className="font-label-md text-deep-navy"> Children Reached </div> </div> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.teachers}+ </div> <div className="font-label-md text-deep-navy"> Teachers Trained </div> </div> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.schools}+ </div> <div className="font-label-md text-deep-navy"> Schools Engaged </div> </div> <div className="text-center p-4"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.advocates} </div> <div className="font-label-md text-deep-navy"> Youth Advocates </div> </div> <div className="text-center p-4 col-span-2 md:col-span-1"> <div className="text-deep-navy font-display-lg text-headline-lg mb-2"> {counts.initiatives} </div> <div className="font-label-md text-deep-navy"> Initiatives </div> </div> </div> </div> </section> */}
 
-            <section className="bg-yellow-400 pt-10 pb-10">
+            <section className="bg-safety-yellow pt-10 pb-10">
                 <div className="max-w-7xl mx-auto px-margin-desktop">
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
 
@@ -305,7 +305,7 @@ export default function Home() {
                             }`}
                         >
                             <span className="relative z-10 w-[52px] h-[52px] rounded-full border-[1.5px] border-[#F4F7FA] bg-deep-navy flex items-center justify-center mb-[1.6rem]">
-                                <svg viewBox="0 0 24 24" fill="none" className="w-[24px] h-[24px] stroke-[#FEE502]" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" className="w-[24px] h-[24px] stroke-[#FFE100]" aria-hidden="true">
                                     {programme.icon}
                                 </svg>
                             </span>
@@ -316,7 +316,7 @@ export default function Home() {
                             <p className="text-[1.02rem] leading-[1.65] text-[#93ABBB] min-[901px]:max-w-[28ch]">
                                 {programme.description}
                             </p>
-                            <span className="block w-[22px] h-[3px] rounded-sm bg-[#FEE502] mt-[1.2rem]" aria-hidden="true"></span>
+                            <span className="block w-[22px] h-[3px] rounded-sm bg-[#FFE100] mt-[1.2rem]" aria-hidden="true"></span>
                         </div>
                     ))}
                 </div>
@@ -336,7 +336,7 @@ export default function Home() {
                         <span className="block font-headline-md text-[1.05rem] min-[901px]:text-[1.25rem] leading-[1.35] whitespace-nowrap text-[#F4F7FA]">
                             Every child thrives online
                         </span>
-                        <span className="block w-[26px] h-[3px] rounded-sm bg-[#FEE502] mt-[0.9rem] mx-auto" aria-hidden="true"></span>
+                        <span className="block w-[26px] h-[3px] rounded-sm bg-[#FFE100] mt-[0.9rem] mx-auto" aria-hidden="true"></span>
                     </div>
                 </div>
             </section>

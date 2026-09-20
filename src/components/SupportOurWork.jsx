@@ -10,7 +10,7 @@ const IMPACT = [
         <rect x="4" y="4" width="16" height="16" rx="3" strokeWidth="1.6" />
         <path d="M8 15C8 12.2 9.8 10 12 10C14.2 10 16 12.2 16 15" strokeWidth="1.6" strokeLinecap="round" />
         <path d="M9.6 12.4C10.3 11.6 11.1 11.2 12 11.2C12.9 11.2 13.7 11.6 14.4 12.4" strokeWidth="1.6" strokeLinecap="round" />
-        <circle cx="12" cy="15" r="0.9" fill="#FEE502" stroke="none" />
+        <circle cx="12" cy="15" r="0.9" fill="#FFE100" stroke="none" />
       </>
     )
   },
@@ -106,7 +106,7 @@ export default function SupportOurWork() {
         {/* Intro + sign-up */}
         <div className="motion-safe:animate-[support-rise_0.7s_cubic-bezier(.2,.7,.3,1)_both]">
           <svg className="w-9 h-9 mb-4" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-            <path d="M20 33C20 33 6 24.8 6 15.6C6 10.9 9.7 7.2 14.2 7.2C16.7 7.2 19 8.4 20 10.4C21 8.4 23.3 7.2 25.8 7.2C30.3 7.2 34 10.9 34 15.6C34 24.8 20 33 20 33Z" stroke="#FEE502" strokeWidth="1.6" strokeLinejoin="round" />
+            <path d="M20 33C20 33 6 24.8 6 15.6C6 10.9 9.7 7.2 14.2 7.2C16.7 7.2 19 8.4 20 10.4C21 8.4 23.3 7.2 25.8 7.2C30.3 7.2 34 10.9 34 15.6C34 24.8 20 33 20 33Z" stroke="#FFE100" strokeWidth="1.6" strokeLinejoin="round" />
           </svg>
 
           <h2 id="support-heading" className="font-headline-lg text-[#F4F7FA] text-[clamp(2.1rem,3.4vw,2.9rem)] leading-[1.12] tracking-[-0.01em] mb-3">
@@ -118,8 +118,8 @@ export default function SupportOurWork() {
           </p>
 
           {status === 'success' ? (
-            <div role="status" className="max-w-[460px] rounded-md border border-[#FEE502]/40 bg-[#FEE502]/10 p-5 flex gap-4">
-              <span className="w-10 h-10 shrink-0 rounded-full bg-[#FEE502] text-[#072B47] flex items-center justify-center" aria-hidden="true">
+            <div role="status" className="max-w-[460px] rounded-md border border-[#FFE100]/40 bg-[#FFE100]/10 p-5 flex gap-4">
+              <span className="w-10 h-10 shrink-0 rounded-full bg-[#FFE100] text-[#072B47] flex items-center justify-center" aria-hidden="true">
                 <span className="material-symbols-outlined text-[22px]">check</span>
               </span>
               <div>
@@ -156,14 +156,14 @@ export default function SupportOurWork() {
                   }}
                   aria-invalid={status === 'error'}
                   aria-describedby={status === 'error' ? 'donor-email-error' : 'donor-email-hint'}
-                  className={`flex-1 min-w-0 rounded-[3px] bg-white/[0.07] border px-4 py-[0.95rem] text-[#F4F7FA] placeholder:text-[#86A0B2] outline-none transition-colors focus:border-[#FEE502] focus:bg-white/10 ${
+                  className={`flex-1 min-w-0 rounded-[3px] bg-white/[0.07] border px-4 py-[0.95rem] text-[#F4F7FA] placeholder:text-[#86A0B2] outline-none transition-colors focus:border-[#FFE100] focus:bg-white/10 ${
                     status === 'error' ? 'border-[#ffb4ab]' : 'border-[#F4F7FA]/25'
                   }`}
                 />
                 <button
                   type="submit"
                   disabled={status === 'submitting'}
-                  className="group inline-flex items-center justify-center gap-2.5 rounded-[3px] bg-[#FEE502] px-6 py-[0.95rem] font-semibold text-[#072B47] whitespace-nowrap transition-[background,transform] duration-200 hover:bg-[#E0CB00] hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#F4F7FA] disabled:opacity-70 disabled:cursor-progress disabled:hover:translate-y-0"
+                  className="group inline-flex items-center justify-center gap-2.5 rounded-[3px] bg-[#FFE100] px-6 py-[0.95rem] font-semibold text-[#072B47] whitespace-nowrap transition-[background,transform] duration-200 hover:bg-[#E6CB00] hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#F4F7FA] disabled:opacity-70 disabled:cursor-progress disabled:hover:translate-y-0"
                 >
                   {status === 'submitting' ? (
                     <>
@@ -207,8 +207,8 @@ export default function SupportOurWork() {
               {index < IMPACT.length - 1 && (
                 <span className="absolute left-[21px] top-[36px] h-full w-px bg-[#F4F7FA]/15 origin-top motion-safe:animate-[support-drawline_0.5s_ease_both]" style={{ animationDelay: `${0.4 + index * 0.2}s` }} aria-hidden="true" />
               )}
-              <span className="relative z-10 w-11 h-11 rounded-full bg-deep-navy border border-[#FEE502]/35 flex items-center justify-center" aria-hidden="true">
-                <svg className="w-5 h-5 stroke-[#FEE502]" viewBox="0 0 24 24" fill="none">{item.icon}</svg>
+              <span className="relative z-10 w-11 h-11 rounded-full bg-deep-navy border border-[#FFE100]/35 flex items-center justify-center" aria-hidden="true">
+                <svg className="w-5 h-5 stroke-[#FFE100]" viewBox="0 0 24 24" fill="none">{item.icon}</svg>
               </span>
               <div>
                 <h3 className="font-headline-md text-[1.08rem] leading-[1.3] text-[#F4F7FA] mt-0.5 mb-0.5">{item.title}</h3>
