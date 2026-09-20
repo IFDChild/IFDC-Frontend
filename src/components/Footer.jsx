@@ -74,26 +74,24 @@ export default function Footer() {
             </div>
 
             {/* Membership. The alliance mark is purple, so it sits on white like the IFDC logo. */}
-            <div className="pt-6 border-t border-white/10">
-              <p className="font-label-md text-safety-yellow text-[0.72rem] font-bold uppercase tracking-[0.12em] mb-3">
-                Global membership
-              </p>
+            <div className="pt-5 border-t border-white/10 flex items-center gap-3 max-w-[17rem]">
               <a
                 href="https://www.weprotect.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex bg-white rounded-xl px-4 py-3 shadow-sm transition-transform hover:-translate-y-0.5"
+                className="inline-flex shrink-0 bg-white rounded-lg px-2.5 py-1.5 shadow-sm transition-transform hover:-translate-y-0.5"
               >
                 <img
                   src={WeProtectLogo}
                   alt="WeProtect Global Alliance"
                   width="300"
                   height="88"
-                  className="h-8 w-auto object-contain"
+                  className="h-5 w-auto object-contain"
                 />
               </a>
-              <p className="text-white/70 font-body-md text-body-md leading-6 max-w-sm mt-4">
-                IFDC has been granted global membership of the WeProtect Global Alliance.
+              <p className="font-caption text-caption text-white/70 leading-[1.45]">
+                <span className="block text-safety-yellow font-bold uppercase tracking-wider">Global membership</span>
+                WeProtect Global Alliance
               </p>
             </div>
           </div>
