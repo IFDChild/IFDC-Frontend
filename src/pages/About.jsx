@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import AdvisoryCommittee from '../components/AdvisoryCommittee';
 import ChildSafetyAdvocates from '../components/ChildSafetyAdvocates';
 import childTeach from '../assets/images/digitalchild.jpg';
+import WeProtectLogo from '../assets/images/weprotect-global-alliance.svg';
 
 const HERO_FACTS = [
   { label: 'Founded', value: '2022', icon: 'flag' },
@@ -388,6 +389,37 @@ export default function About() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Global membership */}
+        <section className="px-margin-mobile md:px-margin-desktop py-stack-lg bg-surface">
+          <div className="max-w-container-max mx-auto">
+            <div className="bg-white border border-outline-variant/40 rounded-[1.5rem] shadow-sm p-7 md:p-10 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-7 md:gap-10 items-center">
+              <a
+                href="https://www.weprotect.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex justify-center bg-sky-tint/40 border border-outline-variant/40 rounded-2xl px-7 py-6 transition-transform hover:-translate-y-0.5"
+              >
+                <img src={WeProtectLogo} alt="WeProtect Global Alliance" className="h-12 md:h-14 w-auto object-contain" />
+              </a>
+
+              <div>
+                <span className="inline-block bg-safety-yellow/20 border border-safety-yellow/50 text-deep-navy px-3 py-1 rounded-full text-label-md font-bold uppercase tracking-wider text-[0.72rem]">
+                  Global membership
+                </span>
+                <h2 className="font-headline-md text-[1.6rem] md:text-[2rem] leading-tight text-deep-navy mt-4 mb-3">
+                  A member of the WeProtect Global Alliance
+                </h2>
+                <p className="text-body-lg text-on-surface-variant leading-relaxed max-w-[62ch]">
+                  IFDC has been granted global membership of the WeProtect Global Alliance — a movement of more than
+                  300 governments, companies and civil society organisations working to end online child sexual
+                  exploitation and abuse. Membership connects our work in Sri Lanka to global research, standards
+                  and practice, and holds us to them.
+                </p>
+              </div>
             </div>
           </div>
         </section>
