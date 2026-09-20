@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import volunteerHero from '../assets/images/childTeach.jpg';
@@ -129,6 +130,10 @@ export default function Volunteer() {
 
   return (
     <>
+      <Seo
+        title="Volunteer with IFDC"
+        description="Join our volunteers and help deliver digital safety education, research and advocacy for children."
+      />
       <Navbar />
 
       <main className="min-h-screen">

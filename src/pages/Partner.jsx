@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 import Hand from '../assets/images/handshake.jpg';
 
@@ -72,6 +73,10 @@ const PARTNERSHIP_MAILTO =
 export default function Partner() {
     return (
         <>
+            <Seo
+              title="Partner with us"
+              description="Work with IFDC on online child safety: research partnerships, programme delivery, funding and corporate collaboration."
+            />
             <Navbar />
 
             <main>

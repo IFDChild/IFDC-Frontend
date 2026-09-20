@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 
 const mailto = (address, subject, body) =>
@@ -45,6 +46,10 @@ const EMAIL_TOPICS = [
 export default function Contact() {
     return (
         <>
+            <Seo
+              title="Contact us"
+              description="Get in touch with IFDC by email about programmes, partnerships, media enquiries or safeguarding concerns."
+            />
             <Navbar />
 
             <main>

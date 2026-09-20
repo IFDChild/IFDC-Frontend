@@ -45,3 +45,14 @@ export const initialsOf = (name) =>
     .map((word) => word[0])
     .join('')
     .toUpperCase();
+
+/** A short, clean summary for search results and link previews (~155 characters). */
+export const metaDescription = (summary, content) => {
+  const text = plainText(summary || '').trim() || plainText(content || '').trim();
+  if (!text) return '';
+  if (text.length <= 155) return text;
+
+  const cut = text.slice(0, 155);
+  const lastSpace = cut.lastIndexOf(' ');
+  return `${(lastSpace > 80 ? cut.slice(0, lastSpace) : cut).replace(/[,;:\s]+$/, '')}…`;
+};

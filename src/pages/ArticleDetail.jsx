@@ -3,8 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ArticleView from '../components/ArticleView';
-import { getNews, getNewsArticle } from '../lib/api';
-import { formatNewsDate, plainText, readingTime } from '../lib/news';
+import Seo from '../components/Seo';
+import { articleSchema, SITE_URL } from '../lib/seo';
+import { fileUrl, getNews, getNewsArticle } from '../lib/api';
+import { formatNewsDate, metaDescription, plainText, readingTime } from '../lib/news';
 
 // Imported summaries are the opening words of the article body - don't repeat them above it.
 const summaryRepeatsBody = (summary, content) => {
@@ -45,17 +47,33 @@ export default function ArticleDetail() {
     };
   }, [slug]);
 
-  useEffect(() => {
-    if (!article) return undefined;
-    const previousTitle = document.title;
-    document.title = `${article.title} | IFDC News`;
-    return () => {
-      document.title = previousTitle;
-    };
-  }, [article]);
+  const seoDescription = article ? metaDescription(article.summary, article.content) : '';
+  const seoImage = article?.image || null;
 
   return (
     <>
+      {article && (
+        <Seo
+          title={article.title}
+          description={seoDescription}
+          image={seoImage ? fileUrl(seoImage) : null}
+          type="article"
+          publishedAt={article.published_at || article.created_at}
+          modifiedAt={article.updated_at}
+          author={'IFDC'}
+          structuredData={articleSchema({
+            title: article.title,
+            description: seoDescription,
+            image: seoImage ? fileUrl(seoImage) : null,
+            url: `${SITE_URL}/news/${article.slug}`,
+            publishedAt: article.published_at || article.created_at,
+            modifiedAt: article.updated_at,
+            author: 'IFDC'
+          })}
+        />
+      )}
+      {status !== 'loading' && !article && <Seo title="Not found" noindex />}
+
       <Navbar />
 
       <main>

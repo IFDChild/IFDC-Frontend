@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 
 // Categorical accents grouping the priorities, carried over from the source plan.
@@ -227,6 +228,10 @@ const HEADLINE_TARGETS = [
 export default function StrategicPlan() {
   return (
     <>
+      <Seo
+        title="Strategic plan 2027-2029"
+        description="Our four strategic pillars, ten priorities and 2029 targets for protecting and empowering children in the digital world."
+      />
       <Navbar />
 
       <main>

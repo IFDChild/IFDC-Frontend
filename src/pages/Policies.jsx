@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 
 /**
@@ -241,6 +242,10 @@ export default function Policies() {
         <>
             {preview && <PdfPreview policy={preview} onClose={() => setPreview(null)} />}
 
+            <Seo
+              title="Policies"
+              description="Our child safeguarding, privacy and governance policies, available to read and download."
+            />
             <Navbar />
 
             <main>

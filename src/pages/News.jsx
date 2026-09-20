@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 import { fileUrl, getBlogs, getNews } from '../lib/api';
 import { formatNewsDate, newsExcerpt, plainText, readingTime } from '../lib/news';
@@ -283,6 +284,10 @@ export default function News() {
 
   return (
     <>
+      <Seo
+        title="News and blogs"
+        description="The latest news, press coverage and blog articles from IFDC on online child safety, digital literacy and children's wellbeing online."
+      />
       <Navbar />
 
       {/* Hero */}

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 import heroImage from '../assets/images/childwith Tab.jpg';
 import { fileUrl, getResources, registerResourceDownload } from '../lib/api';
@@ -227,6 +228,10 @@ export default function Resources() {
         <>
             {previewResource && <PdfPreview resource={previewResource} onClose={closePreview} />}
 
+            <Seo
+              title="Digital safety resources"
+              description="Free, evidence-based guides and toolkits for children, families, educators and journalists. Every resource is free to preview and download."
+            />
             <Navbar />
 
             <main>

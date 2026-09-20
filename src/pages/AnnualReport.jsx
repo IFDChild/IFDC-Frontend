@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 
 /**
@@ -109,6 +110,10 @@ export default function AnnualReport() {
         <>
             {preview && <PdfPreview report={preview} onClose={() => setPreview(null)} />}
 
+            <Seo
+              title="Annual reports"
+              description="Read and download IFDC's annual reports covering our programmes, reach and financial statements."
+            />
             <Navbar />
 
             <main>

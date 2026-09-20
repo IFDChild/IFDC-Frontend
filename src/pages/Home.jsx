@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
+import { organisationSchema } from '../lib/seo';
 import { Link } from 'react-router-dom';
 import heroClassroom from "../assets/images/hero/hero-classroom-computers.jpg";
 import heroKidsTablet from "../assets/images/hero/hero-kids-tablet.jpg";
@@ -137,6 +139,11 @@ export default function Home() {
 
     return (
         <>
+            <Seo
+              title="Digital safety and wellbeing for every child"
+              description="IFDC protects and empowers children in the digital world through education, advocacy and research in Sri Lanka and beyond. Explore our programmes, impact and ways to support."
+             structuredData={organisationSchema}
+            />
             <Navbar />
 
             {/* ── Hero Carousel ── */}

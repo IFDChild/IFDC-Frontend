@@ -1,4 +1,5 @@
 import React from 'react';
+import Seo from './components/Seo';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -31,6 +32,7 @@ function ScrollToTop() {
 function NotFound() {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-5">
+      <Seo title="Page not found" noindex />
       <span className="material-symbols-outlined text-7xl text-[#c3c6d0] mb-6">search_off</span>
       <h1 className="text-4xl font-bold text-[#0B3D6E] mb-4" style={{ fontFamily: 'Manrope, sans-serif' }}>Page Not Found</h1>
       <p className="text-[#43474f] mb-8">The page you're looking for doesn't exist or has been moved.</p>

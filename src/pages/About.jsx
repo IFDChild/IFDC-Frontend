@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 import AdvisoryCommittee from '../components/AdvisoryCommittee';
 import ChildSafetyAdvocates from '../components/ChildSafetyAdvocates';
@@ -191,6 +192,10 @@ function JourneyTimeline() {
 export default function About() {
   return (
     <>
+      <Seo
+        title="About us"
+        description="Who we are, our mission and journey since 2022, our child safety advocates and international advisory committee, and our membership of the WeProtect Global Alliance."
+      />
       <Navbar />
 
 

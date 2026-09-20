@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 import FellowReflections from '../components/FellowReflections';
 import FellowshipInterest from '../components/FellowshipInterest';
@@ -428,6 +429,10 @@ export default function Advocate() {
 
     return (
         <>
+            <Seo
+              title="Advocate programmes"
+              description="Fellowships and training that prepare young people to lead on online child safety and digital mental health across Asia."
+            />
             <Navbar />
 
             <main className="min-h-screen">

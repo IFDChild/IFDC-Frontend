@@ -3,8 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ArticleView from '../components/ArticleView';
-import { getBlogPost, getBlogs } from '../lib/api';
-import { formatNewsDate, readingTime } from '../lib/news';
+import Seo from '../components/Seo';
+import { articleSchema, SITE_URL } from '../lib/seo';
+import { fileUrl, getBlogPost, getBlogs } from '../lib/api';
+import { formatNewsDate, metaDescription, readingTime } from '../lib/news';
 
 export default function BlogDetail() {
   const { slug } = useParams();
@@ -38,17 +40,33 @@ export default function BlogDetail() {
     };
   }, [slug]);
 
-  useEffect(() => {
-    if (!post) return undefined;
-    const previousTitle = document.title;
-    document.title = `${post.title} | IFDC Blog`;
-    return () => {
-      document.title = previousTitle;
-    };
-  }, [post]);
+  const seoDescription = post ? metaDescription(post.excerpt, post.content) : '';
+  const seoImage = post?.featured_image || null;
 
   return (
     <>
+      {post && (
+        <Seo
+          title={post.title}
+          description={seoDescription}
+          image={seoImage ? fileUrl(seoImage) : null}
+          type="article"
+          publishedAt={post.published_at || post.created_at}
+          modifiedAt={post.updated_at}
+          author={post.author || 'IFDC'}
+          structuredData={articleSchema({
+            title: post.title,
+            description: seoDescription,
+            image: seoImage ? fileUrl(seoImage) : null,
+            url: `${SITE_URL}/blogs/${post.slug}`,
+            publishedAt: post.published_at || post.created_at,
+            modifiedAt: post.updated_at,
+            author: post.author || 'IFDC'
+          })}
+        />
+      )}
+      {status !== 'loading' && !post && <Seo title="Not found" noindex />}
+
       <Navbar />
 
       <main>

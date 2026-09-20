@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 
 const FELLOWSHIP_STATS = [
@@ -56,6 +57,10 @@ export default function Impact() {
 
 
 
+            <Seo
+              title="Our impact"
+              description="The reach of our work: children educated, teachers trained, schools engaged and young advocates supported across Sri Lanka."
+            />
             <Navbar />
             <main className="pt-24 overflow-hidden">
 

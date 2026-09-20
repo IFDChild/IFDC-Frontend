@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 import { fileUrl, getBlogs } from '../lib/api';
 import { formatNewsDate, initialsOf, newsExcerpt, plainText, readingTime } from '../lib/news';
@@ -185,6 +186,10 @@ export default function Blogs() {
 
   return (
     <>
+      <Seo
+        title="Blogs and insights"
+        description="Research, reflections and practical guidance from IFDC on online child safety and digital wellbeing in Sri Lanka and beyond."
+      />
       <Navbar />
 
       {/* ── Hero Section ── */}

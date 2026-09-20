@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
+import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 
 export default function Donate() {
@@ -8,6 +9,10 @@ export default function Donate() {
 
   return (
     <>
+      <Seo
+        title="Support our work"
+        description="Your support funds the programmes that help children build digital literacy, express themselves and grow up safe online."
+      />
       <Navbar />
 
       <main className="min-h-screen">
