@@ -90,7 +90,7 @@ export default function SupportOurWork() {
     <section
       id="support-our-work"
       aria-labelledby="support-heading"
-      className="relative overflow-hidden px-[6vw] py-12 md:py-16 mb-10 md:mb-14 border-y border-[#0B3D6E]/10"
+      className="relative overflow-hidden px-[6vw] py-12 md:py-16 border-y border-[#0B3D6E]/10"
       style={{
         background:
           'radial-gradient(ellipse 900px 500px at 85% -10%, rgba(255,225,0,0.16), transparent 60%), #E5EAF3'
