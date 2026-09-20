@@ -20,7 +20,7 @@ export const organisationSchema = {
   name: 'International Foundation for Digital Child',
   alternateName: 'IFDC',
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon.svg`,
+  logo: `${SITE_URL}/favicon-512.png`,
   email: 'info@ifdchild.org',
   description:
     'IFDC protects and empowers children in the digital world through education, advocacy, research and innovation in Sri Lanka and beyond.',
@@ -55,6 +55,6 @@ export const articleSchema = ({ title, description, image, url, publishedAt, mod
   publisher: {
     '@type': 'Organization',
     name: 'International Foundation for Digital Child',
-    logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon.svg` }
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/favicon-512.png` }
   }
 });
