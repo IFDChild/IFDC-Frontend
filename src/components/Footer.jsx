@@ -72,6 +72,30 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
+            {/* Membership. The alliance mark is purple, so it sits on white like the IFDC logo. */}
+            <div className="pt-6 border-t border-white/10">
+              <p className="font-label-md text-safety-yellow text-[0.72rem] font-bold uppercase tracking-[0.12em] mb-3">
+                Global membership
+              </p>
+              <a
+                href="https://www.weprotect.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex bg-white rounded-xl px-4 py-3 shadow-sm transition-transform hover:-translate-y-0.5"
+              >
+                <img
+                  src={WeProtectLogo}
+                  alt="WeProtect Global Alliance"
+                  width="300"
+                  height="88"
+                  className="h-8 w-auto object-contain"
+                />
+              </a>
+              <p className="text-white/70 font-body-md text-body-md leading-6 max-w-sm mt-4">
+                IFDC has been granted global membership of the WeProtect Global Alliance.
+              </p>
+            </div>
           </div>
 
           {/* Organization */}
@@ -113,30 +137,13 @@ export default function Footer() {
                 </span>
               </li>
             </ul>
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 border border-white/30 text-white font-label-md text-label-md px-5 py-2.5 rounded-full hover:bg-safety-yellow hover:text-deep-navy hover:border-safety-yellow transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-sm">forum</span>
-                Contact Us
-              </Link>
-
-              {/* Membership mark. The alliance logo is purple, so it sits on white to stay legible. */}
-              <a
-                href="https://www.weprotect.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="IFDC has been granted global membership of the WeProtect Global Alliance"
-                className="inline-flex shrink-0 bg-white rounded-lg px-3 py-2 shadow-sm transition-transform hover:-translate-y-0.5"
-              >
-                <img
-                  src={WeProtectLogo}
-                  alt="WeProtect Global Alliance"
-                  className="h-6 w-auto object-contain"
-                />
-              </a>
-            </div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 mt-6 border border-white/30 text-white font-label-md text-label-md px-5 py-2.5 rounded-full hover:bg-safety-yellow hover:text-deep-navy hover:border-safety-yellow transition-all duration-200"
+            >
+              <span className="material-symbols-outlined text-sm">forum</span>
+              Contact Us
+            </Link>
 
 
           </div>
