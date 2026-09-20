@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/images/IDFC Logo.png'
+import WeProtectLogo from '../assets/images/weprotect-global-alliance.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFacebookF,
@@ -119,6 +120,33 @@ export default function Footer() {
               <span className="material-symbols-outlined text-sm">forum</span>
               Contact Us
             </Link>
+          </div>
+        </div>
+
+        {/* Membership */}
+        <div className="py-7 border-t border-white/10 flex flex-col sm:flex-row items-center gap-5 sm:gap-7 text-center sm:text-left">
+          {/* The alliance mark is purple, so it sits on white to stay legible on the navy. */}
+          <a
+            href="https://www.weprotect.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 bg-white rounded-xl px-5 py-3.5 shadow-sm transition-transform hover:-translate-y-0.5"
+          >
+            <img
+              src={WeProtectLogo}
+              alt="WeProtect Global Alliance"
+              className="h-7 sm:h-8 w-auto object-contain"
+              loading="lazy"
+            />
+          </a>
+          <div>
+            <p className="font-label-md text-safety-yellow text-[0.78rem] font-bold uppercase tracking-[0.12em] mb-1">
+              Global membership
+            </p>
+            <p className="text-white/80 font-body-md text-body-md leading-6 max-w-xl">
+              IFDC has been granted global membership of the WeProtect Global Alliance, joining governments,
+              companies and civil society working to end online child sexual exploitation and abuse.
+            </p>
           </div>
         </div>
 
