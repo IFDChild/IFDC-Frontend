@@ -120,6 +120,26 @@ export default function Footer() {
               <span className="material-symbols-outlined text-sm">forum</span>
               Contact Us
             </Link>
+
+            {/* Membership. The alliance mark is purple, so it sits on white like the IFDC logo. */}
+            <div className="mt-7 pt-6 border-t border-white/10 flex items-center gap-4">
+              <a
+                href="https://www.weprotect.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 bg-white rounded-xl px-4 py-3 shadow-sm transition-transform hover:-translate-y-0.5"
+              >
+                <img
+                  src={WeProtectLogo}
+                  alt="WeProtect Global Alliance"
+                  className="h-9 w-auto object-contain"
+                  loading="lazy"
+                />
+              </a>
+              <p className="text-white/70 font-caption text-caption leading-5">
+                Granted global membership of the WeProtect Global Alliance.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -128,25 +148,6 @@ export default function Footer() {
           <p className="font-caption text-caption text-white/50 text-center md:text-left">
             © 2026 International Digital Foundation for Children (IFDC). All rights reserved.
           </p>
-
-          {/* Membership mark. The alliance logo is purple, so it sits on white to stay legible. */}
-          <a
-            href="https://www.weprotect.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="IFDC has been granted global membership of the WeProtect Global Alliance"
-            className="md:order-last flex items-center gap-3 shrink-0 transition-opacity hover:opacity-90"
-          >
-            <span className="font-caption text-caption text-white/50 whitespace-nowrap">Global member of</span>
-            <span className="inline-flex bg-white rounded-lg px-3 py-2">
-              <img
-                src={WeProtectLogo}
-                alt="WeProtect Global Alliance"
-                className="h-5 w-auto object-contain"
-                loading="lazy"
-              />
-            </span>
-          </a>
           <div className="flex flex-wrap justify-center gap-6">
             <Link className="font-caption text-caption text-white/50 hover:text-safety-yellow transition-colors" to="/policies">Privacy Policy</Link>
             <Link className="font-caption text-caption text-white/50 hover:text-safety-yellow transition-colors" to="/policies">Terms of Service</Link>
