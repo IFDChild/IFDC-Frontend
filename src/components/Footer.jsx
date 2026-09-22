@@ -52,8 +52,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="inline-flex bg-white rounded-xl px-4 py-3 shadow-sm">
-              <img alt="IFDC Logo" className="h-9 w-auto object-contain" src={Logo} />
+            <div className="inline-flex bg-white px-4 py-3 shadow-sm">
+              <img alt="IFDC Logo" width="133" height="48" className="h-12 w-auto object-contain" src={Logo} />
             </div>
             <p className="text-white/70 font-body-md text-body-md leading-6 max-w-sm">
               Protecting and empowering children in the digital landscape through education, advocacy, and innovation.
@@ -74,19 +74,19 @@ export default function Footer() {
             </div>
 
             {/* Membership. The alliance mark is purple, so it sits on white like the IFDC logo. */}
-            <div className="pt-5 border-t border-white/10 flex items-center gap-3 max-w-[17rem]">
+            <div className="pt-5 border-t border-white/10 flex flex-wrap items-center gap-x-4 gap-y-3 max-w-sm">
               <a
                 href="https://www.weprotect.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex shrink-0 bg-white rounded-lg px-2.5 py-1.5 shadow-sm transition-transform hover:-translate-y-0.5"
+                className="inline-flex shrink-0 bg-white px-4 py-3 shadow-sm transition-transform hover:-translate-y-0.5"
               >
                 <img
                   src={WeProtectLogo}
                   alt="WeProtect Global Alliance"
                   width="300"
                   height="88"
-                  className="h-5 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                 />
               </a>
               <p className="font-caption text-caption text-white/70 leading-[1.45]">

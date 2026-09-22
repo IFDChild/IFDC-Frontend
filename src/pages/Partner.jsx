@@ -60,7 +60,7 @@ const WAYS_TO_PARTNER = [
     }
 ];
 
-const PARTNERSHIP_EMAIL = 'partnerships@ifdchild.org';
+const PARTNERSHIP_EMAIL = 'info@ifdchild.org';
 
 const PARTNERSHIP_MAILTO =
     `mailto:${PARTNERSHIP_EMAIL}` +

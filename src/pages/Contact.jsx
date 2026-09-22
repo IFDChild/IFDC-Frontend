@@ -31,8 +31,8 @@ const EMAIL_TOPICS = [
         icon: 'handshake',
         title: 'Partnerships',
         text: 'Organizations interested in working with us on child online safety.',
-        address: 'partnerships@ifdchild.org',
-        href: mailto('partnerships@ifdchild.org', 'Partnership enquiry - IFDC')
+        address: 'info@ifdchild.org',
+        href: mailto('info@ifdchild.org', 'Partnership enquiry - IFDC')
     },
     {
         icon: 'newspaper',
