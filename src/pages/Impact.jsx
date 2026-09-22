@@ -10,6 +10,22 @@ const FELLOWSHIP_STATS = [
     { value: '99%', label: 'Plan to continue', note: 'to the next session' }
 ];
 
+const PROGRAMME_TOPICS = [
+    { icon: 'psychology_alt', label: 'Online grooming', note: 'Spotting the patterns early' },
+    { icon: 'gpp_maybe', label: 'Sextortion', note: 'Responding without blame' },
+    { icon: 'family_restroom', label: 'Digital parenting', note: 'Guiding families at home' },
+    { icon: 'smart_toy', label: 'AI risks', note: 'New harms, new safeguards' },
+    { icon: 'gavel', label: "Children's digital rights", note: 'The rules that protect them' }
+];
+
+const FELLOW_BACKGROUNDS = ['Students', 'NGO staff', 'Counsellors', 'Teachers', 'Social workers'];
+
+const FELLOW_OUTCOMES = [
+    { icon: 'school', title: 'Community educators', text: 'Running sessions in their own schools and neighbourhoods.' },
+    { icon: 'support_agent', title: 'Digital counsellors', text: 'Supporting children and families after online harm.' },
+    { icon: 'campaign', title: 'Local advocates', text: 'Pressing for safer online spaces where they live.' }
+];
+
 const SESSION_RATINGS = [
     { label: 'Excellent', percent: 56, count: 65, color: '#2F6F62' },
     { label: 'Good', percent: 37, count: 43, color: '#0b3d6e' },
@@ -118,11 +134,60 @@ export default function Impact() {
                             </h2>
                             <span className="block w-20 h-1 bg-safety-yellow rounded-full my-5"></span>
                             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                                The IFDC Online Child Protection Advocates &amp; Ambassador Program equips young people and professionals across Sri Lanka with the knowledge and tools to protect children in digital spaces. Through expert-led sessions on online grooming, sextortion, digital parenting, AI risks, and children&rsquo;s digital rights, fellows build practical skills to recognize abuse, support families, and advocate for safer online environments in their own communities.
+                                Expert-led training that equips young people and professionals across Sri Lanka to recognise
+                                online abuse, support families, and speak up for safer digital spaces in their own communities.
                             </p>
-                            <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mt-4">
-                                Since its launch, the program has engaged fellows from 17 districts across the island &mdash; students, NGO staff, counsellors, teachers, and social workers alike &mdash; with 98% saying they&rsquo;d recommend it to others and 99% continuing on to further sessions. Beyond the sessions themselves, fellows go on to become community educators, digital counsellors, and advocates, extending child protection awareness far beyond the program itself.
+                        </div>
+
+                        {/* What fellows learn */}
+                        <div className="mt-stack-md">
+                            <h3 className="font-label-md text-label-md font-bold uppercase tracking-wider text-deep-navy mb-4">
+                                What fellows learn
+                            </h3>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                                {PROGRAMME_TOPICS.map((topic) => (
+                                    <li key={topic.label} className="bg-white rounded-2xl border border-outline-variant/30 shadow-sm p-5">
+                                        <span className="w-11 h-11 rounded-xl bg-safety-yellow/25 text-deep-navy flex items-center justify-center mb-3" aria-hidden="true">
+                                            <span className="material-symbols-outlined" style={{ fontSize: 24 }}>{topic.icon}</span>
+                                        </span>
+                                        <span className="block font-headline-md text-[1.02rem] leading-snug text-deep-navy">{topic.label}</span>
+                                        <span className="block font-caption text-caption text-on-surface-variant mt-1.5">{topic.note}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Who takes part */}
+                        <div className="mt-6 bg-deep-navy rounded-2xl p-6 md:p-7 flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+                            <p className="flex items-baseline gap-3 shrink-0">
+                                <span className="font-display-lg text-headline-lg text-safety-yellow leading-none">17</span>
+                                <span className="font-label-md text-label-md text-white/85">districts<br />across the island</span>
                             </p>
+                            <span className="hidden md:block w-px self-stretch bg-white/15" aria-hidden="true"></span>
+                            <ul className="flex flex-wrap gap-2.5">
+                                {FELLOW_BACKGROUNDS.map((background) => (
+                                    <li key={background} className="border border-white/25 text-white/90 rounded-full px-4 py-1.5 font-caption text-caption">
+                                        {background}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Where fellows go next */}
+                        <div className="mt-6">
+                            <h3 className="font-label-md text-label-md font-bold uppercase tracking-wider text-deep-navy mb-4">
+                                Where fellows go next
+                            </h3>
+                            <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {FELLOW_OUTCOMES.map((outcome) => (
+                                    <li key={outcome.title} className="relative bg-white rounded-2xl border border-outline-variant/30 shadow-sm p-6 pl-7 overflow-hidden">
+                                        <span className="absolute left-0 top-0 bottom-0 w-1.5 bg-safety-yellow" aria-hidden="true"></span>
+                                        <span className="material-symbols-outlined text-deep-navy" style={{ fontSize: 26 }} aria-hidden="true">{outcome.icon}</span>
+                                        <span className="block font-headline-md text-[1.08rem] text-deep-navy mt-2">{outcome.title}</span>
+                                        <span className="block font-body-md text-body-md text-on-surface-variant leading-relaxed mt-1.5">{outcome.text}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
                         {/* Headline numbers */}
@@ -226,24 +291,6 @@ export default function Impact() {
                     </div>
                 </section>
 
-                <section className="px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto text-center">
-                    <div className="bg-deep-navy rounded-[3rem] p-8 md:p-16 relative overflow-hidden">
-                        <div className="absolute inset-0 opacity-10">
-                            <div className="absolute top-0 right-0 w-96 h-96 bg-safety-yellow rounded-full -mr-24 -mt-24 blur-3xl"></div>
-                            <div className="absolute bottom-0 left-0 w-96 h-96 bg-sky-tint rounded-full -ml-24 -mb-24 blur-3xl"></div>
-                        </div>
-                        <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-                            <h2 className="font-display-lg text-display-lg text-white leading-tight">Be Part of the Next Success Story</h2>
-                            <p className="text-body-lg text-sky-tint opacity-90">
-                                Your support fuels our mission to protect and empower children in the digital world. Join us in making the internet a safer playground for everyone.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                                <button className="bg-safety-yellow text-deep-navy px-10 py-4 rounded-full font-label-md text-lg hover:scale-105 transition-transform">Start Monthly Donation</button>
-                                <button className="bg-transparent border-2 border-white text-white px-10 py-4 rounded-full font-label-md text-lg hover:bg-white/10 transition-all">Volunteer Your Skills</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </main>
 
             <Footer />
