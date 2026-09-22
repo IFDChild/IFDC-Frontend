@@ -2,17 +2,14 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Seo from '../components/Seo';
 import Footer from '../components/Footer';
+import impactHero from '../assets/images/pexels-cottonbro-7014778.jpg';
 
 /* Headline findings of the fellowship impact analysis, January to April 2025. */
 const HEADLINE_STATS = [
     { value: '70+', label: 'Unique individuals reached', icon: 'groups' },
     { value: '204', label: 'Total feedback responses', icon: 'fact_check' },
-    { value: '17', label: 'Districts represented', icon: 'map' },
     { value: '95%+', label: 'Rated sessions good or excellent', icon: 'star' },
-    { value: '70%', label: "Would 'definitely' recommend", icon: 'thumb_up' },
-    { value: '100%', label: 'Attended 4 of 6 advocate sessions', icon: 'event_available' },
-    { value: '38', label: 'Volunteering for the organising committee', icon: 'volunteer_activism' },
-    { value: '3', label: 'Programme streams analysed', icon: 'analytics' }
+    { value: '100%', label: 'Attended 4 of 6 advocate sessions', icon: 'event_available' }
 ];
 
 const FELLOWSHIP_STATS = [
@@ -93,7 +90,7 @@ export default function Impact() {
             <main className="pt-24 overflow-hidden">
 
                 <section className="relative px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto impact-gradient">
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-14 items-center">
                         <div className="space-y-6">
                             <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-soft-canary text-on-secondary-container font-label-md">
                                 <span className="material-symbols-outlined text-sm" style={{ "fontVariationSettings": "'FILL' 1" }}>verified_user</span>
@@ -118,6 +115,19 @@ export default function Impact() {
                                     </li>
                                 ))}
                             </ul>
+                        </div>
+
+                        <div className="relative">
+                            <div className="w-full aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl">
+                                <img
+                                    src={impactHero}
+                                    alt="A child taking part in an online session at a desk"
+                                    className="w-full h-full object-cover"
+                                    style={{ objectPosition: '60% 40%' }}
+                                />
+                            </div>
+                            <div className="absolute -top-6 -right-6 w-32 h-32 bg-safety-yellow rounded-full -z-10 opacity-25 blur-2xl" aria-hidden="true"></div>
+                            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-deep-navy rounded-full -z-10 opacity-10 blur-3xl" aria-hidden="true"></div>
                         </div>
                     </div>
                 </section>
@@ -177,9 +187,14 @@ export default function Impact() {
 
                         {/* Where fellows go next */}
                         <div className="mt-6">
-                            <h3 className="font-label-md text-label-md font-bold uppercase tracking-wider text-deep-navy mb-4">
-                                Where fellows go next
-                            </h3>
+                            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
+                                <h3 className="font-label-md text-label-md font-bold uppercase tracking-wider text-deep-navy">
+                                    Where fellows go next
+                                </h3>
+                                <p className="font-caption text-caption text-on-surface-variant">
+                                    38 fellows have volunteered to organise the next cohort
+                                </p>
+                            </div>
                             <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {FELLOW_OUTCOMES.map((outcome) => (
                                     <li key={outcome.title} className="relative bg-white rounded-2xl border border-outline-variant/30 shadow-sm p-6 pl-7 overflow-hidden">
