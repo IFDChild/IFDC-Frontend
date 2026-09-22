@@ -91,7 +91,7 @@ export default function Footer() {
               </a>
               <p className="font-caption text-caption text-white/70 leading-[1.45]">
                 <span className="block text-safety-yellow font-bold uppercase tracking-wider">Global membership</span>
-                WeProtect Global Alliance
+                IFDC is a member of the WeProtect Global Alliance, Working to strengthen online child protection
               </p>
             </div>
           </div>
