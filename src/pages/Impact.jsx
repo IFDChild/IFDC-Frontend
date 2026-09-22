@@ -3,11 +3,23 @@ import Navbar from '../components/Navbar';
 import Seo from '../components/Seo';
 import Footer from '../components/Footer';
 
+/* Headline findings of the fellowship impact analysis, January to April 2025. */
+const HEADLINE_STATS = [
+    { value: '70+', label: 'Unique individuals reached', icon: 'groups' },
+    { value: '204', label: 'Total feedback responses', icon: 'fact_check' },
+    { value: '17', label: 'Districts represented', icon: 'map' },
+    { value: '95%+', label: 'Rated sessions good or excellent', icon: 'star' },
+    { value: '70%', label: "Would 'definitely' recommend", icon: 'thumb_up' },
+    { value: '100%', label: 'Attended 4 of 6 advocate sessions', icon: 'event_available' },
+    { value: '38', label: 'Volunteering for the organising committee', icon: 'volunteer_activism' },
+    { value: '3', label: 'Programme streams analysed', icon: 'analytics' }
+];
+
 const FELLOWSHIP_STATS = [
-    { value: '70', label: 'Fellows engaged', note: 'across programme touchpoints' },
-    { value: '17', label: 'Districts represented', note: 'across Sri Lanka' },
-    { value: '98%', label: 'Would recommend', note: 'the programme to others' },
-    { value: '99%', label: 'Plan to continue', note: 'to the next session' }
+    { value: '117', label: 'Session evaluations', note: 'Ambassador Programme, Jan–Feb 2025' },
+    { value: '92.4%', label: 'Rated excellent or good', note: 'only 2 of 117 rated very poor' },
+    { value: '73.8%', label: 'Attended 5 or 6 sessions', note: 'of the Advocates Programme' },
+    { value: '68', label: 'Want to be digital counsellors', note: 'the most chosen next step' }
 ];
 
 const PROGRAMME_TOPICS = [
@@ -75,47 +87,37 @@ export default function Impact() {
 
             <Seo
               title="Our impact"
-              description="The reach of our work: children educated, teachers trained, schools engaged and young advocates supported across Sri Lanka."
+              description="Findings from 204 responses across three IFDC fellowship programmes, January to April 2025: reach across 17 districts, session ratings, learning outcomes and what fellows do next."
             />
             <Navbar />
             <main className="pt-24 overflow-hidden">
 
                 <section className="relative px-margin-mobile md:px-margin-desktop py-stack-lg max-w-container-max mx-auto impact-gradient">
-                    <div className="flex flex-col md:flex-row items-center gap-12">
-                        <div className="flex-1 space-y-6">
+                    <div className="space-y-6">
+                        <div className="space-y-6">
                             <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-soft-canary text-on-secondary-container font-label-md">
                                 <span className="material-symbols-outlined text-sm" style={{ "fontVariationSettings": "'FILL' 1" }}>verified_user</span>
-                                Impact Report 2024
+                                Impact analysis · January–April 2025
                             </div>
                             <h1 className="font-display-lg text-display-lg text-deep-navy leading-tight">
-                                Transforming Lives in the <span className="text-primary-container relative">Digital Frontier<span className="absolute bottom-1 left-0 w-full h-2 bg-safety-yellow/30 -z-10"></span></span>
+                                What the <span className="text-primary-container relative">fellowship changed<span className="absolute bottom-1 left-0 w-full h-2 bg-safety-yellow/30 -z-10"></span></span>
                             </h1>
-                            <p className="text-body-lg text-on-surface-variant max-w-xl">
-                                Every child deserves a safe space to explore, learn, and grow online. Discover how our collective efforts are creating a more secure digital future for the next generation.
+                            <p className="text-body-lg text-on-surface-variant max-w-2xl">
+                                Findings from Ambassador Programme evaluations, independent workshop feedback and the Online
+                                Child Protection Advocates Programme — 204 responses collected between January and April 2025.
                             </p>
 
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
-                                <div className="glass-card p-6 rounded-xl text-center">
-                                    <div className="font-headline-lg text-headline-lg text-deep-navy" style={{ "opacity": "1", "transition": "opacity 1s ease-out" }}>500k+</div>
-                                    <div className="text-caption text-on-surface-variant uppercase tracking-wider">Children Protected</div>
-                                </div>
-                                <div className="glass-card p-6 rounded-xl text-center">
-                                    <div className="font-headline-lg text-headline-lg text-deep-navy" style={{ "opacity": "1", "transition": "opacity 1s ease-out" }}>1.2M</div>
-                                    <div className="text-caption text-on-surface-variant uppercase tracking-wider">Resources Shared</div>
-                                </div>
-                                <div className="glass-card p-6 rounded-xl text-center col-span-2 md:col-span-1">
-                                    <div className="font-headline-lg text-headline-lg text-deep-navy" style={{ "opacity": "0.5", "transition": "opacity 1s ease-out" }}>24/7</div>
-                                    <div className="text-caption text-on-surface-variant uppercase tracking-wider">Active Support</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex-1 relative">
-                            <div className="w-full aspect-square rounded-[2rem] overflow-hidden shadow-2xl rotate-3 relative z-10">
-                                <img className="w-full h-full object-cover" data-alt="A warm, professional portrait of a diverse group of children and educators smiling together in a brightly lit, modern digital learning lab. The scene is filled with soft natural light, featuring a clean white-space heavy background that aligns with the glassmorphism aesthetic. Subtle tech-accents like glowing screens are visible in the soft-focus background, using the foundation's deep navy and safety yellow color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4mQnEnlIp-KJma1vIHW7n47SFl4n9-3BplWiAF1KyS_u3bSOR__KaThHM7azRFXUhfYfeeDJ0D6fdhmEF9ya92EkrTLu1ZExkhlSgrdCbQYj5-GIUmPqoyPCeQSb6JGozpSkBmGUULQ9-0C04vpPWDTMqidZwJAA8QLXWox8Mc07zz8hIbAOFfSjcHoSQhyipmBFB-PvWzx58EIvMex-GZGyfL4iOrxb_169y_nzIbFIOCRYHgLqK" />
-                            </div>
-
-                            <div className="absolute -top-6 -right-6 w-32 h-32 bg-safety-yellow rounded-full -z-0 opacity-20 blur-2xl"></div>
-                            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-deep-navy rounded-full -z-0 opacity-10 blur-3xl"></div>
+                            <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+                                {HEADLINE_STATS.map((stat) => (
+                                    <li key={stat.label} className="bg-white/80 border border-outline-variant/30 rounded-2xl p-5 shadow-sm">
+                                        <span className="w-10 h-10 rounded-xl bg-safety-yellow/25 text-deep-navy flex items-center justify-center mb-3" aria-hidden="true">
+                                            <span className="material-symbols-outlined" style={{ fontSize: 22 }}>{stat.icon}</span>
+                                        </span>
+                                        <span className="block font-display-lg text-headline-lg text-deep-navy leading-none">{stat.value}</span>
+                                        <span className="block font-caption text-caption text-on-surface-variant mt-2 leading-snug">{stat.label}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </section>
