@@ -34,7 +34,8 @@ export const plainText = (content) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-export const isHtmlContent = (content) => /^\s*<(p|h[1-6]|figure|ul|ol|blockquote|div)[\s>]/i.test(content || '');
+export const isHtmlContent = (content) =>
+  /^\s*<(p|h[1-6]|figure|ul|ol|blockquote|div|strong|em|b|i|a|img|br)[\s/>]/i.test(content || '');
 
 export const initialsOf = (name) =>
   (name || 'IFDC')
