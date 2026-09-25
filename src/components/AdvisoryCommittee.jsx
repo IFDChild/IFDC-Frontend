@@ -38,19 +38,19 @@ const ADVISORS = [
     ],
     expertise: ['Child Rights and Child Protection', 'Online Child Safety and OCSEA Prevention', 'Digital Wellbeing and Digital Citizenship', 'Child Safeguarding', 'Public Policy', 'Capacity Building', 'Research and Programme Development']
   },
-  {
-    slug: 'vidhya',
-    name: 'Dr. S. Vidhya',
-    role: 'Researcher',
-    specialism: 'Child Rights, Digital Safety & Digital Wellbeing Specialist',
-    country: 'India',
-    organisation: 'Dharrmam Charitable Trust',
-    bio: [
-      'Dr. S. Vidhya is a researcher, learning and development strategist, and nonprofit leader specializing in child rights, online safety, digital wellbeing, and organizational development. As Managing Trustee of Dharrmam Charitable Trust, she leads evidence-based programmes on child protection, youth empowerment, and digital resilience through partnerships with educational institutions, government agencies, and NGOs. Holding a Ph.D. in Management, she has designed online safety and cyberbullying awareness initiatives for children, parents, and educators.',
-      'She completed the Child Rights and Protection Learning Programme (IYAP), with a capstone project on Online Safety and Cyberbullying Awareness, and has delivered leadership and employability programmes to hundreds of students and professionals, contributing to relevant Sustainable Development Goals.'
-    ],
-    expertise: ['Child Rights and Protection', 'Online Child Safety', 'Digital Wellbeing', 'Digital Citizenship', 'Cyberbullying Prevention', 'Capacity Building', 'Programme Design and Evaluation', 'Organizational Development']
-  },
+  // {
+  //   slug: 'vidhya',
+  //   name: 'Dr. S. Vidhya',
+  //   role: 'Researcher',
+  //   specialism: 'Child Rights, Digital Safety & Digital Wellbeing Specialist',
+  //   country: 'India',
+  //   organisation: 'Dharrmam Charitable Trust',
+  //   bio: [
+  //     'Dr. S. Vidhya is a researcher, learning and development strategist, and nonprofit leader specializing in child rights, online safety, digital wellbeing, and organizational development. As Managing Trustee of Dharrmam Charitable Trust, she leads evidence-based programmes on child protection, youth empowerment, and digital resilience through partnerships with educational institutions, government agencies, and NGOs. Holding a Ph.D. in Management, she has designed online safety and cyberbullying awareness initiatives for children, parents, and educators.',
+  //     'She completed the Child Rights and Protection Learning Programme (IYAP), with a capstone project on Online Safety and Cyberbullying Awareness, and has delivered leadership and employability programmes to hundreds of students and professionals, contributing to relevant Sustainable Development Goals.'
+  //   ],
+  //   expertise: ['Child Rights and Protection', 'Online Child Safety', 'Digital Wellbeing', 'Digital Citizenship', 'Cyberbullying Prevention', 'Capacity Building', 'Programme Design and Evaluation', 'Organizational Development']
+  // },
   {
     slug: 'stefanos-alevizos',
     name: 'Dr. Stefanos Alevizos',
