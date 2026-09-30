@@ -63,5 +63,12 @@ export const STEERING_COMMITTEE = [
     role: 'Member, Steering Committee',
     photo: 'kirushnananthy-vallipuram',
     bio: 'Kirushnananthy currently serves as an executive officer, leveraging her administrative skills. In addition to her academic and administrative expertise, she is coordinating mentorship programs and a dedicated Child Protection Advocate with the International Foundation for Digital Child. Her commitment to child welfare is evident in her work, where she combines her extensive experience in administration, education, and social development to provide strategic leadership. Passionate about safeguarding children in the digital age, Kirushnananthy is actively involved in initiatives that address the complexities of online safety and well-being.'
+  },
+  {
+    name: 'Amana Samsudeen',
+    email: 'amanasamsudeen@gmail.com',
+    role: 'Member, Steering Committee',
+    photo: 'amana-samsudeen',
+    bio: "Amana Samsudeen works with IFDC's AI and Digital Safety portfolio, focusing on online child safety from local and regional perspectives. She holds a BSc in Information Systems from the University of Colombo School of Computing and is completing an MSc in Information Technology at Bharathiar University, India, as an ICCR Scholar. A full-stack software engineer and AI enthusiast, she has experience in web application development and research on emerging technologies. Her interests include large language models, retrieval-augmented generation, and responsible AI applications. At IFDC, she contributes to developing a South Asian framework for online child safety and AI-driven research on emerging risks, including cyberbullying, grooming, AI companions, and harmful or inappropriate content."
   }
 ];
