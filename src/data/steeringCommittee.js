@@ -67,7 +67,7 @@ export const STEERING_COMMITTEE = [
   {
     name: 'Amana Samsudeen',
     email: 'amanasamsudeen@gmail.com',
-    role: 'Member, Steering Committee',
+    role: 'Lead, AI and Online Child Safety',
     photo: 'amana-samsudeen',
     bio: "Amana Samsudeen works with IFDC's AI and Digital Safety portfolio, focusing on online child safety from local and regional perspectives. She holds a BSc in Information Systems from the University of Colombo School of Computing and is completing an MSc in Information Technology at Bharathiar University, India, as an ICCR Scholar. A full-stack software engineer and AI enthusiast, she has experience in web application development and research on emerging technologies. Her interests include large language models, retrieval-augmented generation, and responsible AI applications. At IFDC, she contributes to developing a South Asian framework for online child safety and AI-driven research on emerging risks, including cyberbullying, grooming, AI companions, and harmful or inappropriate content."
   }
