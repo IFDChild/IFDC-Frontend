@@ -33,8 +33,8 @@ const ADVISORS = [
     country: 'India',
     organisation: 'Goa University',
     bio: [
-      "Peter Floriano Borges is a child rights advocate, social work academic, and child protection specialist with over two decades of experience in child safeguarding, online safety, digital wellbeing, and public policy. He is Assistant Professor of Social Work at Goa University, teaching Social Work Practice with Children, Digital Technology and Children's/Youth Wellbeing, and Law and Public Policy. As former Chairperson of the Goa State Commission for Protection of Child Rights, he led reforms including child protection policy development, capacity building for Child Welfare Police Officers, and training over 6,000 school teachers in personal safety education.",
-      'As Founder-President of the Human Touch Foundation, he designs evidence-based programmes on OCSEA, cyberbullying, image-based abuse, and AI-enabled harms. He collaborates with governments, UN agencies, and international partners, including the Google Safety Engineering Centre–CyberPeace Kids & Family Symposium.'
+      "Peter F. Borges is a Goa-based child-rights crusader and digital-safety champion who blends academia, policy reform, and grassroots action to keep young people safe online and off. An Assistant Professor of Social Work at Goa University and a Doctoral Research Scholar at the Tata Institute of Social Sciences, Mumbai, he previously served as Chairperson of the Goa State Commission for Protection of Child Rights, where he drove landmark reforms that bolstered the state's child-protection framework and tackled emerging cyber-safety threats. In 2009 he founded the Human Touch Foundation — Goa's flagship organisation for adolescent health, HIV prevention, substance-abuse awareness, and digital wellbeing — building programmes that have since shaped state and national policy.",
+      "Peter's expertise is sought globally: he has led youth-focused assignments for UNAIDS, UNICEF, UNDP, and UNFPA across Africa, Asia, and Latin America, and his commentary on justice, policy, and culture appears regularly in The Navhind Times, Heraldo, and The Goan. A recipient of the MTV Staying Alive Award, Youth Icon Award (2019), and multiple Karmaveer honours, he holds Bachelor's and Master's degrees in Social Work from Nagpur University. With more than two decades of experience spanning child protection, juvenile justice, public health, and digital safety, Peter now helps parents, teachers, and communities raise cyber-responsible citizens who can thrive in an increasingly connected world."
     ],
     expertise: ['Child Rights and Child Protection', 'Online Child Safety and OCSEA Prevention', 'Digital Wellbeing and Digital Citizenship', 'Child Safeguarding', 'Public Policy', 'Capacity Building', 'Research and Programme Development']
   },
@@ -67,25 +67,25 @@ const ADVISORS = [
   {
     slug: 'gabriel-wahl',
     name: 'Gabriel Wahl',
-    role: 'Child Online Safety Researcher',
+    role: 'Child Online Safety Project Manager',
     specialism: 'Digital Citizenship & Child Rights Advocate',
     country: 'Sweden',
     organisation: 'The Salvation Army Sweden',
     bio: [
-      'Gabriel Wahl is an emerging leader in child online safety, digital citizenship, and safeguarding education. Since 2018 he has served as Project Manager for Child Online Safety at The Salvation Army in Sweden, leading Kylskåpsradion, a leading child-focused media platform that has produced over 800 podcast episodes, reached four million-plus listeners, responded to about 20,000 messages from children, and delivered 100+ live school and youth-camp programmes. He also sits on the steering committee of In Safe Hands and chairs the Swedish NGO Friends of Chitaba, supporting education in Zambia.',
-      "His research examines child online safety globally, including a master's study on children's TikTok experiences during armed conflict, and contributions to the EU-funded ARENAS project on extremist narratives and digital communication."
+      "Gabriel Wahl is a child safeguarding project manager and researcher with a decade of NGO leadership experience, specialising in online safety and the political economy of digital child exploitation. At the Salvation Army, he hosts one of Sweden's largest children's podcasts, bringing safety knowledge to thousands of children every week. He also chairs the board of a Swedish NGO developing a community centre in Zambia.",
+      "Trained in the social sciences in Spain, South Korea and Sweden, with Master's studies in Child Studies and Global Political Economy, his research examines how global economic structures and power dynamics shape children's vulnerability to online exploitation and abuse."
     ],
     expertise: ['Child Online Safety', 'Digital Citizenship', 'Digital Literacy', 'Child Rights', 'Safeguarding', 'Online Resilience', 'Media Communication', 'Child Participation']
   },
   {
     slug: 'rebecca-reichel',
-    name: 'Rebecca Maja Reichel',
+    name: 'Rebecca Reichel',
     role: 'Legal and Investigative Forensic Psychologist',
     specialism: 'Researcher in Online Child Sexual Exploitation & Child Protection',
     country: 'Germany',
     organisation: 'Medical School Berlin',
     bio: [
-      'Rebecca Maja Reichel is a forensic psychologist researching online child sexual exploitation, digital offending, and investigative interviewing. She is a Ph.D. researcher and Research Assistant at Medical School Berlin, contributing to the Safe Online-funded WRITE (Written Risk Indicators Triggering Exploitation) project. Her earlier work on the EU-funded ARICA (Assessing Risk Indicators of Child Sexual Abuse) project advanced understanding of CSAM, offender behaviour, and digital forensic risk assessment.',
+      'Rebecca Maja Reichel is a forensic psychologist researching online child sexual exploitation and digital offending. She is a Ph.D. researcher and Research Assistant at Medical School Berlin, contributing to the Safe Online-funded WRITE (Written Risk Indicators Triggering Exploitation) project. Her earlier work on the EU-funded ARICA (Assessing Risk Indicators of Child Sexual Abuse) project advanced understanding of CSAM, offender behaviour, and digital forensic risk assessment.',
       'She has published in journals including Child Abuse & Neglect, Trauma Violence & Abuse, Victims & Offenders, Sexual Abuse, and Humanities and Social Sciences Communications (Nature), and presents regularly at international conferences, collaborating with law enforcement and child protection networks worldwide.'
     ],
     expertise: ['Online Child Sexual Exploitation and Abuse (OCSEA)', 'Child Protection Research', 'Investigative Forensic Psychology', 'Digital Forensics', 'Online Harms', 'Child Abuse Prevention', 'Risk Assessment', 'Evidence-Based Child Protection Policy']
