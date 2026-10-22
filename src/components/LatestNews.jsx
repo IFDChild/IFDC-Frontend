@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getNews } from '../lib/api';
 import NewsCard, { NewsCardSkeleton } from './NewsCard';
 
-const HOME_LIMIT = 5;
+const HOME_LIMIT = 4;
 
 /** Home page "Latest from the Foundation" - the newest published news from the admin dashboard. */
 export default function LatestNews() {
@@ -30,7 +30,7 @@ export default function LatestNews() {
 
   return (
     <section className="py-24 bg-sky-tint">
-      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop">
+      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-4">
             <span className="text-primary font-label-md tracking-widest uppercase">Updates</span>
@@ -46,13 +46,13 @@ export default function LatestNews() {
         </div>
 
         {status === 'loading' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" aria-busy="true" aria-label="Loading latest news">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" aria-busy="true" aria-label="Loading latest news">
             {Array.from({ length: HOME_LIMIT }, (_, i) => <NewsCardSkeleton key={i} />)}
           </div>
         )}
 
         {status === 'ready' && articles.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {articles.map((article) => <NewsCard key={article.id} article={article} />)}
           </div>
         )}
